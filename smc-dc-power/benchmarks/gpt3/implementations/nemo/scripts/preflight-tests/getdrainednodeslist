@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [[ "${1:-}" ]]; then
+   JOBID="$1"
+else
+    echo "usage: getdrainednodeslist <JOBID>"
+    exit 1
+fi
+
+join -t'|' <(sinfo --noheader -pbatch --Node --format="%N|%t|%i") <(sacct --allocation --job="$JOBID"  --format=nodelist -P --noheader | xargs scontrol show hostnames) | grep drain

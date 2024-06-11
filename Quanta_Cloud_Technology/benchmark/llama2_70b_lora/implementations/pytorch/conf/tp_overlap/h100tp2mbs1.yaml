@@ -1,0 +1,58 @@
+## TP2 MBS1, NEED TO TUNE
+
+## AllGather
+qkv_fprop:
+  method: ring_exchange
+  atomic_gemm: 0
+  num_sm: 1
+  set_sm_margin: 1
+  aggregate: 0
+
+fc1_fprop:
+  method: ring_exchange
+  atomic_gemm: 0
+  num_sm: 1
+  set_sm_margin: 1
+  aggregate: 0
+
+proj_dgrad:
+  method: ring_exchange
+  atomic_gemm: 0
+  num_sm: 1
+  set_sm_margin: 1
+  aggregate: 0
+
+fc2_dgrad:
+  method: ring_exchange
+  atomic_gemm: 0
+  num_sm: 1
+  set_sm_margin: 1
+  aggregate: 0
+
+## ReduceScatter
+proj_fprop:
+  method: ring_exchange
+  num_sm: 1
+  cga_size: 2
+  set_sm_margin: 1
+  atomic_gemm: 0
+
+# ring exchange without atomic gemm
+fc2_fprop:
+  method: ring_exchange
+  num_sm: 1
+  cga_size: 2
+  set_sm_margin: 1
+  atomic_gemm: 0
+
+qkv_dgrad: # DGRAD-RS OVERLAP NOT ENABLED
+  method: bulk
+  num_sm: 2
+  cga_size: 2
+  set_sm_margin: 0
+
+fc1_dgrad: # DGRAD-RS OVERLAP NOT ENABLED
+  method: bulk
+  num_sm: 1
+  cga_size: 2
+  set_sm_margin: 0

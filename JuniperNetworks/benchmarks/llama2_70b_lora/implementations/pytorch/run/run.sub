@@ -1,0 +1,71 @@
+#!/bin/bash
+export GPUS_PER_NODE=8
+export CONTAINER_IMAGE=/path/to/container sqsh file
+export MOUNTS={path/to/data}:/data,{path/to/model}:/model,{path/to/working directory}:/workspace/ft-llm,{path/to/results}:/results
+export CHECK_COMPLIANCE=1
+export LOG_BASE=$(date +'%y%m%d%H%M%S%N')
+export MLPERF_RULESET="4.0.0"
+export NEXP=10
+
+head_node_ip=$(scontrol show hostnames $SLURM_JOB_NODELIST | head -n 1)
+export LAUNCHER="accelerate launch\
+    --config_file configs/ds_config.yaml \
+    --num_processes $((SLURM_NNODES * GPUS_PER_NODE)) \
+    --num_machines $SLURM_NNODES \
+    --main_process_ip $head_node_ip \
+    --main_process_port 29500 \
+    --machine_rank \$SLURM_PROCID \
+    "
+export SCRIPT="scripts/train.py \
+    --dataset_path "/data" \
+    --model_path "/model" \
+    --max_seq_len 8192 \
+    --bf16 True \
+    --logging_steps 10 \
+    --eval_steps 12 \
+    --output_dir "/results" \
+    --per_device_train_batch_size 1 \
+    --gradient_accumulation_steps 1 \
+    --lr_scheduler_type "cosine" \
+    --learning_rate 3e-4 \
+    --weight_decay 0.0001 \
+    --warmup_ratio 0.01 \
+    --max_grad_norm 0.3 \
+    --use_gradient_checkpointing True \
+    --target_eval_loss 0.925 \
+    --use_peft_lora True \
+    --lora_r 16 \
+    --lora_alpha 32 \
+    --lora_dropout 0.1 \
+    --max_steps 1024 \
+    --use_flash_attn \
+    --seed 100 \
+    --lora_target_modules "qkv_proj,o_proj" 
+"
+
+for _experiment_index in $(seq -w 1 "${NEXP}"); do
+    (
+        #Used to create the MLPerf Log file for each experiment run based on the index
+        export COMPLIANCE_FILE=/results/${SLURM_JOB_ID}_${LOG_BASE}_${_experiment_index}.log
+        echo "Running experiment ${_experiment_index} of ${NEXP}"
+        echo "${CONTAINER_IMAGE} ${SLURM_JOB_ID} ${SLURM_JOB_NUM_NODES} ${SLURM_JOB_NODELIST} ${MLPERF_CLUSTER_NAME}"
+        srun --mpi=pmi2 \
+        --container-image $CONTAINER_IMAGE \
+        --container-mounts $MOUNTS \
+        --container-workdir $WORKING_DIR \
+        bash -c "$LAUNCHER $SCRIPT" 2>&1
+    )
+    if [ "${CHECK_COMPLIANCE}" -eq 1 ]; then
+        echo "Running Compliance"
+        srun --ntasks=1 \
+            --nodes=1 \
+            --container-image $CONTAINER_IMAGE \
+            --container-mounts $MOUNTS \
+            --container-workdir "/results" \
+            python3 -m mlperf_logging.compliance_checker --usage training \
+            --ruleset "${MLPERF_RULESET}" \
+            --log_output "/results/${SLURM_JOB_ID}_compliance_${LOG_BASE}.out" \
+            "/results/${SLURM_JOB_ID}_${LOG_BASE}_${_experiment_index}.log" \
+     || true
+    fi
+done

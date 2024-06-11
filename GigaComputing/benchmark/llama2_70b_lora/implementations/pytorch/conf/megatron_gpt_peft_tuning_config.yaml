@@ -1,0 +1,198 @@
+defaults:
+  - optional tp_overlap@model.ub_tp_comm_overlap_cfg: ${oc.env:GPU_ARCH,h}100tp${oc.env:TP}mbs${oc.env:MBS}
+
+name: megatron_gpt_peft_lora_tuning
+
+trainer:
+  devices: ${oc.decode:${oc.env:DGXNGPU,8}}
+  num_nodes: ${oc.decode:${oc.env:DGXNNODES,1}}
+  accelerator: gpu
+  precision: ${oc.decode:${oc.env:PRECISION,bf16-mixed}}
+  max_steps: ${oc.decode:${oc.env:MAX_STEPS,null}} # consumed_samples = global_step * micro_batch_size * data_parallel_size * accumulate_grad_batches
+  val_check_interval: ${floor_div:${multiply:${add:${oc.decode:${oc.env:SKIP_EVALS,0}},1},${oc.decode:${oc.env:VAL_CHECK_INTERVAL,384}}},${model.global_batch_size}}
+  check_val_every_n_epoch: null
+  log_every_n_steps: 0
+  gradient_clip_val: ${oc.decode:${oc.env:GRADIENT_CLIP_VAL,0.3}}
+  gradient_clip_algorithm: 'norm'
+  num_sanity_val_steps: 0
+  max_epochs: ${oc.decode:${oc.env:MAX_EPOCHS,1000}}
+  limit_val_batches: ${oc.decode:${oc.env:LIMIT_VAL_BATCHES,1.0}}
+  limit_train_batches: ${oc.decode:${oc.env:LIMIT_TRAIN_BATCHES,1.0}}
+  limit_test_batches: 0
+  logger: False
+  enable_checkpointing: False
+  use_distributed_sampler: False
+  enable_progress_bar: False
+
+exp_manager:
+  explicit_log_dir: null
+  exp_dir: "/results"
+  create_wandb_logger: False
+  resume_if_exists: False
+  resume_ignore_no_checkpoint: True
+  create_checkpoint_callback: False
+  log_global_rank_0_only: True
+  create_early_stopping_callback: False
+  create_tensorboard_logger: False
+  
+model:
+  mcore_gpt: True
+  seed: ${oc.decode:${oc.env:SEED,1}}
+  tensor_model_parallel_size: ${oc.decode:${oc.env:TP,1}} # intra-layer model parallelism
+  pipeline_model_parallel_size: ${oc.decode:${oc.env:PP,1}} # inter-layer model parallelism
+  context_parallel_size: ${oc.decode:${oc.env:CP,1}}
+  cpu_offloading: False
+
+  global_batch_size: ${floor_div:${multiply:${oc.decode:${oc.env:MINIBS,1}},${floor_div:${multiply:${trainer.devices},${trainer.num_nodes}},${multiply:${model.tensor_model_parallel_size},${model.pipeline_model_parallel_size}}}},${oc.decode:${oc.env:CP,1}}}
+  micro_batch_size: ${oc.decode:${oc.env:MBS,1}}
+  max_position_embeddings: ${oc.decode:${oc.env:MAX_SEQLEN,8192}}
+  encoder_seq_length: ${oc.decode:${oc.env:MAX_SEQLEN,8192}}
+  restore_from_path: '/ckpt' # Path to an existing .nemo model you wish to add new tasks to or run inference with
+  resume_from_checkpoint: null # The path to a checkpoint file to continue the training, restores the whole state including the epoch, step, LR schedulers, apex, etc.
+  save_nemo_on_validation_end: False # Saves an inference ready .nemo file every time a checkpoint is saved during training.
+  sync_batch_comm: False
+  megatron_amp_O2: True
+
+  ## Sequence Parallelism
+  # Makes tensor parallelism more memory efficient for LLMs (20B+) by parallelizing layer norms and dropout sequentially
+  # See Reducing Activation Recomputation in Large Transformer Models: https://arxiv.org/abs/2205.05198 for more details.
+  sequence_parallel: ${oc.decode:${oc.env:SP,False}}
+
+  ## Activation Checkpoint # 'selective' or 'full'
+  activations_checkpoint_granularity: ${oc.decode:${oc.env:ACG,null}} # 'selective' or 'full'
+  activations_checkpoint_method: ${oc.decode:${oc.env:ACM,null}} # 'uniform', 'block', not used with 'selective'
+  # 'uniform' divides the total number of transformer layers and checkpoints the input activation of each chunk at the specified granularity
+  # 'block' checkpoints the specified number of layers per pipeline stage at the specified granularity
+  activations_checkpoint_num_layers: ${oc.decode:${oc.env:ACL,null}} # not used with 'selective'
+  activations_checkpoint_layers_per_pipeline: null
+  answer_only_loss: ${oc.decode:${oc.env:ANSWER_ONLY_LOSS,True}}
+  gradient_as_bucket_view: False
+
+  hidden_dropout: 0.0
+  attention_dropout: 0.0
+  ffn_dropout: 0.0
+  bias_activation_fusion: True
+  bias_dropout_add_fusion: False
+
+  ## Transformer Engine
+  transformer_engine: ${oc.decode:${oc.env:TRANSFORMER_ENGINE,True}}
+  fp8: ${oc.decode:${oc.env:FP8,False}} # enables fp8 in TransformerLayer forward
+  fp8_params: ${oc.decode:${oc.env:FP8,False}}
+  fp8_hybrid: ${oc.decode:${oc.env:FP8_HYBRID,True}} # sets fp8_format = recipe.Format.HYBRID
+  fp8_amax_history_len: ${oc.decode:${oc.env:FP8_AMAX_HISTORY,128}} # Number of steps for which amax history is recorded per tensor
+  fp8_amax_compute_algo: ${oc.env:FP8_AMAX_ALGO,most_recent} # 'most_recent' or 'max'. Algorithm for computing amax from history
+  reduce_amax: ${oc.decode:${oc.env:FP8_REDUCE_AMAX,False}} # Perform reduction to sync amax tensors across GPUs after every iteration
+  fp8_e4m3: ${oc.decode:${oc.env:FP8_E4M3,False}}
+  fp8_interval: ${oc.decode:${oc.env:FP8_INTERVAL,1}}
+  fp8_margin: ${oc.decode:${oc.env:FP8_MARGIN,0}}
+  fp8_dot_product_attention: ${oc.decode:${oc.env:FP8_DPA,0}}
+  fp8_activation_input_store: ${oc.decode:${oc.env:FP8_ACTIVATION,0}}
+  apply_rope_fusion: True
+  disable_parameter_transpose_cache: True
+
+
+  # Use userbuffer backend to overlap tensor-parallel communications with computes.
+  # This feature is only available with Transformer Engine and squence parallelism enabled and, currently, supports only GPT models.
+  ub_tp_comm_overlap: ${oc.decode:${oc.env:TP_COMM_OVERLAP,False}}
+  tp_comm_overlap_ag: ${oc.decode:${oc.env:MC_TP_OVERLAP_AG,False}}
+  tp_comm_overlap_rs: ${oc.decode:${oc.env:MC_TP_OVERLAP_RS,False}}
+  tp_comm_overlap_rs_dgrad: ${oc.decode:${oc.env:MC_TP_OVERLAP_RS_DGRAD,False}}
+  #overlap_p2p_comm: ${oc.env:OVERLAP_P2P,False} # Overlap p2p communication with computes
+  batch_p2p_comm: ${oc.env:BATCH_P2P,False} # Batch consecutive inter-peer send/recv operations
+  virtual_pipeline_model_parallel_size: ${oc.decode:${oc.env:VP,1}}
+  sharp: ${oc.decode:${oc.env:SHARP,False}}
+
+  peft:
+    peft_scheme: "lora"
+    restore_from_path: null
+    lora_tuning:
+      adapter_dim: ${oc.decode:${oc.env:LORA_DIM,16}}
+      alpha: ${oc.decode:${oc.env:LORA_ALPHA,32}}
+      adapter_dropout: ${oc.decode:${oc.env:LORA_DROPOUT,0.1}}
+      dropout_position: "pre"
+      target_modules: ['attention']
+      column_init_method: "kaiming" # IGNORED if linear_adapter is used, options: xavier, zero or normal
+      row_init_method: "zero" # IGNORED if linear_adapter is used, options: xavier, zero or normal
+      layer_selection:  null  # selects in which layers to add lora adapters. e.g. [1,12] will add lora to layer 1 (lowest) and 12. null will apply adapters to all layers
+      weight_tying: False
+      position_embedding_strategy: null # used only when weight_tying is True
+      a2a_experimental: ${oc.decode:${oc.env:LORA_A2A,0}}
+
+  data:
+    multiprocessing_context: 'fork'
+    pin_memory: True
+    sample_weight: 'constant'
+    validation_drop_last: False
+    train_ds:
+      file_names: ["/data/train.npy"] 
+      packed_sequence: True
+      packed_sequence_return_cu_seqlen: False
+      index_mapping_dir: "/results/data_index/train"
+      global_batch_size: ${model.global_batch_size}
+      micro_batch_size: ${model.micro_batch_size}
+      shuffle: True
+      num_workers: ${oc.decode:${oc.env:NUM_TRAIN_DS_WORKERS,1}}
+      memmap_workers: 2
+      pin_memory: True
+      max_seq_length: ${oc.decode:${oc.env:MAX_SEQLEN,8192}}
+      min_seq_length: 1
+      drop_last: True
+      concat_sampling_probabilities:
+        - 1.0
+      label_key: "output"
+      add_eos: True
+      add_sep: False
+      add_bos: False
+      truncation_field: "input" # Can be multiple keys separated with ',' Options: keys in prompt_template
+      prompt_template: "{input} {output}" # fstring to use for assistant prompt. Example: "Q: {input}\nA: {output}"
+      truncation_method: "right" # Truncation from which position, Options: ['left', 'right'] 
+      seed: ${oc.decode:${oc.env:SEED,1}}
+    validation_ds:
+      file_names: ["/data/validation.npy"]
+      packed_sequence: True
+      packed_sequence_return_cu_seqlen: False
+      index_mapping_dir: "/results/data_index/val"
+      names: null # Names of the corresponding datasets used to log metrics.
+      global_batch_size: ${model.global_batch_size}
+      micro_batch_size: ${model.micro_batch_size}
+      shuffle: False
+      num_workers: ${oc.decode:${oc.env:NUM_TRAIN_VAL_WORKERS,1}}
+      memmap_workers: ${model.data.train_ds.memmap_workers}
+      pin_memory: True
+      max_seq_length: ${oc.decode:${oc.env:MAX_SEQLEN,8192}}
+      min_seq_length: 1
+      drop_last: False
+      label_key: ${model.data.train_ds.label_key}
+      add_eos: ${model.data.train_ds.add_eos}
+      add_sep: ${model.data.train_ds.add_sep}
+      add_bos: ${model.data.train_ds.add_bos}
+      write_predictions_to_file: False
+      output_file_path_prefix: null # Prefix of the file to write predictions to.
+      truncation_field: ${model.data.train_ds.truncation_field} # Options: keys in prompt_template
+      prompt_template: ${model.data.train_ds.prompt_template} # fstring to use for assistant prompt. Example: "Q: {input}\nA: {output}"
+      tokens_to_generate: 32 # decide how many tokens we want to generate to evaluate performance with string metrics
+      truncation_method: "right" # Truncation from which position, Options: ['left', 'right']
+      metric:
+        name: "loss" # Name of the evaluation metric to use. Options: ['exact_string_match', 'loss']
+        average: null # Average the metric over the dataset. Options: ['macro', 'micro']. Works only for 'F1', 'accuracy' etc. Refer to torchmetrics for metrics where this is supported.
+        num_classes: null
+
+  optim:
+    name: fused_adam
+    lr: ${oc.decode:${oc.env:LR,0.0004}}
+    weight_decay: ${oc.decode:${oc.env:WEIGHT_DECAY,0.0001}}
+    betas: [0.9, 0.999]
+    eps: 1e-8
+    amsgrad: False
+    sched:
+      name: CosineAnnealing
+      warmup_ratio: ${oc.decode:${oc.env:WARMUP_RATIO,0.0}}
+      min_lr: ${oc.decode:${oc.env:MIN_LR,0.0}}
+      constant_steps: 0 # Constant steps should also be 0 when min_lr=0
+      monitor: val_loss
+      reduce_on_plateau: False
+
+  custom:
+    warmup: ${oc.decode:${oc.env:WARMUP,False}}
+    warmup_max_steps: ${oc.decode:${oc.env:WARMUP_MAX_STEPS,5}}
+    reset_fp8_stats_after_warmup: ${oc.decode:${oc.env:RESET_FP8_STATS_AFTER_WARMUP,1}}

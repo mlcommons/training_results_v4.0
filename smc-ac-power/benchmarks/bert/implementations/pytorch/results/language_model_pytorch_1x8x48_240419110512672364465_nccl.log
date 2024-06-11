@@ -1,0 +1,34 @@
++ srun --mpi=pmix --ntasks=8 --ntasks-per-node=8 --container-name=language_model_2543 all_reduce_perf_mpi -b 21M -e 672M -d half -G 1 -f 2
+[292KF14:2444590] PMIX ERROR: ERROR in file gds_ds12_lock_pthread.c at line 168
+[292KF14:2444592] PMIX ERROR: ERROR in file gds_ds12_lock_pthread.c at line 168
+[292KF14:2444588] PMIX ERROR: ERROR in file gds_ds12_lock_pthread.c at line 168
+[292KF14:2444593] PMIX ERROR: ERROR in file gds_ds12_lock_pthread.c at line 168
+[292KF14:2444587] PMIX ERROR: ERROR in file gds_ds12_lock_pthread.c at line 168
+[292KF14:2444589] PMIX ERROR: ERROR in file gds_ds12_lock_pthread.c at line 168
+[292KF14:2444591] PMIX ERROR: ERROR in file gds_ds12_lock_pthread.c at line 168
+[292KF14:2444594] PMIX ERROR: ERROR in file gds_ds12_lock_pthread.c at line 168
+# nThread 1 nGpus 1 minBytes 22020096 maxBytes 704643072 step: 2(factor) warmup iters: 5 iters: 20 agg iters: 1 validation: 1 graph: 1
+#
+# Using devices
+#  Rank  0 Group  0 Pid 2444587 on    292KF14 device  0 [0x1a] NVIDIA H100 80GB HBM3
+#  Rank  1 Group  0 Pid 2444588 on    292KF14 device  1 [0x40] NVIDIA H100 80GB HBM3
+#  Rank  2 Group  0 Pid 2444589 on    292KF14 device  2 [0x53] NVIDIA H100 80GB HBM3
+#  Rank  3 Group  0 Pid 2444590 on    292KF14 device  3 [0x66] NVIDIA H100 80GB HBM3
+#  Rank  4 Group  0 Pid 2444591 on    292KF14 device  4 [0x9c] NVIDIA H100 80GB HBM3
+#  Rank  5 Group  0 Pid 2444592 on    292KF14 device  5 [0xc0] NVIDIA H100 80GB HBM3
+#  Rank  6 Group  0 Pid 2444593 on    292KF14 device  6 [0xd2] NVIDIA H100 80GB HBM3
+#  Rank  7 Group  0 Pid 2444594 on    292KF14 device  7 [0xe4] NVIDIA H100 80GB HBM3
+#
+#                                                              out-of-place                       in-place          
+#       size         count      type   redop    root     time   algbw   busbw #wrong     time   algbw   busbw #wrong
+#        (B)    (elements)                               (us)  (GB/s)  (GB/s)            (us)  (GB/s)  (GB/s)       
+    22020096      11010048      half     sum      -1    147.6  149.17  261.05      0    146.1  150.68  263.69      0
+    44040192      22020096      half     sum      -1    234.9  187.51  328.15      0    234.6  187.69  328.46      0
+    88080384      44040192      half     sum      -1    403.8  218.14  381.75      0    403.3  218.41  382.21      0
+   176160768      88080384      half     sum      -1    732.0  240.64  421.12      0    730.5  241.16  422.04      0
+   352321536     176160768      half     sum      -1   1391.8  253.14  443.00      0   1389.3  253.60  443.80      0
+   704643072     352321536      half     sum      -1   2689.5  262.00  458.50      0   2688.7  262.07  458.63      0
+# Out of bounds values : 0 OK
+# Avg bus bandwidth    : 382.699 
+#
+

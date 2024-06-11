@@ -1,0 +1,745 @@
++ echo 'Beginning trial 9 of 10'
+Beginning trial 9 of 10
++ echo ':::DLPAL /mnt/weka/MLPerf/smc_nvidia_v4/version.4.29/nvdlfwea+mlperfv40+lora+20240427.pytorch.sqsh 5027 1 3SVMF14 "SMC_MLPERF_CLUSTER2" SMCH100_1x8x4xtp4pp1cp1'
+:::DLPAL /mnt/weka/MLPerf/smc_nvidia_v4/version.4.29/nvdlfwea+mlperfv40+lora+20240427.pytorch.sqsh 5027 1 3SVMF14 "SMC_MLPERF_CLUSTER2" SMCH100_1x8x4xtp4pp1cp1
+++ srun --ntasks=1 --container-name=llama2_70b_lora_5027 mlperf-sysjson.sh
++ echo ':::SYSJSON {"submitter":"SMC","division":"closed","status":"cloud","system_name":"SMC-H100","number_of_nodes":"1","host_processors_per_node":"2","host_processor_model_name":"Intel(R) Xeon(R) Platinum 8462Y+","host_processor_core_count":"32","host_processor_vcpu_count":"","host_processor_frequency":"","host_processor_caches":"","host_processor_interconnect":"","host_memory_capacity":"2.0 TB","host_storage_type":"NVMe SSD","host_storage_capacity":"2x 1.92TB NVMe SSD + 8x 3.84TB NVMe U.2","host_networking":"","host_networking_topology":"","host_memory_configuration":"","accelerators_per_node":"8","accelerator_model_name":"NVIDIA H100-SXM5-80GB","accelerator_host_interconnect":"Infiniband NDR","accelerator_frequency":"","accelerator_on-chip_memories":"80 GB","accelerator_memory_configuration":"HBM3","accelerator_memory_capacity":"81559 MiB","accelerator_interconnect":"NVLINK Gen4 900 GB/s + NVSWITCH Gen3","accelerator_interconnect_topology":"NVLINE + NVSWITCH","cooling":"SMC IMMERSION COOLING TECHNOLOGY","hw_notes":"","framework":"PyTorch NVIDIA Release 24.04","framework_name":"","other_software_stack":{"cuda_version":"12.4.1.003","cuda_driver_version":"550.54.15","nccl_version":"2.21.5","cublas_version":"12.4.5.8","cudnn_version":"9.1.0.70","trt_version":"8.6.3.1+cuda12.2.2.009","dali_version":"1.36.0","mofed_version":"5.4-rdmacore39.0","openmpi_version":"4.1.7","kernel_version":"Linux 5.15.0-92-generic","nvidia_kernel_driver":"550.54.15"},"operating_system":"Ubuntu 22.04.4 LTS","sw_notes":""}'
+:::SYSJSON {"submitter":"SMC","division":"closed","status":"cloud","system_name":"SMC-H100","number_of_nodes":"1","host_processors_per_node":"2","host_processor_model_name":"Intel(R) Xeon(R) Platinum 8462Y+","host_processor_core_count":"32","host_processor_vcpu_count":"","host_processor_frequency":"","host_processor_caches":"","host_processor_interconnect":"","host_memory_capacity":"2.0 TB","host_storage_type":"NVMe SSD","host_storage_capacity":"2x 1.92TB NVMe SSD + 8x 3.84TB NVMe U.2","host_networking":"","host_networking_topology":"","host_memory_configuration":"","accelerators_per_node":"8","accelerator_model_name":"NVIDIA H100-SXM5-80GB","accelerator_host_interconnect":"Infiniband NDR","accelerator_frequency":"","accelerator_on-chip_memories":"80 GB","accelerator_memory_configuration":"HBM3","accelerator_memory_capacity":"81559 MiB","accelerator_interconnect":"NVLINK Gen4 900 GB/s + NVSWITCH Gen3","accelerator_interconnect_topology":"NVLINE + NVSWITCH","cooling":"SMC IMMERSION COOLING TECHNOLOGY","hw_notes":"","framework":"PyTorch NVIDIA Release 24.04","framework_name":"","other_software_stack":{"cuda_version":"12.4.1.003","cuda_driver_version":"550.54.15","nccl_version":"2.21.5","cublas_version":"12.4.5.8","cudnn_version":"9.1.0.70","trt_version":"8.6.3.1+cuda12.2.2.009","dali_version":"1.36.0","mofed_version":"5.4-rdmacore39.0","openmpi_version":"4.1.7","kernel_version":"Linux 5.15.0-92-generic","nvidia_kernel_driver":"550.54.15"},"operating_system":"Ubuntu 22.04.4 LTS","sw_notes":""}
++ '[' 1 -eq 1 ']'
++ srun --ntasks=1 --mpi=pmix bash -c 'echo -n '\''Clearing cache on '\'' && hostname && sync && sudo /sbin/sysctl vm.drop_caches=3'
+Clearing cache on 3SVMF14
+vm.drop_caches = 3
++ export SEED=12859
++ SEED=12859
++ srun -l --kill-on-bad-exit=0 --mpi=pmix --ntasks=8 --ntasks-per-node=8 --container-name=llama2_70b_lora_5027 --container-mounts=/raid/data/lora-nvidia/data:/data:ro,/raid/data/lora-nvidia/model/nemo:/ckpt:ro,/mnt/weka/MLPerf/smc_run_v4/logs/llama2:/results:rw --container-env=MASTER_PORT,MASTER_ADDR slurm2pytorch ./run_and_time.sh
+0: STARTING TIMING RUN AT 2024-05-10 06:40:26 AM
+6: num_gpus=8 num_sockets = 2 num_nodes=2 cores_per_socket=32
+7: num_gpus=8 num_sockets = 2 num_nodes=2 cores_per_socket=32
+0: num_gpus=8 num_sockets = 2 num_nodes=2 cores_per_socket=32
+3: num_gpus=8 num_sockets = 2 num_nodes=2 cores_per_socket=32
+5: num_gpus=8 num_sockets = 2 num_nodes=2 cores_per_socket=32
+1: num_gpus=8 num_sockets = 2 num_nodes=2 cores_per_socket=32
+4: num_gpus=8 num_sockets = 2 num_nodes=2 cores_per_socket=32
+2: num_gpus=8 num_sockets = 2 num_nodes=2 cores_per_socket=32
+2: FlashAttention Installed
+1: FlashAttention Installed
+3: FlashAttention Installed
+4: FlashAttention Installed
+5: FlashAttention Installed
+7: FlashAttention Installed
+0: FlashAttention Installed
+6: FlashAttention Installed
+0: [NeMo W 2024-05-10 06:40:47 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/hydra/_internal/defaults_list.py:251: UserWarning: In 'megatron_gpt_peft_tuning_config': Defaults list is missing `_self_`. See https://hydra.cc/docs/1.2/upgrades/1.0_to_1.1/default_composition_order for more information
+0:       warnings.warn(msg, UserWarning)
+0:     
+0: [NeMo W 2024-05-10 06:40:47 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/hydra/_internal/hydra.py:119: UserWarning: Future Hydra versions will no longer change working directory at job runtime by default.
+0:     See https://hydra.cc/docs/1.2/upgrades/1.1_to_1.2/changes_to_job_working_dir/ for more information.
+0:       ret = run_job(
+0:     
+0: [NeMo I 2024-05-10 06:40:47 train:59] 
+0:     
+0:     ************** Experiment configuration ***********
+0: [NeMo I 2024-05-10 06:40:47 train:60] 
+0:     model:
+0:       ub_tp_comm_overlap_cfg:
+0:         qkv_fprop:
+0:           method: ring_exchange
+0:           aggregate: 0
+0:         fc1_fprop:
+0:           method: ring_exchange
+0:           aggregate: 0
+0:         proj_dgrad:
+0:           method: ring_exchange
+0:           aggregate: 0
+0:         fc2_dgrad:
+0:           method: ring_exchange
+0:           aggregate: 0
+0:         proj_fprop:
+0:           method: pipeline
+0:           num_sm: 32
+0:           cga_size: 2
+0:           num_splits: 4
+0:           set_sm_margin: 1
+0:           atomic_gemm: 1
+0:         fc2_fprop:
+0:           method: pipeline
+0:           num_sm: 16
+0:           cga_size: 2
+0:           num_splits: 4
+0:           set_sm_margin: 1
+0:           atomic_gemm: 1
+0:         qkv_dgrad:
+0:           method: bulk
+0:           num_sm: 4
+0:           cga_size: 2
+0:           set_sm_margin: 0
+0:         fc1_dgrad:
+0:           method: bulk
+0:           num_sm: 2
+0:           cga_size: 2
+0:           set_sm_margin: 0
+0:       mcore_gpt: true
+0:       seed: 12859
+0:       tensor_model_parallel_size: 4
+0:       pipeline_model_parallel_size: 1
+0:       context_parallel_size: 1
+0:       cpu_offloading: false
+0:       global_batch_size: 8
+0:       micro_batch_size: 1
+0:       max_position_embeddings: 8192
+0:       encoder_seq_length: 8192
+0:       restore_from_path: /ckpt
+0:       resume_from_checkpoint: null
+0:       save_nemo_on_validation_end: false
+0:       sync_batch_comm: false
+0:       megatron_amp_O2: true
+0:       sequence_parallel: 1
+0:       activations_checkpoint_granularity: null
+0:       activations_checkpoint_method: null
+0:       activations_checkpoint_num_layers: null
+0:       activations_checkpoint_layers_per_pipeline: null
+0:       answer_only_loss: true
+0:       gradient_as_bucket_view: false
+0:       hidden_dropout: 0.0
+0:       attention_dropout: 0.0
+0:       ffn_dropout: 0.0
+0:       bias_activation_fusion: true
+0:       bias_dropout_add_fusion: false
+0:       transformer_engine: true
+0:       fp8: true
+0:       fp8_params: true
+0:       fp8_hybrid: true
+0:       fp8_amax_history_len: 4
+0:       fp8_amax_compute_algo: most_recent
+0:       reduce_amax: false
+0:       fp8_e4m3: false
+0:       fp8_interval: 1
+0:       fp8_margin: 0
+0:       fp8_dot_product_attention: 1
+0:       fp8_activation_input_store: 0
+0:       apply_rope_fusion: true
+0:       disable_parameter_transpose_cache: true
+0:       ub_tp_comm_overlap: true
+0:       tp_comm_overlap_ag: true
+0:       tp_comm_overlap_rs: true
+0:       tp_comm_overlap_rs_dgrad: false
+0:       batch_p2p_comm: 'False'
+0:       virtual_pipeline_model_parallel_size: 1
+0:       sharp: false
+0:       nccl_communicator_config_path: conf/nccl/custom_communicator_cta.yaml
+0:       peft:
+0:         peft_scheme: lora
+0:         restore_from_path: null
+0:         lora_tuning:
+0:           adapter_dim: 16
+0:           alpha: 32
+0:           adapter_dropout: 0.1
+0:           dropout_position: pre
+0:           target_modules:
+0:           - attention
+0:           column_init_method: kaiming
+0:           row_init_method: zero
+0:           layer_selection: null
+0:           weight_tying: false
+0:           position_embedding_strategy: null
+0:           a2a_experimental: 1
+0:       data:
+0:         multiprocessing_context: spawn
+0:         pin_memory: true
+0:         sample_weight: constant
+0:         validation_drop_last: false
+0:         train_ds:
+0:           file_names:
+0:           - /data/train.npy
+0:           packed_sequence: true
+0:           packed_sequence_return_cu_seqlen: false
+0:           index_mapping_dir: /results/data_index/train
+0:           global_batch_size: 8
+0:           micro_batch_size: 1
+0:           shuffle: true
+0:           num_workers: 1
+0:           memmap_workers: 2
+0:           pin_memory: true
+0:           max_seq_length: 8192
+0:           min_seq_length: 1
+0:           drop_last: true
+0:           concat_sampling_probabilities:
+0:           - 1.0
+0:           label_key: output
+0:           add_eos: true
+0:           add_sep: false
+0:           add_bos: false
+0:           truncation_field: input
+0:           prompt_template: '{input} {output}'
+0:           truncation_method: right
+0:           seed: 12859
+0:         validation_ds:
+0:           file_names:
+0:           - /data/validation.npy
+0:           packed_sequence: true
+0:           packed_sequence_return_cu_seqlen: false
+0:           index_mapping_dir: /results/data_index/val
+0:           names: null
+0:           global_batch_size: 8
+0:           micro_batch_size: 1
+0:           shuffle: false
+0:           num_workers: 1
+0:           memmap_workers: 2
+0:           pin_memory: true
+0:           max_seq_length: 8192
+0:           min_seq_length: 1
+0:           drop_last: false
+0:           label_key: output
+0:           add_eos: true
+0:           add_sep: false
+0:           add_bos: false
+0:           write_predictions_to_file: false
+0:           output_file_path_prefix: null
+0:           truncation_field: input
+0:           prompt_template: '{input} {output}'
+0:           tokens_to_generate: 32
+0:           truncation_method: right
+0:           metric:
+0:             name: loss
+0:             average: null
+0:             num_classes: null
+0:       optim:
+0:         name: fused_adam
+0:         lr: 0.0004
+0:         weight_decay: 0.0001
+0:         betas:
+0:         - 0.9
+0:         - 0.999
+0:         eps: 1.0e-08
+0:         amsgrad: false
+0:         sched:
+0:           name: CosineAnnealing
+0:           warmup_ratio: 0.0
+0:           min_lr: 0.0
+0:           constant_steps: 0
+0:           monitor: val_loss
+0:           reduce_on_plateau: false
+0:       custom:
+0:         warmup: true
+0:         warmup_train_steps: 5
+0:         warmup_validation_steps: 5
+0:         reset_fp8_stats_after_warmup: 1
+0:     name: megatron_gpt_peft_lora_tuning
+0:     trainer:
+0:       devices: 8
+0:       num_nodes: 1
+0:       accelerator: gpu
+0:       precision: bf16-mixed
+0:       max_steps: 1024
+0:       val_check_interval: 192
+0:       check_val_every_n_epoch: null
+0:       log_every_n_steps: 0
+0:       gradient_clip_val: 0.3
+0:       gradient_clip_algorithm: norm
+0:       num_sanity_val_steps: 0
+0:       max_epochs: 1000
+0:       limit_val_batches: 1.0
+0:       limit_train_batches: 1.0
+0:       limit_test_batches: 0
+0:       logger: false
+0:       enable_checkpointing: false
+0:       use_distributed_sampler: false
+0:       enable_progress_bar: false
+0:     exp_manager:
+0:       explicit_log_dir: null
+0:       exp_dir: /results
+0:       create_wandb_logger: false
+0:       resume_if_exists: false
+0:       resume_ignore_no_checkpoint: true
+0:       create_checkpoint_callback: false
+0:       log_global_rank_0_only: true
+0:       create_early_stopping_callback: false
+0:       create_tensorboard_logger: false
+0:     
+0: [NeMo W 2024-05-10 06:40:47 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/pytorch_lightning/_graveyard/precision.py:49: The `MixedPrecisionPlugin` is deprecated. Use `pytorch_lightning.plugins.precision.MixedPrecision` instead.
+0:     
+0: GPU available: True (cuda), used: True
+0: TPU available: False, using: 0 TPU cores
+0: IPU available: False, using: 0 IPUs
+0: HPU available: False, using: 0 HPUs
+0: `Trainer(limit_train_batches=1.0)` was configured so 100% of the batches per epoch will be used..
+0: `Trainer(limit_val_batches=1.0)` was configured so 100% of the batches will be used..
+0: [NeMo I 2024-05-10 06:40:47 save_restore_connector:134] Restoration will occur within pre-extracted directory : `/ckpt`.
+0: [NeMo I 2024-05-10 06:40:47 save_restore_connector:134] Restoration will occur within pre-extracted directory : `/ckpt`.
+7: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+2: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+1: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+5: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: expert_model_parallel_size in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: finalize_model_grads_func in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: use_te_rng_tracker in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_bulk_wgrad in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_bulk_dgrad in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+6: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_split_ag in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_atomic_ag in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_split_rs in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_atomic_rs in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: defer_embedding_wgrad_compute in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: pipeline_model_parallel_split_rank in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: cpu_offloading_num_layers in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: _cpu_offloading_context in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: cpu_offloading_activations in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: cpu_offloading_weights in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: barrier_with_L1_time in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+4: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+3: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+0: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+0: [NeMo I 2024-05-10 06:40:47 megatron_init:265] Rank 0 has data parallel group : [0, 4]
+0: [NeMo I 2024-05-10 06:40:47 megatron_init:271] Rank 0 has combined group of data parallel and context parallel : [0, 4]
+0: [NeMo I 2024-05-10 06:40:47 megatron_init:276] All data parallel group ranks with context parallel combined: [[0, 4], [1, 5], [2, 6], [3, 7]]
+0: [NeMo I 2024-05-10 06:40:47 megatron_init:279] Ranks 0 has data parallel rank: 0
+0: [NeMo I 2024-05-10 06:40:47 megatron_init:287] Rank 0 has context parallel group: [0]
+0: [NeMo I 2024-05-10 06:40:47 megatron_init:290] All context parallel group ranks: [[0], [1], [2], [3], [4], [5], [6], [7]]
+0: [NeMo I 2024-05-10 06:40:47 megatron_init:291] Ranks 0 has context parallel rank: 0
+0: [NeMo I 2024-05-10 06:40:47 megatron_init:298] Rank 0 has model parallel group: [0, 1, 2, 3]
+0: [NeMo I 2024-05-10 06:40:47 megatron_init:299] All model parallel group ranks: [[0, 1, 2, 3], [4, 5, 6, 7]]
+0: [NeMo I 2024-05-10 06:40:47 megatron_init:308] Rank 0 has tensor model parallel group: [0, 1, 2, 3]
+0: [NeMo I 2024-05-10 06:40:47 megatron_init:312] All tensor model parallel group ranks: [[0, 1, 2, 3], [4, 5, 6, 7]]
+0: [NeMo I 2024-05-10 06:40:47 megatron_init:313] Rank 0 has tensor model parallel rank: 0
+0: [NeMo I 2024-05-10 06:40:47 megatron_init:333] Rank 0 has pipeline model parallel group: [0]
+0: [NeMo I 2024-05-10 06:40:47 megatron_init:345] Rank 0 has embedding group: [0]
+0: [NeMo I 2024-05-10 06:40:47 megatron_init:351] All pipeline model parallel group ranks: [[0], [1], [2], [3], [4], [5], [6], [7]]
+0: [NeMo I 2024-05-10 06:40:47 megatron_init:352] Rank 0 has pipeline model parallel rank 0
+0: [NeMo I 2024-05-10 06:40:47 megatron_init:353] All embedding group ranks: [[0], [1], [2], [3], [4], [5], [6], [7]]
+0: [NeMo I 2024-05-10 06:40:47 megatron_init:354] Rank 0 has embedding rank: 0
+0: 24-05-10 06:40:47 - PID:1201501 - rank:(0, 0, 0, 0) - microbatches.py:39 - INFO - setting number of micro-batches to constant 4
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: expert_model_parallel_size in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: finalize_model_grads_func in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: use_te_rng_tracker in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_bulk_wgrad in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_bulk_dgrad in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_split_ag in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_atomic_ag in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_split_rs in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_atomic_rs in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: defer_embedding_wgrad_compute in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: pipeline_model_parallel_split_rank in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: cpu_offloading_num_layers in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: _cpu_offloading_context in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: cpu_offloading_activations in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: cpu_offloading_weights in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:47 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: barrier_with_L1_time in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo I 2024-05-10 06:40:47 tokenizer_utils:187] Getting SentencePiece with model: /ckpt/091aef9639a842f0b8086047f6302345_tokenizer.model
+0: [NeMo I 2024-05-10 06:40:48 megatron_base_model:586] Padded vocab_size: 32256, original vocab_size: 32000, dummy tokens: 256.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: expert_model_parallel_size in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: finalize_model_grads_func in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: use_te_rng_tracker in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_bulk_wgrad in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_bulk_dgrad in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_split_ag in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_atomic_ag in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_split_rs in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_atomic_rs in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: defer_embedding_wgrad_compute in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: pipeline_model_parallel_split_rank in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: cpu_offloading_num_layers in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: _cpu_offloading_context in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: cpu_offloading_activations in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: cpu_offloading_weights in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: barrier_with_L1_time in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:499] apply_query_key_layer_scaling is only enabled when using FP16, setting it to False and setting NVTE_APPLY_QK_LAYER_SCALING=0
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: activation_func_fp8_input_store in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: num_moe_experts in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: window_size in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: qk_layernorm in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: test_mode in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: memory_efficient_layer_norm in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: fp8_wgrad in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: fp8_multi_head_attention in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: moe_router_load_balancing_type in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: moe_router_topk in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: moe_grouped_gemm in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: moe_aux_loss_coeff in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: moe_z_loss_coeff in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: moe_input_jitter_eps in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: moe_token_dropping in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: moe_token_dispatcher_type in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: moe_per_layer_logging in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: clone_scatter_output_in_embedding in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: enable_cuda_graph in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: [NeMo W 2024-05-10 06:40:48 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: rotary_percent in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+0: Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/8
+1: Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/8
+3: Initializing distributed: GLOBAL_RANK: 3, MEMBER: 4/8
+2: Initializing distributed: GLOBAL_RANK: 2, MEMBER: 3/8
+6: Initializing distributed: GLOBAL_RANK: 6, MEMBER: 7/8
+5: Initializing distributed: GLOBAL_RANK: 5, MEMBER: 6/8
+4: Initializing distributed: GLOBAL_RANK: 4, MEMBER: 5/8
+7: Initializing distributed: GLOBAL_RANK: 7, MEMBER: 8/8
+0: ----------------------------------------------------------------------------------------------------
+0: distributed_backend=nccl
+0: All distributed processes registered. Starting with 8 processes
+0: ----------------------------------------------------------------------------------------------------
+0: 
+0: [NeMo W 2024-05-10 06:40:49 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/torch/distributed/distributed_c10d.py:1507: UserWarning: pg_options._timeout was specified, but timeout kwarg has a default value that will always override it. 
+0:       warnings.warn(
+0:     
+0: [NeMo I 2024-05-10 06:40:53 nlp_overrides:1127] Restoration will occur within pre-extracted directory : `/ckpt`.
+0: Loading distributed checkpoint with TensorStoreLoadShardedStrategy
+0: [NeMo I 2024-05-10 06:42:41 nlp_overrides:1156] Model CustomMegatronGPTSFTModel was successfully restored from /ckpt.
+0: [NeMo W 2024-05-10 06:42:41 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/pytorch_lightning/utilities/model_summary/model_summary.py:454: A layer with UninitializedParameter was found. Thus, the total number of parameters detected may be inaccurate.
+0:     
+0: [NeMo I 2024-05-10 06:42:41 nlp_adapter_mixins:203] Before adding PEFT params:
+0:       | Name  | Type          | Params
+0:     ----------------------------------------
+0:     0 | model | Float16Module | 133 M 
+0:     ----------------------------------------
+0:     0         Trainable params
+0:     133 M     Non-trainable params
+0:     133 M     Total params
+0:     533.758   Total estimated model params size (MB)
+0: [NeMo I 2024-05-10 06:42:49 nlp_adapter_mixins:208] After adding PEFT params:
+0:       | Name  | Type          | Params
+0:     ----------------------------------------
+0:     0 | model | Float16Module | 144 M 
+0:     ----------------------------------------
+0:     11.1 M    Trainable params
+0:     133 M     Non-trainable params
+0:     144 M     Total params
+0:     578.322   Total estimated model params size (MB)
+0: [NeMo W 2024-05-10 06:42:49 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/pytorch_lightning/trainer/configuration_validator.py:181: You have overridden `CustomMegatronGPTSFTModel.configure_sharded_model` which is deprecated. Please override the `configure_model` hook instead. Instantiation with the newer hook will be created on the device right away and have the right data type depending on the precision setting in the Trainer.
+0:     
+0: [NeMo I 2024-05-10 06:42:49 megatron_gpt_sft_model:804] Building GPT SFT validation datasets.
+0: [NeMo I 2024-05-10 06:42:49 megatron_gpt_sft_model:807] Length of val dataset: 173
+0: [NeMo I 2024-05-10 06:42:49 megatron_gpt_sft_model:814] Building GPT SFT traing datasets.
+0: make: Entering directory '/workspace/ft-llm/NeMo/nemo/collections/nlp/data/language_modeling/megatron'
+0: make: Nothing to be done for 'default'.
+0: make: Leaving directory '/workspace/ft-llm/NeMo/nemo/collections/nlp/data/language_modeling/megatron'
+0: > building indices for blendable datasets ...
+0:  > sample ratios:
+0:    dataset 0, input: 1, achieved: 1
+0: [NeMo I 2024-05-10 06:42:50 blendable_dataset:67] > elapsed time for building blendable dataset indices: 0.67 (sec)
+0: [NeMo I 2024-05-10 06:42:50 megatron_gpt_sft_model:816] Length of train dataset: 8233
+0: [NeMo I 2024-05-10 06:42:50 megatron_gpt_sft_model:821] Building dataloader with consumed samples: 0
+0: [NeMo I 2024-05-10 06:42:50 megatron_gpt_sft_model:821] Building dataloader with consumed samples: 0
+1: LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+3: LOCAL_RANK: 3 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+4: LOCAL_RANK: 4 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+5: LOCAL_RANK: 5 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+6: LOCAL_RANK: 6 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+7: LOCAL_RANK: 7 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+0: LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+2: LOCAL_RANK: 2 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+0: [NeMo W 2024-05-10 06:42:51 megatron_base_model:1188] Ignoring `trainer.max_epochs` when computing `max_steps` because `trainer.max_steps` is already set to 1024.
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+0: [NeMo I 2024-05-10 06:42:51 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+0: [NeMo I 2024-05-10 06:42:51 nlp_adapter_mixins:269] Optimizer groups set:
+0:       | Name  | Type          | Params
+0:     ----------------------------------------
+0:     0 | model | Float16Module | 144 M 
+0:     ----------------------------------------
+0:     11.1 M    Trainable params
+0:     133 M     Non-trainable params
+0:     144 M     Total params
+0:     578.322   Total estimated model params size (MB)
+0: [NeMo I 2024-05-10 06:42:51 modelPT:724] Optimizer config = FusedAdam (
+0:     Parameter Group 0
+0:         betas: [0.9, 0.999]
+0:         bias_correction: True
+0:         eps: 1e-08
+0:         lr: 0.0004
+0:         weight_decay: 0.0001
+0:     )
+0: [NeMo I 2024-05-10 06:42:51 lr_scheduler:923] Scheduler "<nemo.core.optim.lr_scheduler.CosineAnnealing object at 0x7ff2cb1f2050>" 
+0:     will be used during training (effective maximum steps = 1024) - 
+0:     Parameters : 
+0:     (warmup_ratio: 0.0
+0:     min_lr: 0.0
+0:     constant_steps: 0
+0:     max_steps: 1024
+0:     )
+0: [NeMo I 2024-05-10 06:42:51 lr_scheduler:923] Scheduler "<nemo.core.optim.lr_scheduler.CosineAnnealing object at 0x7ff2cb323c70>" 
+0:     will be used during training (effective maximum steps = 1024) - 
+0:     Parameters : 
+0:     (warmup_ratio: 0.0
+0:     min_lr: 0.0
+0:     constant_steps: 0
+0:     max_steps: 1024
+0:     )
+0: 
+0:   | Name  | Type          | Params
+0: ----------------------------------------
+0: 0 | model | Float16Module | 144 M 
+0: ----------------------------------------
+0: 11.1 M    Trainable params
+0: 133 M     Non-trainable params
+0: 144 M     Total params
+0: 578.322   Total estimated model params size (MB)
+0: :::MLLOG {"namespace": "", "time_ms": 1715294571144, "event_type": "POINT_IN_TIME", "key": "cache_clear", "value": true, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 206}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715294571145, "event_type": "INTERVAL_START", "key": "init_start", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 207}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715294571145, "event_type": "POINT_IN_TIME", "key": "submission_benchmark", "value": "llama2_70b_lora", "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 208}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715294571145, "event_type": "POINT_IN_TIME", "key": "submission_org", "value": "SUBMISSION_ORG_PLACEHOLDER", "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 208}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715294571145, "event_type": "POINT_IN_TIME", "key": "submission_division", "value": "closed", "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 208}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715294571145, "event_type": "POINT_IN_TIME", "key": "submission_status", "value": "onprem", "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 208}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715294571145, "event_type": "POINT_IN_TIME", "key": "submission_platform", "value": "1xSUBMISSION_PLATFORM_PLACEHOLDER", "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 208}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715294571145, "event_type": "POINT_IN_TIME", "key": "seed", "value": 12859, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 209}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715294571145, "event_type": "POINT_IN_TIME", "key": "global_batch_size", "value": 8, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 215}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715294571755, "event_type": "POINT_IN_TIME", "key": "train_samples", "value": 3901, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 220}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715294571770, "event_type": "POINT_IN_TIME", "key": "eval_samples", "value": 173, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 224}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715294571771, "event_type": "POINT_IN_TIME", "key": "opt_learning_rate_warmup_factor", "value": 0.0, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 228}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715294571771, "event_type": "POINT_IN_TIME", "key": "opt_adamw_weight_decay", "value": 0.0001, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 232}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715294571771, "event_type": "POINT_IN_TIME", "key": "opt_gradient_clip_norm", "value": 0.3, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 236}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715294571771, "event_type": "POINT_IN_TIME", "key": "gradient_accumulation_steps", "value": 4, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 241}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715294571771, "event_type": "POINT_IN_TIME", "key": "opt_learning_rate_training_steps", "value": 1024, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 242}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715294571771, "event_type": "POINT_IN_TIME", "key": "opt_base_learning_rate", "value": 0.0004, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 243}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715294571771, "event_type": "POINT_IN_TIME", "key": "lora_rank", "value": 16, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 244}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715294571771, "event_type": "POINT_IN_TIME", "key": "lora_alpha", "value": 32, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 245}}
+0: SLURM auto-requeueing enabled. Setting signal handlers.
+5: SLURM auto-requeueing enabled. Setting signal handlers.
+6: SLURM auto-requeueing enabled. Setting signal handlers.
+7: SLURM auto-requeueing enabled. Setting signal handlers.
+4: SLURM auto-requeueing enabled. Setting signal handlers.
+2: SLURM auto-requeueing enabled. Setting signal handlers.
+3: SLURM auto-requeueing enabled. Setting signal handlers.
+1: SLURM auto-requeueing enabled. Setting signal handlers.
+0: [NeMo W 2024-05-10 06:42:51 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/pytorch_lightning/loops/utilities.py:149: Found `dataloader_iter` argument in the `training_step`. Note that the support for this signature is experimental and the behavior is subject to change.
+0:     
+0: !!! [UB] Create UbufP2PCommOverlap Communicator
+0: MC initialized succesfully, window size = 549755813888
+5: gdrcopy open failed
+7: gdrcopy open failed
+2: gdrcopy open failed
+0: gdrcopy open failed
+1: gdrcopy open failed
+3: gdrcopy open failed
+4: gdrcopy open failed
+6: gdrcopy open failed
+0: !!! [UBP2P] Register UBuf 1
+0: !!! [UBP2P] Register UBuf 2
+0: !!! [UBP2P] Register UBuf 3
+0: !!! [UBP2P] Register UBuf 4
+0: [NeMo W 2024-05-10 06:43:07 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/transformer_engine/pytorch/module/base.py:119: UserWarning: Atomic GEMM uses a beta API from cublas and is not tested for all use cases.
+0:       warnings.warn(
+0:     
+0: !!! [UB] Register UBuf 5
+0: !!! [UB] Register UBuf 6
+0: !!! [UB] Register UBuf 7
+0: !!! [UB] Register UBuf 8
+0: !!! [UB] Register UBuf 9
+0: !!! [UB] Register UBuf 10
+0: [NeMo W 2024-05-10 06:43:16 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/torch/distributed/distributed_c10d.py:2954: UserWarning: torch.distributed._all_gather_base is a private function and will be deprecated. Please use torch.distributed.all_gather_into_tensor instead.
+0:       warnings.warn(
+0:     
+0: [NeMo I 2024-05-10 06:44:02 custom_callbacks:40] Finished training warmup: 58.020437479019165s. Starting validation warmup
+0: [NeMo I 2024-05-10 06:44:12 custom_callbacks:54] Time spent in run_training_warmup: 67.89073252677917s
+0: [NeMo I 2024-05-10 06:44:12 custom_callbacks:59] Forcing FP8 stats reinitialization
+0: :::MLLOG {"namespace": "", "time_ms": 1715294652827, "event_type": "INTERVAL_END", "key": "init_stop", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 145}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715294652827, "event_type": "INTERVAL_START", "key": "run_start", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 145}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715294652827, "event_type": "INTERVAL_START", "key": "block_start", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 146, "samples_count": 0}}
+0: [NeMo W 2024-05-10 06:56:36 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/pytorch_lightning/loops/utilities.py:149: Found `dataloader_iter` argument in the `validation_step`. Note that the support for this signature is experimental and the behavior is subject to change.
+0:     
+0: :::MLLOG {"namespace": "", "time_ms": 1715295408919, "event_type": "POINT_IN_TIME", "key": "tracked_stats", "value": {"throughput": 2.0652332096456467}, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 161, "step": 1536}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715295408919, "event_type": "INTERVAL_END", "key": "block_stop", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 112, "samples_count": 1536}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715295408919, "event_type": "INTERVAL_START", "key": "eval_start", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 117, "samples_count": 1536}}
+0: [NeMo W 2024-05-10 06:56:48 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/apex/transformer/pipeline_parallel/utils.py:81: UserWarning: This function is only for unittest
+0:       warnings.warn("This function is only for unittest")
+0:     
+0: :::MLLOG {"namespace": "", "time_ms": 1715295448098, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.9391712546348572, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 181, "samples_count": 1536}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715295448098, "event_type": "INTERVAL_END", "key": "eval_stop", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 186, "samples_count": 1536}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715295448099, "event_type": "INTERVAL_START", "key": "block_start", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 129, "samples_count": 1536}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715295632540, "event_type": "POINT_IN_TIME", "key": "tracked_stats", "value": {"throughput": 2.082481726991207}, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 161, "step": 1920}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715295632540, "event_type": "INTERVAL_END", "key": "block_stop", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 112, "samples_count": 1920}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715295632541, "event_type": "INTERVAL_START", "key": "eval_start", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 117, "samples_count": 1920}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715295671257, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.9327172040939331, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 181, "samples_count": 1920}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715295671257, "event_type": "INTERVAL_END", "key": "eval_stop", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 186, "samples_count": 1920}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715295671257, "event_type": "INTERVAL_START", "key": "block_start", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 129, "samples_count": 1920}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715295855113, "event_type": "POINT_IN_TIME", "key": "tracked_stats", "value": {"throughput": 2.0891186641252033}, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 161, "step": 2304}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715295855113, "event_type": "INTERVAL_END", "key": "block_stop", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 112, "samples_count": 2304}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715295855113, "event_type": "INTERVAL_START", "key": "eval_start", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 117, "samples_count": 2304}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715295893866, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.9295358657836914, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 181, "samples_count": 2304}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715295893867, "event_type": "INTERVAL_END", "key": "eval_stop", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 186, "samples_count": 2304}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715295893867, "event_type": "INTERVAL_START", "key": "block_start", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 129, "samples_count": 2304}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715296077698, "event_type": "POINT_IN_TIME", "key": "tracked_stats", "value": {"throughput": 2.0893958145039258}, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 161, "step": 2688}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715296077698, "event_type": "INTERVAL_END", "key": "block_stop", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 112, "samples_count": 2688}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715296077698, "event_type": "INTERVAL_START", "key": "eval_start", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 117, "samples_count": 2688}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715296116389, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.9270754456520081, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 181, "samples_count": 2688}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715296116389, "event_type": "INTERVAL_END", "key": "eval_stop", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 186, "samples_count": 2688}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715296116389, "event_type": "INTERVAL_START", "key": "block_start", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 129, "samples_count": 2688}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715296300421, "event_type": "POINT_IN_TIME", "key": "tracked_stats", "value": {"throughput": 2.0871189447546823}, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 161, "step": 3072}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715296300421, "event_type": "INTERVAL_END", "key": "block_stop", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 112, "samples_count": 3072}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715296300421, "event_type": "INTERVAL_START", "key": "eval_start", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 117, "samples_count": 3072}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715296339141, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.9241362810134888, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 181, "samples_count": 3072}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715296339141, "event_type": "INTERVAL_END", "key": "eval_stop", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 186, "samples_count": 3072}}
+0: :::MLLOG {"namespace": "", "time_ms": 1715296339141, "event_type": "INTERVAL_END", "key": "run_stop", "value": 0.9241362810134888, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 195, "samples_count": 3072, "status": "success"}}
+6: FlashAttention Installed
+5: FlashAttention Installed
+7: FlashAttention Installed
+4: FlashAttention Installed
+0: FlashAttention Installed
+3: FlashAttention Installed
+1: FlashAttention Installed
+2: FlashAttention Installed
+6: FlashAttention Installed
+5: FlashAttention Installed
+7: FlashAttention Installed
+4: FlashAttention Installed
+3: FlashAttention Installed
+2: FlashAttention Installed
+1: FlashAttention Installed
+0: FlashAttention Installed
+0: ENDING TIMING RUN AT 2024-05-10 07:12:51 AM
+0: RESULT,LLM_FINETUNING,,1945,nvidia,2024-05-10 06:40:26 AM

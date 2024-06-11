@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [[ "${1:-}" ]]; then
+   JOBID="$1"
+else
+    echo "usage: getdrainednodeslist <JOBID>"
+    exit 1
+fi
+
+sacct --allocation --job="$JOBID"  --format=nodelist -P --noheader | xargs -L 1 -d '\n' scontrol show hostnames

@@ -1,0 +1,1499 @@
++ echo 'Beginning trial 3 of 10'
+Beginning trial 3 of 10
++ echo ':::DLPAL /root/dataset/nvcr.io+nvdlfwea+mlperfv40+lora+20240427.pytorch.sqsh 61 8 node[1-8] supermicro DGXH100_8x8x1xtp4pp1cp2'
+:::DLPAL /root/dataset/nvcr.io+nvdlfwea+mlperfv40+lora+20240427.pytorch.sqsh 61 8 node[1-8] supermicro DGXH100_8x8x1xtp4pp1cp2
+++ srun --ntasks=1 --container-name=llama2_70b_lora_61 mlperf-sysjson.sh
+srun: Warning: can't run 1 processes on 8 nodes, setting nnodes to 1
+srun: error: node1: task 0: Exited with exit code 1
+the only legal values for MLPERF_STATUS are
+* onprem (means: available on premise)
+* cloud  (means: available in cloud)
+* preview
+* reserach (means: research, devlopment, or internal)
++ echo ':::SYSJSON 
+usage: mlperf-sysjson.sh
+   behavior is controlled by envvars
+   Required:
+   * MLPERF_SUBMITTER
+   * MLPERF_SYSTEM_NAME
+   * MLPERF_STATUS (must be '\''onprem'\'', '\''cloud'\'', '\''preview'\'', or '\''research'\'')
+
+   Required but usually have reasonable defaults:
+   * MLPERF_DIVISION (defaults to '\''closed'\'', may change to '\''open'\'')
+   * MLPERF_NUM_NODES (defaults to DGXNNODES if defined)
+
+   Optional:
+    * MLPERF_HOST_STORAGE_TYPE
+    * MLPERF_HOST_STORAGE_CAPACITY
+    * MLPERF_HOST_NETWORKING
+    * MLPERF_HOST_NETWORKING_TOPOLOGY
+    * MLPERF_HOST_MEMORY_CONFIGURATION
+    * MLPERF_ACCELERATOR_MODEL_NAME
+    * MLPERF_ACCELERATOR_HOST_INTERCONNECT
+    * MLPERF_ACCELERATOR_FREQUENCY
+    * MLPERF_ACCELERATOR_ON_CHIP_MEMORIES
+    * MLPERF_ACCELERATOR_MEMORY_CONFIGURATION
+    * MLPERF_ACCELERATOR_INTERCONNECT
+    * MLPERF_ACCELERATOR_INTERCONNECT_TOPOLOGY
+    * MLPERF_COOLING
+    * MLPERF_HW_NOTES
+
+    Automatically generated:
+    * most of the rest of the fields in the system json, including things like
+      * cpu sockets, cores, model name
+      * accelerator model name, quantity
+      * cuda and library versions'
+:::SYSJSON 
+usage: mlperf-sysjson.sh
+   behavior is controlled by envvars
+   Required:
+   * MLPERF_SUBMITTER
+   * MLPERF_SYSTEM_NAME
+   * MLPERF_STATUS (must be 'onprem', 'cloud', 'preview', or 'research')
+
+   Required but usually have reasonable defaults:
+   * MLPERF_DIVISION (defaults to 'closed', may change to 'open')
+   * MLPERF_NUM_NODES (defaults to DGXNNODES if defined)
+
+   Optional:
+    * MLPERF_HOST_STORAGE_TYPE
+    * MLPERF_HOST_STORAGE_CAPACITY
+    * MLPERF_HOST_NETWORKING
+    * MLPERF_HOST_NETWORKING_TOPOLOGY
+    * MLPERF_HOST_MEMORY_CONFIGURATION
+    * MLPERF_ACCELERATOR_MODEL_NAME
+    * MLPERF_ACCELERATOR_HOST_INTERCONNECT
+    * MLPERF_ACCELERATOR_FREQUENCY
+    * MLPERF_ACCELERATOR_ON_CHIP_MEMORIES
+    * MLPERF_ACCELERATOR_MEMORY_CONFIGURATION
+    * MLPERF_ACCELERATOR_INTERCONNECT
+    * MLPERF_ACCELERATOR_INTERCONNECT_TOPOLOGY
+    * MLPERF_COOLING
+    * MLPERF_HW_NOTES
+
+    Automatically generated:
+    * most of the rest of the fields in the system json, including things like
+      * cpu sockets, cores, model name
+      * accelerator model name, quantity
+      * cuda and library versions
++ '[' 1 -eq 1 ']'
++ srun --ntasks=8 --mpi=pmi2 bash -c 'echo -n '\''Clearing cache on '\'' && hostname && sync && sudo /sbin/sysctl vm.drop_caches=3'
+Clearing cache on node1
+Clearing cache on node6
+Clearing cache on node3
+Clearing cache on node8
+Clearing cache on node5
+Clearing cache on node2
+Clearing cache on node4
+Clearing cache on node7
+vm.drop_caches = 3
+vm.drop_caches = 3
+vm.drop_caches = 3
+vm.drop_caches = 3
+vm.drop_caches = 3
+vm.drop_caches = 3
+vm.drop_caches = 3
+vm.drop_caches = 3
++ export SEED=12108
++ SEED=12108
++ srun -l --kill-on-bad-exit=0 --mpi=pmi2 --ntasks=64 --ntasks-per-node=8 --container-name=llama2_70b_lora_61 --container-mounts=/root/dataset/lora/data:/data:ro,/root/dataset/lora/model:/ckpt:ro,./results:/results:rw --container-env=MASTER_PORT,MASTER_ADDR slurm2pytorch ./run_and_time.sh
+ 0: STARTING TIMING RUN AT 2024-05-07 08:58:48 PM
+21: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+ 1: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+60: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+51: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+20: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+61: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+49: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+29: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+44: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+47: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+ 4: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+63: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+62: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+30: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+33: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+48: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+58: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+ 9: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+39: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+ 3: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+19: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+53: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+27: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+13: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+32: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+11: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+12: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+38: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+ 2: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+43: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+52: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+50: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+41: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+ 5: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+37: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+23: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+17: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+16: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+26: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+10: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+55: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+56: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+34: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+35: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+54: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+ 8: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+59: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+15: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+57: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+45: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+42: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+36: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+31: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+ 0: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+14: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+46: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+40: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+ 6: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+ 7: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+18: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+22: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+28: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+24: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+25: num_gpus=8 num_sockets = 2 num_nodes=4 cores_per_socket=56
+ 0: FlashAttention Installed
+ 1: FlashAttention Installed
+ 2: FlashAttention Installed
+ 3: FlashAttention Installed
+ 4: FlashAttention Installed
+ 5: FlashAttention Installed
+ 6: FlashAttention Installed
+ 7: FlashAttention Installed
+16: FlashAttention Installed
+17: FlashAttention Installed
+19: FlashAttention Installed
+20: FlashAttention Installed
+21: FlashAttention Installed
+22: FlashAttention Installed
+23: FlashAttention Installed
+18: FlashAttention Installed
+48: FlashAttention Installed
+49: FlashAttention Installed
+50: FlashAttention Installed
+51: FlashAttention Installed
+52: FlashAttention Installed
+53: FlashAttention Installed
+54: FlashAttention Installed
+55: FlashAttention Installed
+56: FlashAttention Installed
+57: FlashAttention Installed
+58: FlashAttention Installed
+59: FlashAttention Installed
+60: FlashAttention Installed
+61: FlashAttention Installed
+62: FlashAttention Installed
+63: FlashAttention Installed
+24: FlashAttention Installed
+26: FlashAttention Installed
+28: FlashAttention Installed
+29: FlashAttention Installed
+30: FlashAttention Installed
+31: FlashAttention Installed
+25: FlashAttention Installed
+27: FlashAttention Installed
+47: FlashAttention Installed
+41: FlashAttention Installed
+43: FlashAttention Installed
+44: FlashAttention Installed
+45: FlashAttention Installed
+46: FlashAttention Installed
+40: FlashAttention Installed
+42: FlashAttention Installed
+32: FlashAttention Installed
+33: FlashAttention Installed
+34: FlashAttention Installed
+35: FlashAttention Installed
+36: FlashAttention Installed
+37: FlashAttention Installed
+38: FlashAttention Installed
+39: FlashAttention Installed
+ 8: FlashAttention Installed
+ 9: FlashAttention Installed
+10: FlashAttention Installed
+11: FlashAttention Installed
+12: FlashAttention Installed
+13: FlashAttention Installed
+15: FlashAttention Installed
+14: FlashAttention Installed
+ 0: [NeMo W 2024-05-07 20:59:06 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/hydra/_internal/defaults_list.py:251: UserWarning: In 'megatron_gpt_peft_tuning_config': Defaults list is missing `_self_`. See https://hydra.cc/docs/1.2/upgrades/1.0_to_1.1/default_composition_order for more information
+ 0:       warnings.warn(msg, UserWarning)
+ 0:     
+ 0: [NeMo W 2024-05-07 20:59:06 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/hydra/_internal/hydra.py:119: UserWarning: Future Hydra versions will no longer change working directory at job runtime by default.
+ 0:     See https://hydra.cc/docs/1.2/upgrades/1.1_to_1.2/changes_to_job_working_dir/ for more information.
+ 0:       ret = run_job(
+ 0:     
+ 0: [NeMo I 2024-05-07 20:59:06 train:59] 
+ 0:     
+ 0:     ************** Experiment configuration ***********
+ 0: [NeMo I 2024-05-07 20:59:06 train:60] 
+ 0:     model:
+ 0:       ub_tp_comm_overlap_cfg:
+ 0:         qkv_fprop:
+ 0:           method: ring_exchange
+ 0:           aggregate: 0
+ 0:         fc1_fprop:
+ 0:           method: ring_exchange
+ 0:           aggregate: 0
+ 0:         proj_dgrad:
+ 0:           method: ring_exchange
+ 0:           aggregate: 0
+ 0:         fc2_dgrad:
+ 0:           method: ring_exchange
+ 0:           aggregate: 0
+ 0:         proj_fprop:
+ 0:           method: pipeline
+ 0:           num_sm: 32
+ 0:           cga_size: 2
+ 0:           num_splits: 4
+ 0:           set_sm_margin: 1
+ 0:           atomic_gemm: 1
+ 0:         fc2_fprop:
+ 0:           method: pipeline
+ 0:           num_sm: 16
+ 0:           cga_size: 2
+ 0:           num_splits: 4
+ 0:           set_sm_margin: 1
+ 0:           atomic_gemm: 1
+ 0:         qkv_dgrad:
+ 0:           method: bulk
+ 0:           num_sm: 4
+ 0:           cga_size: 2
+ 0:           set_sm_margin: 0
+ 0:         fc1_dgrad:
+ 0:           method: bulk
+ 0:           num_sm: 2
+ 0:           cga_size: 2
+ 0:           set_sm_margin: 0
+ 0:       mcore_gpt: true
+ 0:       seed: 12108
+ 0:       tensor_model_parallel_size: 4
+ 0:       pipeline_model_parallel_size: 1
+ 0:       context_parallel_size: 2
+ 0:       cpu_offloading: false
+ 0:       global_batch_size: 8
+ 0:       micro_batch_size: 1
+ 0:       max_position_embeddings: 8192
+ 0:       encoder_seq_length: 8192
+ 0:       restore_from_path: /ckpt
+ 0:       resume_from_checkpoint: null
+ 0:       save_nemo_on_validation_end: false
+ 0:       sync_batch_comm: false
+ 0:       megatron_amp_O2: true
+ 0:       sequence_parallel: 1
+ 0:       activations_checkpoint_granularity: null
+ 0:       activations_checkpoint_method: null
+ 0:       activations_checkpoint_num_layers: null
+ 0:       activations_checkpoint_layers_per_pipeline: null
+ 0:       answer_only_loss: true
+ 0:       gradient_as_bucket_view: false
+ 0:       hidden_dropout: 0.0
+ 0:       attention_dropout: 0.0
+ 0:       ffn_dropout: 0.0
+ 0:       bias_activation_fusion: true
+ 0:       bias_dropout_add_fusion: false
+ 0:       transformer_engine: true
+ 0:       fp8: true
+ 0:       fp8_params: true
+ 0:       fp8_hybrid: true
+ 0:       fp8_amax_history_len: 32
+ 0:       fp8_amax_compute_algo: max
+ 0:       reduce_amax: true
+ 0:       fp8_e4m3: false
+ 0:       fp8_interval: 1
+ 0:       fp8_margin: 0
+ 0:       fp8_dot_product_attention: 1
+ 0:       fp8_activation_input_store: 0
+ 0:       apply_rope_fusion: true
+ 0:       disable_parameter_transpose_cache: true
+ 0:       ub_tp_comm_overlap: true
+ 0:       tp_comm_overlap_ag: true
+ 0:       tp_comm_overlap_rs: true
+ 0:       tp_comm_overlap_rs_dgrad: false
+ 0:       batch_p2p_comm: 'False'
+ 0:       virtual_pipeline_model_parallel_size: 1
+ 0:       sharp: true
+ 0:       nccl_communicator_config_path: conf/nccl/custom_communicator_cta.yaml
+ 0:       peft:
+ 0:         peft_scheme: lora
+ 0:         restore_from_path: null
+ 0:         lora_tuning:
+ 0:           adapter_dim: 16
+ 0:           alpha: 32
+ 0:           adapter_dropout: 0.1
+ 0:           dropout_position: pre
+ 0:           target_modules:
+ 0:           - attention
+ 0:           column_init_method: kaiming
+ 0:           row_init_method: zero
+ 0:           layer_selection: null
+ 0:           weight_tying: false
+ 0:           position_embedding_strategy: null
+ 0:           a2a_experimental: 1
+ 0:       data:
+ 0:         multiprocessing_context: spawn
+ 0:         pin_memory: true
+ 0:         sample_weight: constant
+ 0:         validation_drop_last: false
+ 0:         train_ds:
+ 0:           file_names:
+ 0:           - /data/train.npy
+ 0:           packed_sequence: true
+ 0:           packed_sequence_return_cu_seqlen: false
+ 0:           index_mapping_dir: /results/data_index/train
+ 0:           global_batch_size: 8
+ 0:           micro_batch_size: 1
+ 0:           shuffle: true
+ 0:           num_workers: 1
+ 0:           memmap_workers: 2
+ 0:           pin_memory: true
+ 0:           max_seq_length: 8192
+ 0:           min_seq_length: 1
+ 0:           drop_last: true
+ 0:           concat_sampling_probabilities:
+ 0:           - 1.0
+ 0:           label_key: output
+ 0:           add_eos: true
+ 0:           add_sep: false
+ 0:           add_bos: false
+ 0:           truncation_field: input
+ 0:           prompt_template: '{input} {output}'
+ 0:           truncation_method: right
+ 0:           seed: 12108
+ 0:         validation_ds:
+ 0:           file_names:
+ 0:           - /data/validation.npy
+ 0:           packed_sequence: true
+ 0:           packed_sequence_return_cu_seqlen: false
+ 0:           index_mapping_dir: /results/data_index/val
+ 0:           names: null
+ 0:           global_batch_size: 8
+ 0:           micro_batch_size: 1
+ 0:           shuffle: false
+ 0:           num_workers: 1
+ 0:           memmap_workers: 2
+ 0:           pin_memory: true
+ 0:           max_seq_length: 8192
+ 0:           min_seq_length: 1
+ 0:           drop_last: false
+ 0:           label_key: output
+ 0:           add_eos: true
+ 0:           add_sep: false
+ 0:           add_bos: false
+ 0:           write_predictions_to_file: false
+ 0:           output_file_path_prefix: null
+ 0:           truncation_field: input
+ 0:           prompt_template: '{input} {output}'
+ 0:           tokens_to_generate: 32
+ 0:           truncation_method: right
+ 0:           metric:
+ 0:             name: loss
+ 0:             average: null
+ 0:             num_classes: null
+ 0:       optim:
+ 0:         name: fused_adam
+ 0:         lr: 0.00036
+ 0:         weight_decay: 0.0001
+ 0:         betas:
+ 0:         - 0.9
+ 0:         - 0.999
+ 0:         eps: 1.0e-08
+ 0:         amsgrad: false
+ 0:         sched:
+ 0:           name: CosineAnnealing
+ 0:           warmup_ratio: 0.0
+ 0:           min_lr: 0.0
+ 0:           constant_steps: 0
+ 0:           monitor: val_loss
+ 0:           reduce_on_plateau: false
+ 0:       custom:
+ 0:         warmup: true
+ 0:         warmup_train_steps: 5
+ 0:         warmup_validation_steps: 5
+ 0:         reset_fp8_stats_after_warmup: 1
+ 0:     name: megatron_gpt_peft_lora_tuning
+ 0:     trainer:
+ 0:       devices: 8
+ 0:       num_nodes: 8
+ 0:       accelerator: gpu
+ 0:       precision: bf16-mixed
+ 0:       max_steps: 1024
+ 0:       val_check_interval: 192
+ 0:       check_val_every_n_epoch: null
+ 0:       log_every_n_steps: 0
+ 0:       gradient_clip_val: 0.3
+ 0:       gradient_clip_algorithm: norm
+ 0:       num_sanity_val_steps: 0
+ 0:       max_epochs: 1000
+ 0:       limit_val_batches: 1.0
+ 0:       limit_train_batches: 1.0
+ 0:       limit_test_batches: 0
+ 0:       logger: false
+ 0:       enable_checkpointing: false
+ 0:       use_distributed_sampler: false
+ 0:       enable_progress_bar: false
+ 0:     exp_manager:
+ 0:       explicit_log_dir: null
+ 0:       exp_dir: /results
+ 0:       create_wandb_logger: false
+ 0:       resume_if_exists: false
+ 0:       resume_ignore_no_checkpoint: true
+ 0:       create_checkpoint_callback: false
+ 0:       log_global_rank_0_only: true
+ 0:       create_early_stopping_callback: false
+ 0:       create_tensorboard_logger: false
+ 0:     
+ 0: [NeMo W 2024-05-07 20:59:06 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/pytorch_lightning/_graveyard/precision.py:49: The `MixedPrecisionPlugin` is deprecated. Use `pytorch_lightning.plugins.precision.MixedPrecision` instead.
+ 0:     
+ 0: GPU available: True (cuda), used: True
+ 0: TPU available: False, using: 0 TPU cores
+ 0: IPU available: False, using: 0 IPUs
+ 0: HPU available: False, using: 0 HPUs
+ 0: `Trainer(limit_train_batches=1.0)` was configured so 100% of the batches per epoch will be used..
+ 0: `Trainer(limit_val_batches=1.0)` was configured so 100% of the batches will be used..
+ 0: [NeMo I 2024-05-07 20:59:06 save_restore_connector:134] Restoration will occur within pre-extracted directory : `/ckpt`.
+ 0: [NeMo I 2024-05-07 20:59:06 save_restore_connector:134] Restoration will occur within pre-extracted directory : `/ckpt`.
+ 1: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+ 2: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+ 6: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+ 7: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+ 3: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+ 4: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+ 5: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: expert_model_parallel_size in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: finalize_model_grads_func in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: use_te_rng_tracker in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_bulk_wgrad in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_bulk_dgrad in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_split_ag in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_atomic_ag in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_split_rs in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_atomic_rs in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: defer_embedding_wgrad_compute in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: pipeline_model_parallel_split_rank in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: cpu_offloading_num_layers in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: _cpu_offloading_context in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: cpu_offloading_activations in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: cpu_offloading_weights in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: barrier_with_L1_time in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+ 0: [NeMo I 2024-05-07 20:59:06 megatron_init:265] Rank 0 has data parallel group : [0, 8, 16, 24, 32, 40, 48, 56]
+ 0: [NeMo I 2024-05-07 20:59:06 megatron_init:271] Rank 0 has combined group of data parallel and context parallel : [0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60]
+ 0: [NeMo I 2024-05-07 20:59:06 megatron_init:276] All data parallel group ranks with context parallel combined: [[0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60], [1, 5, 9, 13, 17, 21, 25, 29, 33, 37, 41, 45, 49, 53, 57, 61], [2, 6, 10, 14, 18, 22, 26, 30, 34, 38, 42, 46, 50, 54, 58, 62], [3, 7, 11, 15, 19, 23, 27, 31, 35, 39, 43, 47, 51, 55, 59, 63]]
+ 0: [NeMo I 2024-05-07 20:59:06 megatron_init:279] Ranks 0 has data parallel rank: 0
+ 0: [NeMo I 2024-05-07 20:59:06 megatron_init:287] Rank 0 has context parallel group: [0, 4]
+ 0: [NeMo I 2024-05-07 20:59:06 megatron_init:290] All context parallel group ranks: [[0, 4], [1, 5], [2, 6], [3, 7], [8, 12], [9, 13], [10, 14], [11, 15], [16, 20], [17, 21], [18, 22], [19, 23], [24, 28], [25, 29], [26, 30], [27, 31], [32, 36], [33, 37], [34, 38], [35, 39], [40, 44], [41, 45], [42, 46], [43, 47], [48, 52], [49, 53], [50, 54], [51, 55], [56, 60], [57, 61], [58, 62], [59, 63]]
+ 0: [NeMo I 2024-05-07 20:59:06 megatron_init:291] Ranks 0 has context parallel rank: 0
+ 0: [NeMo I 2024-05-07 20:59:06 megatron_init:298] Rank 0 has model parallel group: [0, 1, 2, 3]
+ 0: [NeMo I 2024-05-07 20:59:06 megatron_init:299] All model parallel group ranks: [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15], [16, 17, 18, 19], [20, 21, 22, 23], [24, 25, 26, 27], [28, 29, 30, 31], [32, 33, 34, 35], [36, 37, 38, 39], [40, 41, 42, 43], [44, 45, 46, 47], [48, 49, 50, 51], [52, 53, 54, 55], [56, 57, 58, 59], [60, 61, 62, 63]]
+ 0: [NeMo I 2024-05-07 20:59:06 megatron_init:308] Rank 0 has tensor model parallel group: [0, 1, 2, 3]
+ 0: [NeMo I 2024-05-07 20:59:06 megatron_init:312] All tensor model parallel group ranks: [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15], [16, 17, 18, 19], [20, 21, 22, 23], [24, 25, 26, 27], [28, 29, 30, 31], [32, 33, 34, 35], [36, 37, 38, 39], [40, 41, 42, 43], [44, 45, 46, 47], [48, 49, 50, 51], [52, 53, 54, 55], [56, 57, 58, 59], [60, 61, 62, 63]]
+ 0: [NeMo I 2024-05-07 20:59:06 megatron_init:313] Rank 0 has tensor model parallel rank: 0
+ 0: [NeMo I 2024-05-07 20:59:06 megatron_init:333] Rank 0 has pipeline model parallel group: [0]
+ 0: [NeMo I 2024-05-07 20:59:06 megatron_init:345] Rank 0 has embedding group: [0]
+ 0: [NeMo I 2024-05-07 20:59:06 megatron_init:351] All pipeline model parallel group ranks: [[0], [1], [2], [3], [4], [5], [6], [7], [8], [9], [10], [11], [12], [13], [14], [15], [16], [17], [18], [19], [20], [21], [22], [23], [24], [25], [26], [27], [28], [29], [30], [31], [32], [33], [34], [35], [36], [37], [38], [39], [40], [41], [42], [43], [44], [45], [46], [47], [48], [49], [50], [51], [52], [53], [54], [55], [56], [57], [58], [59], [60], [61], [62], [63]]
+ 0: [NeMo I 2024-05-07 20:59:06 megatron_init:352] Rank 0 has pipeline model parallel rank 0
+ 0: [NeMo I 2024-05-07 20:59:06 megatron_init:353] All embedding group ranks: [[0], [1], [2], [3], [4], [5], [6], [7], [8], [9], [10], [11], [12], [13], [14], [15], [16], [17], [18], [19], [20], [21], [22], [23], [24], [25], [26], [27], [28], [29], [30], [31], [32], [33], [34], [35], [36], [37], [38], [39], [40], [41], [42], [43], [44], [45], [46], [47], [48], [49], [50], [51], [52], [53], [54], [55], [56], [57], [58], [59], [60], [61], [62], [63]]
+ 0: [NeMo I 2024-05-07 20:59:06 megatron_init:354] Rank 0 has embedding rank: 0
+20: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+21: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+22: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+17: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+16: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+23: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+18: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+19: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+ 0: 24-05-07 20:59:06 - PID:782318 - rank:(0, 0, 0, 0) - microbatches.py:39 - INFO - setting number of micro-batches to constant 1
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: expert_model_parallel_size in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: finalize_model_grads_func in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: use_te_rng_tracker in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_bulk_wgrad in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_bulk_dgrad in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_split_ag in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_atomic_ag in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_split_rs in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_atomic_rs in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: defer_embedding_wgrad_compute in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: pipeline_model_parallel_split_rank in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: cpu_offloading_num_layers in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: _cpu_offloading_context in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: cpu_offloading_activations in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: cpu_offloading_weights in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: barrier_with_L1_time in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo I 2024-05-07 20:59:06 tokenizer_utils:187] Getting SentencePiece with model: /ckpt/3f97d11d1e9b47489d29653ec8ede063_tokenizer.model
+ 0: [NeMo I 2024-05-07 20:59:06 megatron_base_model:586] Padded vocab_size: 32256, original vocab_size: 32000, dummy tokens: 256.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: expert_model_parallel_size in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: finalize_model_grads_func in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: use_te_rng_tracker in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_bulk_wgrad in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_bulk_dgrad in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_split_ag in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_atomic_ag in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_split_rs in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_atomic_rs in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: defer_embedding_wgrad_compute in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: pipeline_model_parallel_split_rank in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: cpu_offloading_num_layers in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: _cpu_offloading_context in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: cpu_offloading_activations in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: cpu_offloading_weights in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: barrier_with_L1_time in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:499] apply_query_key_layer_scaling is only enabled when using FP16, setting it to False and setting NVTE_APPLY_QK_LAYER_SCALING=0
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: activation_func_fp8_input_store in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: num_moe_experts in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: window_size in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: qk_layernorm in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: test_mode in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: memory_efficient_layer_norm in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: fp8_wgrad in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: fp8_multi_head_attention in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: moe_router_load_balancing_type in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: moe_router_topk in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: moe_grouped_gemm in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: moe_aux_loss_coeff in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: moe_z_loss_coeff in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: moe_input_jitter_eps in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: moe_token_dropping in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: moe_token_dispatcher_type in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: moe_per_layer_logging in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: clone_scatter_output_in_embedding in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: enable_cuda_graph in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+ 0: [NeMo W 2024-05-07 20:59:06 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: rotary_percent in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+49: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+52: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+53: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+50: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+54: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+48: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+51: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+55: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+56: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+57: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+60: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+61: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+62: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+59: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+63: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+58: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+25: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+28: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+29: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+26: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+27: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+30: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+31: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+24: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+44: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+46: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+41: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+43: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+42: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+45: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+47: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+40: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+34: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+33: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+37: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+36: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+38: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+39: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+35: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+32: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+ 8: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+ 9: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+10: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+15: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+11: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+13: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+14: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+12: [W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+16: Initializing distributed: GLOBAL_RANK: 16, MEMBER: 17/64
+23: Initializing distributed: GLOBAL_RANK: 23, MEMBER: 24/64
+22: Initializing distributed: GLOBAL_RANK: 22, MEMBER: 23/64
+21: Initializing distributed: GLOBAL_RANK: 21, MEMBER: 22/64
+19: Initializing distributed: GLOBAL_RANK: 19, MEMBER: 20/64
+20: Initializing distributed: GLOBAL_RANK: 20, MEMBER: 21/64
+17: Initializing distributed: GLOBAL_RANK: 17, MEMBER: 18/64
+18: Initializing distributed: GLOBAL_RANK: 18, MEMBER: 19/64
+49: Initializing distributed: GLOBAL_RANK: 49, MEMBER: 50/64
+52: Initializing distributed: GLOBAL_RANK: 52, MEMBER: 53/64
+53: Initializing distributed: GLOBAL_RANK: 53, MEMBER: 54/64
+55: Initializing distributed: GLOBAL_RANK: 55, MEMBER: 56/64
+48: Initializing distributed: GLOBAL_RANK: 48, MEMBER: 49/64
+50: Initializing distributed: GLOBAL_RANK: 50, MEMBER: 51/64
+51: Initializing distributed: GLOBAL_RANK: 51, MEMBER: 52/64
+54: Initializing distributed: GLOBAL_RANK: 54, MEMBER: 55/64
+57: Initializing distributed: GLOBAL_RANK: 57, MEMBER: 58/64
+59: Initializing distributed: GLOBAL_RANK: 59, MEMBER: 60/64
+56: Initializing distributed: GLOBAL_RANK: 56, MEMBER: 57/64
+60: Initializing distributed: GLOBAL_RANK: 60, MEMBER: 61/64
+58: Initializing distributed: GLOBAL_RANK: 58, MEMBER: 59/64
+61: Initializing distributed: GLOBAL_RANK: 61, MEMBER: 62/64
+62: Initializing distributed: GLOBAL_RANK: 62, MEMBER: 63/64
+63: Initializing distributed: GLOBAL_RANK: 63, MEMBER: 64/64
+ 2: Initializing distributed: GLOBAL_RANK: 2, MEMBER: 3/64
+ 1: Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/64
+ 0: Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/64
+ 4: Initializing distributed: GLOBAL_RANK: 4, MEMBER: 5/64
+ 5: Initializing distributed: GLOBAL_RANK: 5, MEMBER: 6/64
+ 3: Initializing distributed: GLOBAL_RANK: 3, MEMBER: 4/64
+ 6: Initializing distributed: GLOBAL_RANK: 6, MEMBER: 7/64
+ 7: Initializing distributed: GLOBAL_RANK: 7, MEMBER: 8/64
+24: Initializing distributed: GLOBAL_RANK: 24, MEMBER: 25/64
+31: Initializing distributed: GLOBAL_RANK: 31, MEMBER: 32/64
+27: Initializing distributed: GLOBAL_RANK: 27, MEMBER: 28/64
+28: Initializing distributed: GLOBAL_RANK: 28, MEMBER: 29/64
+26: Initializing distributed: GLOBAL_RANK: 26, MEMBER: 27/64
+29: Initializing distributed: GLOBAL_RANK: 29, MEMBER: 30/64
+25: Initializing distributed: GLOBAL_RANK: 25, MEMBER: 26/64
+30: Initializing distributed: GLOBAL_RANK: 30, MEMBER: 31/64
+45: Initializing distributed: GLOBAL_RANK: 45, MEMBER: 46/64
+40: Initializing distributed: GLOBAL_RANK: 40, MEMBER: 41/64
+42: Initializing distributed: GLOBAL_RANK: 42, MEMBER: 43/64
+41: Initializing distributed: GLOBAL_RANK: 41, MEMBER: 42/64
+43: Initializing distributed: GLOBAL_RANK: 43, MEMBER: 44/64
+47: Initializing distributed: GLOBAL_RANK: 47, MEMBER: 48/64
+44: Initializing distributed: GLOBAL_RANK: 44, MEMBER: 45/64
+46: Initializing distributed: GLOBAL_RANK: 46, MEMBER: 47/64
+35: Initializing distributed: GLOBAL_RANK: 35, MEMBER: 36/64
+39: Initializing distributed: GLOBAL_RANK: 39, MEMBER: 40/64
+38: Initializing distributed: GLOBAL_RANK: 38, MEMBER: 39/64
+36: Initializing distributed: GLOBAL_RANK: 36, MEMBER: 37/64
+33: Initializing distributed: GLOBAL_RANK: 33, MEMBER: 34/64
+37: Initializing distributed: GLOBAL_RANK: 37, MEMBER: 38/64
+34: Initializing distributed: GLOBAL_RANK: 34, MEMBER: 35/64
+32: Initializing distributed: GLOBAL_RANK: 32, MEMBER: 33/64
+ 9: Initializing distributed: GLOBAL_RANK: 9, MEMBER: 10/64
+12: Initializing distributed: GLOBAL_RANK: 12, MEMBER: 13/64
+13: Initializing distributed: GLOBAL_RANK: 13, MEMBER: 14/64
+ 8: Initializing distributed: GLOBAL_RANK: 8, MEMBER: 9/64
+11: Initializing distributed: GLOBAL_RANK: 11, MEMBER: 12/64
+10: Initializing distributed: GLOBAL_RANK: 10, MEMBER: 11/64
+14: Initializing distributed: GLOBAL_RANK: 14, MEMBER: 15/64
+15: Initializing distributed: GLOBAL_RANK: 15, MEMBER: 16/64
+ 0: ----------------------------------------------------------------------------------------------------
+ 0: distributed_backend=nccl
+ 0: All distributed processes registered. Starting with 64 processes
+ 0: ----------------------------------------------------------------------------------------------------
+ 0: 
+ 0: [NeMo W 2024-05-07 20:59:08 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/torch/distributed/distributed_c10d.py:1507: UserWarning: pg_options._timeout was specified, but timeout kwarg has a default value that will always override it. 
+ 0:       warnings.warn(
+ 0:     
+ 0: The number of process groups to use SHARP with depends on the type of the network switch. Nvidia QM1 switch supports SAHRP up to 8 process groups and QM2 supports up to 256 process groups. We apply SHARP to the communications of the data-parallel domain. If the number of data-parallel process groups is larger than the max process groups that the network switch supports, the communication will fall back to non-SHARP operators. To enable SHARP, `#SBATCH_NETWORK=sharp` should be set in the sbatch script.
+ 0: [NeMo I 2024-05-07 20:59:23 nlp_overrides:1127] Restoration will occur within pre-extracted directory : `/ckpt`.
+ 0: Loading distributed checkpoint with TensorStoreLoadShardedStrategy
+ 0: [NeMo I 2024-05-07 21:01:26 nlp_overrides:1156] Model CustomMegatronGPTSFTModel was successfully restored from /ckpt.
+ 0: [NeMo W 2024-05-07 21:01:26 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/pytorch_lightning/utilities/model_summary/model_summary.py:454: A layer with UninitializedParameter was found. Thus, the total number of parameters detected may be inaccurate.
+ 0:     
+ 0: [NeMo I 2024-05-07 21:01:26 nlp_adapter_mixins:203] Before adding PEFT params:
+ 0:       | Name  | Type          | Params
+ 0:     ----------------------------------------
+ 0:     0 | model | Float16Module | 133 M 
+ 0:     ----------------------------------------
+ 0:     0         Trainable params
+ 0:     133 M     Non-trainable params
+ 0:     133 M     Total params
+ 0:     533.758   Total estimated model params size (MB)
+ 0: [NeMo I 2024-05-07 21:01:33 nlp_adapter_mixins:208] After adding PEFT params:
+ 0:       | Name  | Type          | Params
+ 0:     ----------------------------------------
+ 0:     0 | model | Float16Module | 144 M 
+ 0:     ----------------------------------------
+ 0:     11.1 M    Trainable params
+ 0:     133 M     Non-trainable params
+ 0:     144 M     Total params
+ 0:     578.322   Total estimated model params size (MB)
+ 0: [NeMo W 2024-05-07 21:01:33 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/pytorch_lightning/trainer/configuration_validator.py:181: You have overridden `CustomMegatronGPTSFTModel.configure_sharded_model` which is deprecated. Please override the `configure_model` hook instead. Instantiation with the newer hook will be created on the device right away and have the right data type depending on the precision setting in the Trainer.
+ 0:     
+ 0: [NeMo I 2024-05-07 21:01:34 megatron_gpt_sft_model:804] Building GPT SFT validation datasets.
+ 0: [NeMo I 2024-05-07 21:01:34 megatron_gpt_sft_model:807] Length of val dataset: 173
+ 0: [NeMo I 2024-05-07 21:01:34 megatron_gpt_sft_model:814] Building GPT SFT traing datasets.
+ 0: make: Entering directory '/workspace/ft-llm/NeMo/nemo/collections/nlp/data/language_modeling/megatron'
+40: make: Entering directory '/workspace/ft-llm/NeMo/nemo/collections/nlp/data/language_modeling/megatron'
+16: make: Entering directory '/workspace/ft-llm/NeMo/nemo/collections/nlp/data/language_modeling/megatron'
+48: make: Entering directory '/workspace/ft-llm/NeMo/nemo/collections/nlp/data/language_modeling/megatron'
+32: make: Entering directory '/workspace/ft-llm/NeMo/nemo/collections/nlp/data/language_modeling/megatron'
+ 8: make: Entering directory '/workspace/ft-llm/NeMo/nemo/collections/nlp/data/language_modeling/megatron'
+24: make: Entering directory '/workspace/ft-llm/NeMo/nemo/collections/nlp/data/language_modeling/megatron'
+56: make: Entering directory '/workspace/ft-llm/NeMo/nemo/collections/nlp/data/language_modeling/megatron'
+40: make: Nothing to be done for 'default'.
+40: make: Leaving directory '/workspace/ft-llm/NeMo/nemo/collections/nlp/data/language_modeling/megatron'
+48: make: Nothing to be done for 'default'.
+48: make: Leaving directory '/workspace/ft-llm/NeMo/nemo/collections/nlp/data/language_modeling/megatron'
+24: make: Nothing to be done for 'default'.
+24: make: Leaving directory '/workspace/ft-llm/NeMo/nemo/collections/nlp/data/language_modeling/megatron'
+56: make: Nothing to be done for 'default'.
+56: make: Leaving directory '/workspace/ft-llm/NeMo/nemo/collections/nlp/data/language_modeling/megatron'
+16: make: Nothing to be done for 'default'.
+16: make: Leaving directory '/workspace/ft-llm/NeMo/nemo/collections/nlp/data/language_modeling/megatron'
+ 8: make: Nothing to be done for 'default'.
+ 8: make: Leaving directory '/workspace/ft-llm/NeMo/nemo/collections/nlp/data/language_modeling/megatron'
+ 0: make: Nothing to be done for 'default'.
+ 0: make: Leaving directory '/workspace/ft-llm/NeMo/nemo/collections/nlp/data/language_modeling/megatron'
+32: make: Nothing to be done for 'default'.
+32: make: Leaving directory '/workspace/ft-llm/NeMo/nemo/collections/nlp/data/language_modeling/megatron'
+ 0: > building indices for blendable datasets ...
+ 0:  > sample ratios:
+ 0:    dataset 0, input: 1, achieved: 1
+ 0: [NeMo I 2024-05-07 21:01:35 blendable_dataset:67] > elapsed time for building blendable dataset indices: 0.59 (sec)
+ 0: [NeMo I 2024-05-07 21:01:35 megatron_gpt_sft_model:816] Length of train dataset: 8233
+ 0: [NeMo I 2024-05-07 21:01:35 megatron_gpt_sft_model:821] Building dataloader with consumed samples: 0
+ 0: [NeMo I 2024-05-07 21:01:35 megatron_gpt_sft_model:821] Building dataloader with consumed samples: 0
+32: LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+56: LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+16: LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+24: LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+ 0: LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+ 1: LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+ 2: LOCAL_RANK: 2 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+ 3: LOCAL_RANK: 3 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+33: LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+48: LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+ 8: LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+40: LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+57: LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+ 4: LOCAL_RANK: 4 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+17: LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+25: LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+34: LOCAL_RANK: 2 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+58: LOCAL_RANK: 2 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+ 5: LOCAL_RANK: 5 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+18: LOCAL_RANK: 2 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+35: LOCAL_RANK: 3 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+59: LOCAL_RANK: 3 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+ 6: LOCAL_RANK: 6 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+19: LOCAL_RANK: 3 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+60: LOCAL_RANK: 4 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+49: LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+ 7: LOCAL_RANK: 7 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+50: LOCAL_RANK: 2 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+51: LOCAL_RANK: 3 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+ 9: LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+41: LOCAL_RANK: 1 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+10: LOCAL_RANK: 2 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+42: LOCAL_RANK: 2 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+11: LOCAL_RANK: 3 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+43: LOCAL_RANK: 3 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+12: LOCAL_RANK: 4 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+44: LOCAL_RANK: 4 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+13: LOCAL_RANK: 5 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+45: LOCAL_RANK: 5 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+61: LOCAL_RANK: 5 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+52: LOCAL_RANK: 4 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+20: LOCAL_RANK: 4 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+26: LOCAL_RANK: 2 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+36: LOCAL_RANK: 4 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+62: LOCAL_RANK: 6 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+53: LOCAL_RANK: 5 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+21: LOCAL_RANK: 5 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+27: LOCAL_RANK: 3 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+37: LOCAL_RANK: 5 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+63: LOCAL_RANK: 7 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+54: LOCAL_RANK: 6 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+22: LOCAL_RANK: 6 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+28: LOCAL_RANK: 4 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+38: LOCAL_RANK: 6 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+55: LOCAL_RANK: 7 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+23: LOCAL_RANK: 7 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+29: LOCAL_RANK: 5 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+39: LOCAL_RANK: 7 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+30: LOCAL_RANK: 6 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+31: LOCAL_RANK: 7 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+46: LOCAL_RANK: 6 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+47: LOCAL_RANK: 7 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+14: LOCAL_RANK: 6 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+15: LOCAL_RANK: 7 - CUDA_VISIBLE_DEVICES: [0,1,2,3,4,5,6,7]
+ 0: [NeMo W 2024-05-07 21:01:36 megatron_base_model:1188] Ignoring `trainer.max_epochs` when computing `max_steps` because `trainer.max_steps` is already set to 1024.
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_kqv_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 adapter_mixins:435] Unfrozen adapter : lora_dense_attention_adapter
+ 0: [NeMo I 2024-05-07 21:01:36 nlp_adapter_mixins:269] Optimizer groups set:
+ 0:       | Name  | Type          | Params
+ 0:     ----------------------------------------
+ 0:     0 | model | Float16Module | 144 M 
+ 0:     ----------------------------------------
+ 0:     11.1 M    Trainable params
+ 0:     133 M     Non-trainable params
+ 0:     144 M     Total params
+ 0:     578.322   Total estimated model params size (MB)
+ 0: [NeMo I 2024-05-07 21:01:36 modelPT:724] Optimizer config = FusedAdam (
+ 0:     Parameter Group 0
+ 0:         betas: [0.9, 0.999]
+ 0:         bias_correction: True
+ 0:         eps: 1e-08
+ 0:         lr: 0.00036
+ 0:         weight_decay: 0.0001
+ 0:     )
+ 0: [NeMo I 2024-05-07 21:01:36 lr_scheduler:923] Scheduler "<nemo.core.optim.lr_scheduler.CosineAnnealing object at 0x7f7fae7fd3c0>" 
+ 0:     will be used during training (effective maximum steps = 1024) - 
+ 0:     Parameters : 
+ 0:     (warmup_ratio: 0.0
+ 0:     min_lr: 0.0
+ 0:     constant_steps: 0
+ 0:     max_steps: 1024
+ 0:     )
+ 0: [NeMo I 2024-05-07 21:01:36 lr_scheduler:923] Scheduler "<nemo.core.optim.lr_scheduler.CosineAnnealing object at 0x7f7fadeef0a0>" 
+ 0:     will be used during training (effective maximum steps = 1024) - 
+ 0:     Parameters : 
+ 0:     (warmup_ratio: 0.0
+ 0:     min_lr: 0.0
+ 0:     constant_steps: 0
+ 0:     max_steps: 1024
+ 0:     )
+ 0: 
+ 0:   | Name  | Type          | Params
+ 0: ----------------------------------------
+ 0: 0 | model | Float16Module | 144 M 
+ 0: ----------------------------------------
+ 0: 11.1 M    Trainable params
+ 0: 133 M     Non-trainable params
+ 0: 144 M     Total params
+ 0: 578.322   Total estimated model params size (MB)
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115696165, "event_type": "POINT_IN_TIME", "key": "cache_clear", "value": true, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 206}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115696165, "event_type": "INTERVAL_START", "key": "init_start", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 207}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115696165, "event_type": "POINT_IN_TIME", "key": "submission_benchmark", "value": "llama2_70b_lora", "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 208}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115696165, "event_type": "POINT_IN_TIME", "key": "submission_org", "value": "SUBMISSION_ORG_PLACEHOLDER", "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 208}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115696165, "event_type": "POINT_IN_TIME", "key": "submission_division", "value": "closed", "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 208}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115696165, "event_type": "POINT_IN_TIME", "key": "submission_status", "value": "onprem", "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 208}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115696165, "event_type": "POINT_IN_TIME", "key": "submission_platform", "value": "8xSUBMISSION_PLATFORM_PLACEHOLDER", "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 208}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115696165, "event_type": "POINT_IN_TIME", "key": "seed", "value": 12108, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 209}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115696165, "event_type": "POINT_IN_TIME", "key": "global_batch_size", "value": 8, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 215}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115696702, "event_type": "POINT_IN_TIME", "key": "train_samples", "value": 3901, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 220}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115696716, "event_type": "POINT_IN_TIME", "key": "eval_samples", "value": 173, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 224}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115696716, "event_type": "POINT_IN_TIME", "key": "opt_learning_rate_warmup_factor", "value": 0.0, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 228}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115696716, "event_type": "POINT_IN_TIME", "key": "opt_adamw_weight_decay", "value": 0.0001, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 232}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115696717, "event_type": "POINT_IN_TIME", "key": "opt_gradient_clip_norm", "value": 0.3, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 236}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115696717, "event_type": "POINT_IN_TIME", "key": "gradient_accumulation_steps", "value": 1, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 241}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115696717, "event_type": "POINT_IN_TIME", "key": "opt_learning_rate_training_steps", "value": 1024, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 242}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115696717, "event_type": "POINT_IN_TIME", "key": "opt_base_learning_rate", "value": 0.00036, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 243}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115696717, "event_type": "POINT_IN_TIME", "key": "lora_rank", "value": 16, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 244}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115696717, "event_type": "POINT_IN_TIME", "key": "lora_alpha", "value": 32, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 245}}
+ 0: SLURM auto-requeueing enabled. Setting signal handlers.
+32: SLURM auto-requeueing enabled. Setting signal handlers.
+16: SLURM auto-requeueing enabled. Setting signal handlers.
+56: SLURM auto-requeueing enabled. Setting signal handlers.
+ 8: SLURM auto-requeueing enabled. Setting signal handlers.
+40: SLURM auto-requeueing enabled. Setting signal handlers.
+33: SLURM auto-requeueing enabled. Setting signal handlers.
+24: SLURM auto-requeueing enabled. Setting signal handlers.
+34: SLURM auto-requeueing enabled. Setting signal handlers.
+ 1: SLURM auto-requeueing enabled. Setting signal handlers.
+ 2: SLURM auto-requeueing enabled. Setting signal handlers.
+ 3: SLURM auto-requeueing enabled. Setting signal handlers.
+ 4: SLURM auto-requeueing enabled. Setting signal handlers.
+48: SLURM auto-requeueing enabled. Setting signal handlers.
+35: SLURM auto-requeueing enabled. Setting signal handlers.
+17: SLURM auto-requeueing enabled. Setting signal handlers.
+ 9: SLURM auto-requeueing enabled. Setting signal handlers.
+36: SLURM auto-requeueing enabled. Setting signal handlers.
+18: SLURM auto-requeueing enabled. Setting signal handlers.
+10: SLURM auto-requeueing enabled. Setting signal handlers.
+37: SLURM auto-requeueing enabled. Setting signal handlers.
+19: SLURM auto-requeueing enabled. Setting signal handlers.
+11: SLURM auto-requeueing enabled. Setting signal handlers.
+20: SLURM auto-requeueing enabled. Setting signal handlers.
+57: SLURM auto-requeueing enabled. Setting signal handlers.
+49: SLURM auto-requeueing enabled. Setting signal handlers.
+ 5: SLURM auto-requeueing enabled. Setting signal handlers.
+25: SLURM auto-requeueing enabled. Setting signal handlers.
+41: SLURM auto-requeueing enabled. Setting signal handlers.
+58: SLURM auto-requeueing enabled. Setting signal handlers.
+50: SLURM auto-requeueing enabled. Setting signal handlers.
+ 6: SLURM auto-requeueing enabled. Setting signal handlers.
+26: SLURM auto-requeueing enabled. Setting signal handlers.
+42: SLURM auto-requeueing enabled. Setting signal handlers.
+59: SLURM auto-requeueing enabled. Setting signal handlers.
+51: SLURM auto-requeueing enabled. Setting signal handlers.
+ 7: SLURM auto-requeueing enabled. Setting signal handlers.
+27: SLURM auto-requeueing enabled. Setting signal handlers.
+43: SLURM auto-requeueing enabled. Setting signal handlers.
+52: SLURM auto-requeueing enabled. Setting signal handlers.
+53: SLURM auto-requeueing enabled. Setting signal handlers.
+54: SLURM auto-requeueing enabled. Setting signal handlers.
+38: SLURM auto-requeueing enabled. Setting signal handlers.
+39: SLURM auto-requeueing enabled. Setting signal handlers.
+44: SLURM auto-requeueing enabled. Setting signal handlers.
+21: SLURM auto-requeueing enabled. Setting signal handlers.
+12: SLURM auto-requeueing enabled. Setting signal handlers.
+45: SLURM auto-requeueing enabled. Setting signal handlers.
+22: SLURM auto-requeueing enabled. Setting signal handlers.
+13: SLURM auto-requeueing enabled. Setting signal handlers.
+60: SLURM auto-requeueing enabled. Setting signal handlers.
+28: SLURM auto-requeueing enabled. Setting signal handlers.
+61: SLURM auto-requeueing enabled. Setting signal handlers.
+29: SLURM auto-requeueing enabled. Setting signal handlers.
+62: SLURM auto-requeueing enabled. Setting signal handlers.
+30: SLURM auto-requeueing enabled. Setting signal handlers.
+63: SLURM auto-requeueing enabled. Setting signal handlers.
+31: SLURM auto-requeueing enabled. Setting signal handlers.
+55: SLURM auto-requeueing enabled. Setting signal handlers.
+23: SLURM auto-requeueing enabled. Setting signal handlers.
+14: SLURM auto-requeueing enabled. Setting signal handlers.
+46: SLURM auto-requeueing enabled. Setting signal handlers.
+15: SLURM auto-requeueing enabled. Setting signal handlers.
+47: SLURM auto-requeueing enabled. Setting signal handlers.
+ 0: [NeMo W 2024-05-07 21:01:36 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/pytorch_lightning/loops/utilities.py:149: Found `dataloader_iter` argument in the `training_step`. Note that the support for this signature is experimental and the behavior is subject to change.
+ 0:     
+ 0: !!! [UB] Create UbufP2PCommOverlap Communicator
+ 0: MC initialized succesfully, window size = 549755813888
+ 0: !!! [UBP2P] Register UBuf 1
+ 0: !!! [UBP2P] Register UBuf 2
+ 0: !!! [UBP2P] Register UBuf 3
+ 0: !!! [UBP2P] Register UBuf 4
+ 0: [NeMo W 2024-05-07 21:01:50 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/transformer_engine/pytorch/module/base.py:119: UserWarning: Atomic GEMM uses a beta API from cublas and is not tested for all use cases.
+ 0:       warnings.warn(
+ 0:     
+ 0: !!! [UB] Register UBuf 5
+ 0: !!! [UB] Register UBuf 6
+ 0: !!! [UB] Register UBuf 7
+ 0: !!! [UB] Register UBuf 8
+ 0: !!! [UB] Register UBuf 9
+ 0: !!! [UB] Register UBuf 10
+ 0: [NeMo W 2024-05-07 21:01:57 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/torch/distributed/distributed_c10d.py:2954: UserWarning: torch.distributed._all_gather_base is a private function and will be deprecated. Please use torch.distributed.all_gather_into_tensor instead.
+ 0:       warnings.warn(
+ 0:     
+ 0: [NeMo W 2024-05-07 21:02:11 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/torch/autograd/function.py:573: UserWarning: TORCH_NCCL_AVOID_RECORD_STREAMS=1 has no effect for point-to-point collectives. (Triggered internally at /opt/pytorch/pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:2657.)
+ 0:       return super().apply(*args, **kwargs)  # type: ignore[misc]
+ 0:     
+ 0: [NeMo W 2024-05-07 21:02:23 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/megatron/core/pipeline_parallel/schedules.py:142: UserWarning: c10d::allreduce_: an autograd kernel was not registered to the Autograd key(s) but we are trying to backprop through it. This may lead to silently incorrect behavior. This behavior is deprecated and will be removed in a future version of PyTorch. If your operator is differentiable, please ensure you have registered an autograd kernel to the correct Autograd key (e.g. DispatchKey::Autograd, DispatchKey::CompositeImplicitAutograd). If your operator is not differentiable, or to squash this warning and use the previous behavior, please register torch::CppFunction::makeFallthrough() to DispatchKey::Autograd. (Triggered internally at /opt/pytorch/pytorch/torch/csrc/autograd/autograd_not_implemented_fallback.cpp:63.)
+ 0:       Variable._execution_engine.run_backward(
+ 0:     
+ 0: [NeMo I 2024-05-07 21:02:26 custom_callbacks:40] Finished training warmup: 38.254369020462036s. Starting validation warmup
+ 0: [NeMo I 2024-05-07 21:02:29 custom_callbacks:54] Time spent in run_training_warmup: 40.64532542228699s
+ 0: [NeMo I 2024-05-07 21:02:29 custom_callbacks:59] Forcing FP8 stats reinitialization
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115749127, "event_type": "INTERVAL_END", "key": "init_stop", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 145}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115749127, "event_type": "INTERVAL_START", "key": "run_start", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 145}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115749127, "event_type": "INTERVAL_START", "key": "block_start", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 146, "samples_count": 0}}
+ 0: [NeMo W 2024-05-07 21:02:29 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/megatron/core/pipeline_parallel/schedules.py:142: UserWarning: c10d::allreduce_: an autograd kernel was not registered to the Autograd key(s) but we are trying to backprop through it. This may lead to silently incorrect behavior. This behavior is deprecated and will be removed in a future version of PyTorch. If your operator is differentiable, please ensure you have registered an autograd kernel to the correct Autograd key (e.g. DispatchKey::Autograd, DispatchKey::CompositeImplicitAutograd). If your operator is not differentiable, or to squash this warning and use the previous behavior, please register torch::CppFunction::makeFallthrough() to DispatchKey::Autograd. (Triggered internally at /opt/pytorch/pytorch/torch/csrc/autograd/autograd_not_implemented_fallback.cpp:63.)
+ 0:       Variable._execution_engine.run_backward(
+ 0:     
+ 0: [NeMo W 2024-05-07 21:04:35 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/pytorch_lightning/loops/utilities.py:149: Found `dataloader_iter` argument in the `validation_step`. Note that the support for this signature is experimental and the behavior is subject to change.
+ 0:     
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115885699, "event_type": "POINT_IN_TIME", "key": "tracked_stats", "value": {"throughput": 12.140934350695032}, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 161, "step": 1536}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115885700, "event_type": "INTERVAL_END", "key": "block_stop", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 112, "samples_count": 1536}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115885700, "event_type": "INTERVAL_START", "key": "eval_start", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 117, "samples_count": 1536}}
+ 0: [NeMo W 2024-05-07 21:04:45 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/apex/transformer/pipeline_parallel/utils.py:81: UserWarning: This function is only for unittest
+ 0:       warnings.warn("This function is only for unittest")
+ 0:     
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115893304, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.9368811845779419, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 181, "samples_count": 1536}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115893304, "event_type": "INTERVAL_END", "key": "eval_stop", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 186, "samples_count": 1536}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115893304, "event_type": "INTERVAL_START", "key": "block_start", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 129, "samples_count": 1536}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115923094, "event_type": "POINT_IN_TIME", "key": "tracked_stats", "value": {"throughput": 12.911394209677493}, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 161, "step": 1920}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115923095, "event_type": "INTERVAL_END", "key": "block_stop", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 112, "samples_count": 1920}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115923095, "event_type": "INTERVAL_START", "key": "eval_start", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 117, "samples_count": 1920}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115930469, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.9337119460105896, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 181, "samples_count": 1920}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115930469, "event_type": "INTERVAL_END", "key": "eval_stop", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 186, "samples_count": 1920}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115930469, "event_type": "INTERVAL_START", "key": "block_start", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 129, "samples_count": 1920}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115960875, "event_type": "POINT_IN_TIME", "key": "tracked_stats", "value": {"throughput": 12.649469953230474}, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 161, "step": 2304}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115960876, "event_type": "INTERVAL_END", "key": "block_stop", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 112, "samples_count": 2304}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115960876, "event_type": "INTERVAL_START", "key": "eval_start", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 117, "samples_count": 2304}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115968249, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.93071448802948, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 181, "samples_count": 2304}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115968249, "event_type": "INTERVAL_END", "key": "eval_stop", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 186, "samples_count": 2304}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115968250, "event_type": "INTERVAL_START", "key": "block_start", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 129, "samples_count": 2304}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115997695, "event_type": "POINT_IN_TIME", "key": "tracked_stats", "value": {"throughput": 13.062723488832015}, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 161, "step": 2688}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115997695, "event_type": "INTERVAL_END", "key": "block_stop", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 112, "samples_count": 2688}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715115997695, "event_type": "INTERVAL_START", "key": "eval_start", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 117, "samples_count": 2688}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715116005148, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.9276795387268066, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 181, "samples_count": 2688}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715116005148, "event_type": "INTERVAL_END", "key": "eval_stop", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 186, "samples_count": 2688}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715116005148, "event_type": "INTERVAL_START", "key": "block_start", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 129, "samples_count": 2688}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715116035563, "event_type": "POINT_IN_TIME", "key": "tracked_stats", "value": {"throughput": 12.645898950361785}, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 161, "step": 3072}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715116035563, "event_type": "INTERVAL_END", "key": "block_stop", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 112, "samples_count": 3072}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715116035563, "event_type": "INTERVAL_START", "key": "eval_start", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 117, "samples_count": 3072}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715116042996, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.9250066876411438, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 181, "samples_count": 3072}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715116042996, "event_type": "INTERVAL_END", "key": "eval_stop", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 186, "samples_count": 3072}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715116042996, "event_type": "INTERVAL_START", "key": "block_start", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 129, "samples_count": 3072}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715116072786, "event_type": "POINT_IN_TIME", "key": "tracked_stats", "value": {"throughput": 12.911129763579812}, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 161, "step": 3456}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715116072786, "event_type": "INTERVAL_END", "key": "block_stop", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 112, "samples_count": 3456}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715116072786, "event_type": "INTERVAL_START", "key": "eval_start", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 117, "samples_count": 3456}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715116080258, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.9226945042610168, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 181, "samples_count": 3456}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715116080258, "event_type": "INTERVAL_END", "key": "eval_stop", "value": null, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 186, "samples_count": 3456}}
+ 0: :::MLLOG {"namespace": "", "time_ms": 1715116080258, "event_type": "INTERVAL_END", "key": "run_stop", "value": 0.9226945042610168, "metadata": {"file": "/workspace/ft-llm/custom_callbacks.py", "lineno": 195, "samples_count": 3456, "status": "success"}}
+29: FlashAttention Installed
+37: FlashAttention Installed
+21: FlashAttention Installed
+50: FlashAttention Installed
+ 4: FlashAttention Installed
+45: FlashAttention Installed
+28: FlashAttention Installed
+20: FlashAttention Installed
+24: FlashAttention Installed
+10: FlashAttention Installed
+51: FlashAttention Installed
+32: FlashAttention Installed
+57: FlashAttention Installed
+ 5: FlashAttention Installed
+44: FlashAttention Installed
+56: FlashAttention Installed
+47: FlashAttention Installed
+22: FlashAttention Installed
+60: FlashAttention Installed
+ 0: FlashAttention Installed
+30: FlashAttention Installed
+61: FlashAttention Installed
+38: FlashAttention Installed
+11: FlashAttention Installed
+36: FlashAttention Installed
+ 1: FlashAttention Installed
+49: FlashAttention Installed
+23: FlashAttention Installed
+25: FlashAttention Installed
+33: FlashAttention Installed
+31: FlashAttention Installed
+35: FlashAttention Installed
+59: FlashAttention Installed
+ 6: FlashAttention Installed
+40: FlashAttention Installed
+16: FlashAttention Installed
+41: FlashAttention Installed
+13: FlashAttention Installed
+ 2: FlashAttention Installed
+ 3: FlashAttention Installed
+42: FlashAttention Installed
+12: FlashAttention Installed
+27: FlashAttention Installed
+34: FlashAttention Installed
+15: FlashAttention Installed
+ 7: FlashAttention Installed
+48: FlashAttention Installed
+39: FlashAttention Installed
+54: FlashAttention Installed
+14: FlashAttention Installed
+18: FlashAttention Installed
+19: FlashAttention Installed
+46: FlashAttention Installed
+53: FlashAttention Installed
+52: FlashAttention Installed
+43: FlashAttention Installed
+17: FlashAttention Installed
+ 8: FlashAttention Installed
+ 9: FlashAttention Installed
+26: FlashAttention Installed
+62: FlashAttention Installed
+63: FlashAttention Installed
+58: FlashAttention Installed
+55: FlashAttention Installed
+37: FlashAttention Installed
+24: FlashAttention Installed
+32: FlashAttention Installed
+20: FlashAttention Installed
+21: FlashAttention Installed
+29: FlashAttention Installed
+28: FlashAttention Installed
+ 4: FlashAttention Installed
+ 5: FlashAttention Installed
+47: FlashAttention Installed
+22: FlashAttention Installed
+38: FlashAttention Installed
+51: FlashAttention Installed
+ 0: FlashAttention Installed
+44: FlashAttention Installed
+30: FlashAttention Installed
+50: FlashAttention Installed
+36: FlashAttention Installed
+10: FlashAttention Installed
+45: FlashAttention Installed
+11: FlashAttention Installed
+25: FlashAttention Installed
+23: FlashAttention Installed
+57: FlashAttention Installed
+49: FlashAttention Installed
+33: FlashAttention Installed
+35: FlashAttention Installed
+ 6: FlashAttention Installed
+56: FlashAttention Installed
+31: FlashAttention Installed
+ 1: FlashAttention Installed
+61: FlashAttention Installed
+41: FlashAttention Installed
+59: FlashAttention Installed
+ 2: FlashAttention Installed
+16: FlashAttention Installed
+40: FlashAttention Installed
+60: FlashAttention Installed
+12: FlashAttention Installed
+ 3: FlashAttention Installed
+13: FlashAttention Installed
+27: FlashAttention Installed
+42: FlashAttention Installed
+34: FlashAttention Installed
+39: FlashAttention Installed
+48: FlashAttention Installed
+ 7: FlashAttention Installed
+15: FlashAttention Installed
+19: FlashAttention Installed
+14: FlashAttention Installed
+18: FlashAttention Installed
+54: FlashAttention Installed
+46: FlashAttention Installed
+52: FlashAttention Installed
+43: FlashAttention Installed
+ 9: FlashAttention Installed
+53: FlashAttention Installed
+17: FlashAttention Installed
+ 8: FlashAttention Installed
+26: FlashAttention Installed
+63: FlashAttention Installed
+58: FlashAttention Installed
+55: FlashAttention Installed
+62: FlashAttention Installed
+19: [1715116106.766860] [node3:599753:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+19: [1715116106.766882] [node3:599753:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+19: [1715116106.766886] [node3:599753:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+ 0: [1715116106.767650] [node1:782318:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+ 0: [1715116106.767674] [node1:782318:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+ 0: [1715116106.767679] [node1:782318:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+ 4: [1715116106.767831] [node1:782251:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+ 4: [1715116106.767849] [node1:782251:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+ 4: [1715116106.767854] [node1:782251:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+ 1: [1715116106.767860] [node1:782235:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+ 1: [1715116106.767875] [node1:782235:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+ 1: [1715116106.767879] [node1:782235:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+ 3: [1715116106.767970] [node1:782295:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+ 3: [1715116106.767984] [node1:782295:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+ 3: [1715116106.767988] [node1:782295:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+31: [1715116106.769999] [node4:598760:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+31: [1715116106.770020] [node4:598760:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+31: [1715116106.770024] [node4:598760:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+ 5: [1715116106.767929] [node1:782268:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+ 5: [1715116106.767947] [node1:782268:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+ 5: [1715116106.767951] [node1:782268:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+ 6: [1715116106.768026] [node1:782290:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+ 6: [1715116106.768041] [node1:782290:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+ 6: [1715116106.768044] [node1:782290:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+ 7: [1715116106.768116] [node1:782334:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+ 7: [1715116106.768131] [node1:782334:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+ 7: [1715116106.768134] [node1:782334:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+ 2: [1715116106.768180] [node1:782218:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+ 2: [1715116106.768198] [node1:782218:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+ 2: [1715116106.768202] [node1:782218:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+27: [1715116106.770203] [node4:598679:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+27: [1715116106.770224] [node4:598679:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+27: [1715116106.770228] [node4:598679:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+47: [1715116106.769297] [node6:598356:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+47: [1715116106.769320] [node6:598356:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+47: [1715116106.769324] [node6:598356:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+48: [1715116106.770896] [node7:599775:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+48: [1715116106.770918] [node7:599775:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+48: [1715116106.770923] [node7:599775:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+17: [1715116106.767666] [node3:599769:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+17: [1715116106.767683] [node3:599769:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+17: [1715116106.767687] [node3:599769:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+26: [1715116106.770545] [node4:598695:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+26: [1715116106.770562] [node4:598695:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+26: [1715116106.770567] [node4:598695:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+43: [1715116106.769722] [node6:598383:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+43: [1715116106.769743] [node6:598383:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+43: [1715116106.769747] [node6:598383:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+28: [1715116106.770655] [node4:598744:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+28: [1715116106.770670] [node4:598744:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+28: [1715116106.770674] [node4:598744:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+14: [1715116106.770944] [node2:594944:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+14: [1715116106.770967] [node2:594944:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+14: [1715116106.770972] [node2:594944:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+51: [1715116106.771187] [node7:599743:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+51: [1715116106.771204] [node7:599743:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+51: [1715116106.771208] [node7:599743:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+20: [1715116106.767777] [node3:599689:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+20: [1715116106.767795] [node3:599689:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+20: [1715116106.767800] [node3:599689:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+12: [1715116106.771336] [node2:594928:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+12: [1715116106.771352] [node2:594928:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+12: [1715116106.771356] [node2:594928:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+25: [1715116106.770813] [node4:598728:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+25: [1715116106.770828] [node4:598728:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+25: [1715116106.770831] [node4:598728:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+42: [1715116106.769866] [node6:598335:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+42: [1715116106.769882] [node6:598335:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+55: [1715116106.771325] [node7:599825:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+18: [1715116106.767829] [node3:599785:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+15: [1715116106.771145] [node2:594912:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+15: [1715116106.771162] [node2:594912:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+15: [1715116106.771167] [node2:594912:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+30: [1715116106.770759] [node4:598647:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+30: [1715116106.770777] [node4:598647:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+30: [1715116106.770780] [node4:598647:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+42: [1715116106.769886] [node6:598335:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+18: [1715116106.767844] [node3:599785:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+29: [1715116106.770899] [node4:598663:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+41: [1715116106.769917] [node6:598415:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+41: [1715116106.769933] [node6:598415:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+41: [1715116106.769937] [node6:598415:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+18: [1715116106.767848] [node3:599785:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+29: [1715116106.770913] [node4:598663:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+29: [1715116106.770917] [node4:598663:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+45: [1715116106.770005] [node6:598363:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+45: [1715116106.770021] [node6:598363:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+45: [1715116106.770024] [node6:598363:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+16: [1715116106.768012] [node3:599705:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+16: [1715116106.768027] [node3:599705:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+16: [1715116106.768031] [node3:599705:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+46: [1715116106.770056] [node6:598399:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+46: [1715116106.770071] [node6:598399:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+46: [1715116106.770075] [node6:598399:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+22: [1715116106.767907] [node3:599801:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+22: [1715116106.767927] [node3:599801:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+22: [1715116106.767931] [node3:599801:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+21: [1715116106.768051] [node3:599737:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+21: [1715116106.768065] [node3:599737:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+21: [1715116106.768069] [node3:599737:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+23: [1715116106.768120] [node3:599721:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+23: [1715116106.768136] [node3:599721:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+23: [1715116106.768140] [node3:599721:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+49: [1715116106.771432] [node7:599727:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+49: [1715116106.771447] [node7:599727:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+49: [1715116106.771451] [node7:599727:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+ 8: [1715116106.771603] [node2:594960:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+ 8: [1715116106.771624] [node2:594960:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+ 8: [1715116106.771628] [node2:594960:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+24: [1715116106.770970] [node4:598712:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+24: [1715116106.770986] [node4:598712:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+24: [1715116106.770990] [node4:598712:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+40: [1715116106.770164] [node6:598432:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+40: [1715116106.770180] [node6:598432:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+40: [1715116106.770184] [node6:598432:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+55: [1715116106.771342] [node7:599825:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+55: [1715116106.771350] [node7:599825:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+10: [1715116106.771715] [node2:594876:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+10: [1715116106.771732] [node2:594876:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+10: [1715116106.771736] [node2:594876:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+44: [1715116106.770228] [node6:598319:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+44: [1715116106.770245] [node6:598319:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+44: [1715116106.770249] [node6:598319:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+50: [1715116106.771480] [node7:599807:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+50: [1715116106.771495] [node7:599807:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+13: [1715116106.771639] [node2:594896:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+13: [1715116106.771655] [node2:594896:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+13: [1715116106.771659] [node2:594896:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+50: [1715116106.771499] [node7:599807:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+ 9: [1715116106.771770] [node2:594869:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+ 9: [1715116106.771786] [node2:594869:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+ 9: [1715116106.771791] [node2:594869:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+11: [1715116106.771813] [node2:594848:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+11: [1715116106.771828] [node2:594848:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+11: [1715116106.771832] [node2:594848:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+36: [1715116106.769806] [node5:598101:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+36: [1715116106.769823] [node5:598101:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+36: [1715116106.769828] [node5:598101:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+52: [1715116106.771541] [node7:599759:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+52: [1715116106.771557] [node7:599759:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+52: [1715116106.771562] [node7:599759:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+37: [1715116106.769754] [node5:598063:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+37: [1715116106.769772] [node5:598063:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+37: [1715116106.769777] [node5:598063:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+53: [1715116106.771592] [node7:599791:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+53: [1715116106.771607] [node7:599791:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+53: [1715116106.771611] [node7:599791:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+39: [1715116106.769698] [node5:598020:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+39: [1715116106.769719] [node5:598020:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+39: [1715116106.769724] [node5:598020:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+54: [1715116106.771655] [node7:599841:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+54: [1715116106.771670] [node7:599841:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+54: [1715116106.771673] [node7:599841:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+35: [1715116106.769878] [node5:598079:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+35: [1715116106.769896] [node5:598079:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+35: [1715116106.769900] [node5:598079:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+32: [1715116106.769998] [node5:597999:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+32: [1715116106.770015] [node5:597999:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+32: [1715116106.770019] [node5:597999:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+56: [1715116106.773732] [node8:606163:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+56: [1715116106.773758] [node8:606163:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+56: [1715116106.773763] [node8:606163:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+33: [1715116106.769955] [node5:598047:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+33: [1715116106.769974] [node5:598047:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+33: [1715116106.769978] [node5:598047:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+34: [1715116106.770043] [node5:598104:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+34: [1715116106.770059] [node5:598104:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+34: [1715116106.770062] [node5:598104:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+38: [1715116106.770155] [node5:598026:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+38: [1715116106.770171] [node5:598026:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+38: [1715116106.770175] [node5:598026:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+58: [1715116106.773853] [node8:606135:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+58: [1715116106.773873] [node8:606135:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+58: [1715116106.773877] [node8:606135:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+59: [1715116106.773982] [node8:606183:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+59: [1715116106.774000] [node8:606183:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+59: [1715116106.774004] [node8:606183:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+62: [1715116106.774120] [node8:606154:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+62: [1715116106.774143] [node8:606154:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+62: [1715116106.774147] [node8:606154:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+57: [1715116106.774169] [node8:606199:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+57: [1715116106.774187] [node8:606199:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+57: [1715116106.774192] [node8:606199:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+60: [1715116106.774257] [node8:606087:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+60: [1715116106.774278] [node8:606087:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+60: [1715116106.774282] [node8:606087:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+61: [1715116106.774293] [node8:606119:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+61: [1715116106.774312] [node8:606119:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+61: [1715116106.774316] [node8:606119:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+63: [1715116106.774368] [node8:606103:0]     ucc_context.c:906  UCC  WARN  tl ctx cuda is still in use
+63: [1715116106.774387] [node8:606103:0]     ucc_context.c:906  UCC  WARN  tl ctx shm is still in use
+63: [1715116106.774392] [node8:606103:0]     ucc_context.c:906  UCC  WARN  tl ctx ucp is still in use
+ 0: ENDING TIMING RUN AT 2024-05-07 09:08:36 PM
+ 0: RESULT,LLM_FINETUNING,,588,nvidia,2024-05-07 08:58:48 PM

@@ -1,0 +1,907 @@
++ echo 'Beginning trial 1 of 5'
+Beginning trial 1 of 5
++ echo ':::DLPAL /nfs/scratch/sd/ResNet50/images/sd+mlperf-nvidia+resnet.sqsh 560 1 compute-hpc-node-25  BM.GPU.H100.8 DGXH100'
+:::DLPAL /nfs/scratch/sd/ResNet50/images/sd+mlperf-nvidia+resnet.sqsh 560 1 compute-hpc-node-25  BM.GPU.H100.8 DGXH100
+++ srun --mpi=pmix --ntasks=1 --container-name=image_classification_560 mlperf-sysjson.sh
++ echo ':::SYSJSON {"submitter":"Oracle","division":"closed","status":"cloud","system_name":"BM.GPU.H100.8","number_of_nodes":"1","host_processors_per_node":"2","host_processor_model_name":"Intel(R) Xeon(R) Platinum 8480+","host_processor_core_count":"56","host_processor_vcpu_count":"","host_processor_frequency":"","host_processor_caches":"","host_processor_interconnect":"","host_memory_capacity":"2.0 TB","host_storage_type":"","host_storage_capacity":"","host_networking":"","host_networking_topology":"","host_memory_configuration":"","accelerators_per_node":"8","accelerator_model_name":"NVIDIA H100 80GB HBM3","accelerator_host_interconnect":"","accelerator_frequency":"","accelerator_on-chip_memories":"","accelerator_memory_configuration":"","accelerator_memory_capacity":"81559 MiB","accelerator_interconnect":"","accelerator_interconnect_topology":"","cooling":"","hw_notes":"","framework":"MXNet NVIDIA Release 24.04","framework_name":"","other_software_stack":{"cuda_version":"12.4.1.003","cuda_driver_version":"550.54.15","nccl_version":"2.21.5","cublas_version":"12.4.5.8","cudnn_version":"9.1.0.70","trt_version":"8.6.3.1+cuda12.2.2.009","dali_version":"1.36.0","mofed_version":"5.4-rdmacore39.0","openmpi_version":"4.1.7","kernel_version":"Linux 6.5.0-1018-oracle","nvidia_kernel_driver":"535.161.07"},"operating_system":"Ubuntu 22.04.4 LTS","sw_notes":""}'
+:::SYSJSON {"submitter":"Oracle","division":"closed","status":"cloud","system_name":"BM.GPU.H100.8","number_of_nodes":"1","host_processors_per_node":"2","host_processor_model_name":"Intel(R) Xeon(R) Platinum 8480+","host_processor_core_count":"56","host_processor_vcpu_count":"","host_processor_frequency":"","host_processor_caches":"","host_processor_interconnect":"","host_memory_capacity":"2.0 TB","host_storage_type":"","host_storage_capacity":"","host_networking":"","host_networking_topology":"","host_memory_configuration":"","accelerators_per_node":"8","accelerator_model_name":"NVIDIA H100 80GB HBM3","accelerator_host_interconnect":"","accelerator_frequency":"","accelerator_on-chip_memories":"","accelerator_memory_configuration":"","accelerator_memory_capacity":"81559 MiB","accelerator_interconnect":"","accelerator_interconnect_topology":"","cooling":"","hw_notes":"","framework":"MXNet NVIDIA Release 24.04","framework_name":"","other_software_stack":{"cuda_version":"12.4.1.003","cuda_driver_version":"550.54.15","nccl_version":"2.21.5","cublas_version":"12.4.5.8","cudnn_version":"9.1.0.70","trt_version":"8.6.3.1+cuda12.2.2.009","dali_version":"1.36.0","mofed_version":"5.4-rdmacore39.0","openmpi_version":"4.1.7","kernel_version":"Linux 6.5.0-1018-oracle","nvidia_kernel_driver":"535.161.07"},"operating_system":"Ubuntu 22.04.4 LTS","sw_notes":""}
++ srun --mpi=pmix -N1 -n1 --container-name=image_classification_560 python -c '
+from mlperf_log_utils import mllogger
+mllogger.mlperf_submission_log(mllogger.constants.RESNET)'
+[compute-hpc-node-25:376246] PMIX ERROR: ERROR in file gds_ds12_lock_pthread.c at line 168
+:::MLLOG {"namespace": "", "time_ms": 1714534801870, "event_type": "POINT_IN_TIME", "key": "submission_benchmark", "value": "resnet", "metadata": {"file": "<string>", "lineno": 3}}
+:::MLLOG {"namespace": "", "time_ms": 1714534801899, "event_type": "POINT_IN_TIME", "key": "submission_org", "value": "SUBMISSION_ORG_PLACEHOLDER", "metadata": {"file": "<string>", "lineno": 3}}
+:::MLLOG {"namespace": "", "time_ms": 1714534801900, "event_type": "POINT_IN_TIME", "key": "submission_division", "value": "closed", "metadata": {"file": "<string>", "lineno": 3}}
+:::MLLOG {"namespace": "", "time_ms": 1714534801901, "event_type": "POINT_IN_TIME", "key": "submission_status", "value": "onprem", "metadata": {"file": "<string>", "lineno": 3}}
+:::MLLOG {"namespace": "", "time_ms": 1714534801902, "event_type": "POINT_IN_TIME", "key": "submission_platform", "value": "1xSUBMISSION_PLATFORM_PLACEHOLDER", "metadata": {"file": "<string>", "lineno": 3}}
++ '[' 1 -eq 1 ']'
++ srun --mpi=pmix --ntasks=1 bash -c 'echo -n '\''Clearing cache on '\'' && hostname && sync && sudo /sbin/sysctl vm.drop_caches=3'
+Clearing cache on compute-hpc-node-25
+vm.drop_caches = 3
++ srun --mpi=pmix --ntasks=1 --container-name=image_classification_560 python -c '
+from mlperf_log_utils import mllogger
+mllogger.event(key=mllogger.constants.CACHE_CLEAR, value=True)'
+[compute-hpc-node-25:376585] PMIX ERROR: ERROR in file gds_ds12_lock_pthread.c at line 168
+:::MLLOG {"namespace": "", "time_ms": 1714534810523, "event_type": "POINT_IN_TIME", "key": "cache_clear", "value": true, "metadata": {"file": "<string>", "lineno": 3}}
++ export SEED=20827
++ SEED=20827
++ srun --mpi=pmix --kill-on-bad-exit=0 --ntasks=8 --ntasks-per-node=8 --container-name=image_classification_560 --container-mounts=/nfs/scratch/sd/ResNet50/dataset:/data,./results:/results ./run_and_time.sh
+STARTING TIMING RUN AT 2024-05-01 03:40:12 AM
+running benchmark
+STARTING TIMING RUN AT 2024-05-01 03:40:12 AM
+running benchmark
+STARTING TIMING RUN AT 2024-05-01 03:40:12 AM
+running benchmark
+STARTING TIMING RUN AT 2024-05-01 03:40:12 AM
+STARTING TIMING RUN AT 2024-05-01 03:40:12 AM
+running benchmark
+running benchmark
+RN50 PARAMS:
+--gpus 0,1,2,3,4,5,6,7 --batch-size 400 --kv-store horovod --lr 11.0 --mom 0.9 --lr-step-epochs pow2 --lars-eta 0.001 --label-smoothing 0.1 --wd 5.0e-05 --warmup-epochs 2 --eval-period 4 --eval-offset 2 --optimizer sgdwfastlars --network resnet-v1b-mainloop-fl --num-layers 50 --num-epochs 37 --accuracy-threshold 0.759 --seed 20827 --dtype float16 --disp-batches 20 --image-shape 4,224,224 --fuse-bn-relu 1 --fuse-bn-add-relu 1 --bn-group 1 --min-random-area 0.05 --max-random-area 1.0 --conv-algo 1 --force-tensor-core 1 --input-layout NHWC --conv-layout NHWC --batchnorm-layout NHWC --pooling-layout NHWC --batchnorm-mom 0.9 --batchnorm-eps 1e-5 --data-train /data/train.rec --data-train-idx /data/train.idx --data-val /data/val.rec --data-val-idx /data/val.idx --dali-dont-use-mmap 1 --dali-hw-decoder-load 0.99 --dali-prefetch-queue 5 --dali-nvjpeg-memory-padding 256 --input-batch-multiplier 1 --dali-threads 6 --dali-cache-size 12288 --dali-roi-decode 1 --dali-preallocate-width 5980 --dali-preallocate-height 6430 --dali-tmp-buffer-hint 355568328 --dali-decoder-buffer-hint 1315942 --dali-crop-buffer-hint 165581 --dali-normalize-buffer-hint 441549 --e2e-cuda-graphs 0 --use-nvshmem 0 --sustained_training_time 0 --use-dali
+\n
+STARTING TIMING RUN AT 2024-05-01 03:40:12 AM
+running benchmark
+STARTING TIMING RUN AT 2024-05-01 03:40:12 AM
+running benchmark
+STARTING TIMING RUN AT 2024-05-01 03:40:12 AM
+running benchmark
+[compute-hpc-node-25:377217] PMIX ERROR: ERROR in file gds_ds12_lock_pthread.c at line 168
+[compute-hpc-node-25:377232] PMIX ERROR: ERROR in file gds_ds12_lock_pthread.c at line 168
+[compute-hpc-node-25:377238] PMIX ERROR: ERROR in file gds_ds12_lock_pthread.c at line 168
+[compute-hpc-node-25:377221] PMIX ERROR: ERROR in file gds_ds12_lock_pthread.c at line 168
+[compute-hpc-node-25:377237] PMIX ERROR: ERROR in file gds_ds12_lock_pthread.c at line 168
+[compute-hpc-node-25:377231] PMIX ERROR: ERROR in file gds_ds12_lock_pthread.c at line 168
+[compute-hpc-node-25:377179] PMIX ERROR: ERROR in file gds_ds12_lock_pthread.c at line 168
+[compute-hpc-node-25:377239] PMIX ERROR: ERROR in file gds_ds12_lock_pthread.c at line 168
+:::MLLOG {"namespace": "", "time_ms": 1714534833170, "event_type": "INTERVAL_START", "key": "init_start", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 124}}
+[03:40:35] /opt/mxnet/src/storage/storage.cc:196: Using Pooled (Naive) StorageManager for GPU
+:::MLLOG {"namespace": "", "time_ms": 1714534835634, "event_type": "POINT_IN_TIME", "key": "seed", "value": 20827, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 186}}
+[03:40:38] /opt/mxnet/src/storage/storage.cc:196: Using Pooled (Naive) StorageManager for GPU
+[03:40:38] /opt/mxnet/src/storage/storage.cc:196: Using Pooled (Naive) StorageManager for GPU
+[03:40:38] /opt/mxnet/src/storage/storage.cc:196: Using Pooled (Naive) StorageManager for GPU
+[03:40:38] /opt/mxnet/src/storage/storage.cc:196: Using Pooled (Naive) StorageManager for GPU
+[03:40:38] /opt/mxnet/src/storage/storage.cc:196: Using Pooled (Naive) StorageManager for GPU
+[03:40:38] /opt/mxnet/src/storage/storage.cc:196: Using Pooled (Naive) StorageManager for GPU
+[03:40:38] /opt/mxnet/src/storage/storage.cc:196: Using Pooled (Naive) StorageManager for GPU
+NCCL version 2.21.5+cuda12.4
+:::MLLOG {"namespace": "", "time_ms": 1714534851966, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 214, "tensor": "stage1_unit1_bn1_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851968, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 215, "tensor": "stage1_unit1_bn1_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851968, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 214, "tensor": "stage1_unit2_bn1_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851968, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 215, "tensor": "stage1_unit2_bn1_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851969, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 214, "tensor": "stage1_unit3_bn1_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851969, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 215, "tensor": "stage1_unit3_bn1_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851969, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 214, "tensor": "stage2_unit1_bn1_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851969, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 215, "tensor": "stage2_unit1_bn1_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851970, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 214, "tensor": "stage2_unit2_bn1_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851970, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 215, "tensor": "stage2_unit2_bn1_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851970, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 214, "tensor": "stage2_unit3_bn1_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851970, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 215, "tensor": "stage2_unit3_bn1_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851970, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 214, "tensor": "stage2_unit4_bn1_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851970, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 215, "tensor": "stage2_unit4_bn1_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851971, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 214, "tensor": "stage3_unit1_bn1_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851971, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 215, "tensor": "stage3_unit1_bn1_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851971, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 214, "tensor": "stage3_unit2_bn1_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851971, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 215, "tensor": "stage3_unit2_bn1_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851971, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 214, "tensor": "stage3_unit3_bn1_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851971, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 215, "tensor": "stage3_unit3_bn1_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851972, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 214, "tensor": "stage3_unit4_bn1_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851972, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 215, "tensor": "stage3_unit4_bn1_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851972, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 214, "tensor": "stage3_unit5_bn1_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851972, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 215, "tensor": "stage3_unit5_bn1_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851972, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 214, "tensor": "stage3_unit6_bn1_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851972, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 215, "tensor": "stage3_unit6_bn1_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851973, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 214, "tensor": "stage4_unit1_bn1_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851973, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 215, "tensor": "stage4_unit1_bn1_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851973, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 214, "tensor": "stage4_unit2_bn1_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851973, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 215, "tensor": "stage4_unit2_bn1_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851974, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 214, "tensor": "stage4_unit3_bn1_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851974, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/symbols/resnet-v1b-mainloop-fl.py", "lineno": 215, "tensor": "stage4_unit3_bn1_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534851975, "event_type": "POINT_IN_TIME", "key": "model_bn_span", "value": 400, "metadata": {"file": "/workspace/image_classification/common/dali.py", "lineno": 388}}
+[03:40:54] /opt/mxnet/src/storage/storage.cc:196: Using Pooled (Naive) StorageManager for CPU
+[03:40:54] /opt/mxnet/src/storage/storage.cc:196: Using Pooled (Naive) StorageManager for CPU
+[03:40:54] /opt/mxnet/src/storage/storage.cc:196: Using Pooled (Naive) StorageManager for CPU
+[03:40:54] /opt/mxnet/src/storage/storage.cc:196: Using Pooled (Naive) StorageManager for CPU
+[03:40:54] /opt/mxnet/src/storage/storage.cc:196: Using Pooled (Naive) StorageManager for CPU
+:::MLLOG {"namespace": "", "time_ms": 1714534854862, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "bn0_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854863, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "bn0_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854863, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "conv0_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854863, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 81, "tensor": "fc1_bias"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854863, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 71, "tensor": "fc1_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854863, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage1_unit1_bnsc_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854863, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage1_unit1_bnsc_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854863, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage1_unit1_conv1_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854864, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage1_unit1_conv1sc_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854864, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage1_unit1_bn2_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854864, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage1_unit1_bn2_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854864, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage1_unit1_conv2_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854864, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage1_unit1_bn3_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854864, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage1_unit1_bn3_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854864, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage1_unit1_conv3_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854865, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage1_unit2_conv1_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854865, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage1_unit2_bn2_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854865, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage1_unit2_bn2_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854865, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage1_unit2_conv2_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854865, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage1_unit2_bn3_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854865, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage1_unit2_bn3_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854865, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage1_unit2_conv3_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854866, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage1_unit3_conv1_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854866, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage1_unit3_bn2_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854866, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage1_unit3_bn2_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854866, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage1_unit3_conv2_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854866, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage1_unit3_bn3_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854866, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage1_unit3_bn3_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854867, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage1_unit3_conv3_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854867, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage2_unit1_bnsc_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854867, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage2_unit1_bnsc_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854867, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage2_unit1_conv1_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854867, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage2_unit1_conv1sc_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854867, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage2_unit1_bn2_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854867, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage2_unit1_bn2_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854868, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage2_unit1_conv2_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854868, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage2_unit1_bn3_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854868, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage2_unit1_bn3_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854868, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage2_unit1_conv3_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854868, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage2_unit2_conv1_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854868, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage2_unit2_bn2_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854869, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage2_unit2_bn2_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854869, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage2_unit2_conv2_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854869, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage2_unit2_bn3_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854869, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage2_unit2_bn3_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854869, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage2_unit2_conv3_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854869, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage2_unit3_conv1_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854869, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage2_unit3_bn2_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854870, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage2_unit3_bn2_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854870, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage2_unit3_conv2_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854870, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage2_unit3_bn3_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854870, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage2_unit3_bn3_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854870, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage2_unit3_conv3_weight"}}
+[03:40:54] /opt/mxnet/src/storage/storage.cc:196: Using Pooled (Naive) StorageManager for CPU
+:::MLLOG {"namespace": "", "time_ms": 1714534854870, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage2_unit4_conv1_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854871, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage2_unit4_bn2_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854871, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage2_unit4_bn2_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854871, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage2_unit4_conv2_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854871, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage2_unit4_bn3_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854871, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage2_unit4_bn3_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854871, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage2_unit4_conv3_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854872, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage3_unit1_bnsc_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854872, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage3_unit1_bnsc_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854872, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage3_unit1_conv1_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854872, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage3_unit1_conv1sc_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854872, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage3_unit1_bn2_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854872, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage3_unit1_bn2_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854872, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage3_unit1_conv2_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854872, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage3_unit1_bn3_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854873, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage3_unit1_bn3_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854873, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage3_unit1_conv3_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854873, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage3_unit2_conv1_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854873, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage3_unit2_bn2_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854873, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage3_unit2_bn2_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854873, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage3_unit2_conv2_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854874, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage3_unit2_bn3_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854874, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage3_unit2_bn3_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854874, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage3_unit2_conv3_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854874, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage3_unit3_conv1_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854874, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage3_unit3_bn2_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854874, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage3_unit3_bn2_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854874, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage3_unit3_conv2_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854875, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage3_unit3_bn3_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854875, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage3_unit3_bn3_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854875, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage3_unit3_conv3_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854875, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage3_unit4_conv1_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854875, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage3_unit4_bn2_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854875, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage3_unit4_bn2_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854876, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage3_unit4_conv2_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854876, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage3_unit4_bn3_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854876, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage3_unit4_bn3_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854876, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage3_unit4_conv3_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854876, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage3_unit5_conv1_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854876, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage3_unit5_bn2_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854876, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage3_unit5_bn2_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854877, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage3_unit5_conv2_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854877, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage3_unit5_bn3_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854877, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage3_unit5_bn3_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854877, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage3_unit5_conv3_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854877, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage3_unit6_conv1_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854877, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage3_unit6_bn2_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854878, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage3_unit6_bn2_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854878, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage3_unit6_conv2_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854878, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage3_unit6_bn3_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854878, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage3_unit6_bn3_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854878, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage3_unit6_conv3_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854878, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage4_unit1_bnsc_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854878, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage4_unit1_bnsc_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854879, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage4_unit1_conv1_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854879, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage4_unit1_conv1sc_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854879, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage4_unit1_bn2_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854879, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage4_unit1_bn2_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854879, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage4_unit1_conv2_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854879, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage4_unit1_bn3_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854879, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage4_unit1_bn3_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854879, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage4_unit1_conv3_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854880, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage4_unit2_conv1_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854880, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage4_unit2_bn2_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854880, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage4_unit2_bn2_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854880, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage4_unit2_conv2_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854880, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage4_unit2_bn3_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854880, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage4_unit2_bn3_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854880, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage4_unit2_conv3_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854881, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage4_unit3_conv1_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854881, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage4_unit3_bn2_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854881, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage4_unit3_bn2_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854881, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage4_unit3_conv2_weight"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854881, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 95, "tensor": "stage4_unit3_bn3_beta"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854881, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 88, "tensor": "stage4_unit3_bn3_gamma"}}
+:::MLLOG {"namespace": "", "time_ms": 1714534854881, "event_type": "POINT_IN_TIME", "key": "weights_initialization", "value": null, "metadata": {"file": "/workspace/image_classification/train_imagenet.py", "lineno": 76, "tensor": "stage4_unit3_conv3_weight"}}
+[03:40:54] /opt/mxnet/src/storage/storage.cc:196: Using Pooled (Naive) StorageManager for CPU
+[03:40:54] /opt/mxnet/src/storage/storage.cc:196: Using Pooled (Naive) StorageManager for CPU
+:::MLLOG {"namespace": "", "time_ms": 1714534856029, "event_type": "POINT_IN_TIME", "key": "sgd_opt_learning_rate_decay_poly_power", "value": 2, "metadata": {"file": "/workspace/image_classification/common/fit.py", "lineno": 707}}
+:::MLLOG {"namespace": "", "time_ms": 1714534856030, "event_type": "POINT_IN_TIME", "key": "sgd_opt_end_learning_rate", "value": 0.0001, "metadata": {"file": "/workspace/image_classification/common/fit.py", "lineno": 708}}
+:::MLLOG {"namespace": "", "time_ms": 1714534856030, "event_type": "POINT_IN_TIME", "key": "lars_opt_learning_rate_decay_poly_power", "value": 2, "metadata": {"file": "/workspace/image_classification/common/fit.py", "lineno": 709}}
+:::MLLOG {"namespace": "", "time_ms": 1714534856030, "event_type": "POINT_IN_TIME", "key": "lars_opt_end_learning_rate", "value": 0.0001, "metadata": {"file": "/workspace/image_classification/common/fit.py", "lineno": 710}}
+:::MLLOG {"namespace": "", "time_ms": 1714534856030, "event_type": "POINT_IN_TIME", "key": "d_batch_size", "value": 400, "metadata": {"file": "/workspace/image_classification/common/fit.py", "lineno": 1170}}
+:::MLLOG {"namespace": "", "time_ms": 1714534856030, "event_type": "POINT_IN_TIME", "key": "s_optimizer", "value": "sgdwfastlars", "metadata": {"file": "/workspace/image_classification/common/fit.py", "lineno": 1171}}
+:::MLLOG {"namespace": "", "time_ms": 1714534856030, "event_type": "POINT_IN_TIME", "key": "s_network", "value": "resnet-v1b-mainloop-fl", "metadata": {"file": "/workspace/image_classification/common/fit.py", "lineno": 1172}}
+:::MLLOG {"namespace": "", "time_ms": 1714534856030, "event_type": "POINT_IN_TIME", "key": "s_process", "value": "horovod", "metadata": {"file": "/workspace/image_classification/common/fit.py", "lineno": 1173}}
+:::MLLOG {"namespace": "", "time_ms": 1714534856030, "event_type": "POINT_IN_TIME", "key": "global_batch_size", "value": 3200, "metadata": {"file": "/workspace/image_classification/common/fit.py", "lineno": 1174}}
+:::MLLOG {"namespace": "", "time_ms": 1714534856030, "event_type": "POINT_IN_TIME", "key": "s_optimizer", "value": "sgdwfastlars", "metadata": {"file": "/workspace/image_classification/common/fit.py", "lineno": 1175}}
+:::MLLOG {"namespace": "", "time_ms": 1714534856030, "event_type": "POINT_IN_TIME", "key": "s_network", "value": "resnet-v1b-mainloop-fl", "metadata": {"file": "/workspace/image_classification/common/fit.py", "lineno": 1176}}
+:::MLLOG {"namespace": "", "time_ms": 1714534856030, "event_type": "POINT_IN_TIME", "key": "s_process", "value": "horovod", "metadata": {"file": "/workspace/image_classification/common/fit.py", "lineno": 1177}}
+:::MLLOG {"namespace": "", "time_ms": 1714534856030, "event_type": "POINT_IN_TIME", "key": "gradient_accumulation_steps", "value": 1, "metadata": {"file": "/workspace/image_classification/common/fit.py", "lineno": 1178}}
+:::MLLOG {"namespace": "", "time_ms": 1714534856030, "event_type": "POINT_IN_TIME", "key": "opt_name", "value": "lars", "metadata": {"file": "/workspace/image_classification/common/fit.py", "lineno": 1184}}
+:::MLLOG {"namespace": "", "time_ms": 1714534856030, "event_type": "POINT_IN_TIME", "key": "lars_epsilon", "value": 0, "metadata": {"file": "/workspace/image_classification/common/fit.py", "lineno": 1186}}
+:::MLLOG {"namespace": "", "time_ms": 1714534856030, "event_type": "POINT_IN_TIME", "key": "lars_opt_weight_decay", "value": 5e-05, "metadata": {"file": "/workspace/image_classification/common/fit.py", "lineno": 1188}}
+:::MLLOG {"namespace": "", "time_ms": 1714534856030, "event_type": "POINT_IN_TIME", "key": "lars_opt_momentum", "value": 0.9, "metadata": {"file": "/workspace/image_classification/common/fit.py", "lineno": 1190}}
+:::MLLOG {"namespace": "", "time_ms": 1714534856030, "event_type": "POINT_IN_TIME", "key": "lars_opt_base_learning_rate", "value": 11.0, "metadata": {"file": "/workspace/image_classification/common/fit.py", "lineno": 1191}}
+:::MLLOG {"namespace": "", "time_ms": 1714534856030, "event_type": "POINT_IN_TIME", "key": "lars_opt_learning_rate_warmup_epochs", "value": 2, "metadata": {"file": "/workspace/image_classification/common/fit.py", "lineno": 1192}}
+:::MLLOG {"namespace": "", "time_ms": 1714534856030, "event_type": "POINT_IN_TIME", "key": "lars_opt_learning_rate_decay_steps", "value": 37, "metadata": {"file": "/workspace/image_classification/common/fit.py", "lineno": 1193}}
+:::MLLOG {"namespace": "", "time_ms": 1714534873923, "event_type": "INTERVAL_END", "key": "init_stop", "value": null, "metadata": {"file": "/workspace/image_classification/common/fit.py", "lineno": 1338}}
+:::MLLOG {"namespace": "", "time_ms": 1714534873924, "event_type": "INTERVAL_START", "key": "run_start", "value": null, "metadata": {"file": "/workspace/image_classification/common/fit.py", "lineno": 1338}}
+:::MLLOG {"namespace": "", "time_ms": 1714534873924, "event_type": "POINT_IN_TIME", "key": "train_samples", "value": 1281167, "metadata": {"file": "/workspace/image_classification/common/dali.py", "lineno": 567}}
+Traceback (most recent call last):
+  File "/workspace/image_classification/train_imagenet.py", line 245, in <module>
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/workspace/image_classification/train_imagenet.py", line 245, in <module>
+  File "/workspace/image_classification/train_imagenet.py", line 245, in <module>
+Traceback (most recent call last):
+  File "/workspace/image_classification/train_imagenet.py", line 245, in <module>
+Traceback (most recent call last):
+  File "/workspace/image_classification/train_imagenet.py", line 245, in <module>
+Traceback (most recent call last):
+  File "/workspace/image_classification/train_imagenet.py", line 245, in <module>
+Traceback (most recent call last):
+  File "/workspace/image_classification/train_imagenet.py", line 245, in <module>
+Traceback (most recent call last):
+  File "/workspace/image_classification/train_imagenet.py", line 245, in <module>
+    fit.fit(args, kv, model, initializer, lambda_fnc_dali_get_rec_iter, devs, arg_params, aux_params)
+  File "/workspace/image_classification/common/fit.py", line 1342, in fit
+    fit.fit(args, kv, model, initializer, lambda_fnc_dali_get_rec_iter, devs, arg_params, aux_params)
+  File "/workspace/image_classification/common/fit.py", line 1342, in fit
+    fit.fit(args, kv, model, initializer, lambda_fnc_dali_get_rec_iter, devs, arg_params, aux_params)
+  File "/workspace/image_classification/common/fit.py", line 1342, in fit
+    fit.fit(args, kv, model, initializer, lambda_fnc_dali_get_rec_iter, devs, arg_params, aux_params)
+  File "/workspace/image_classification/common/fit.py", line 1342, in fit
+    fit.fit(args, kv, model, initializer, lambda_fnc_dali_get_rec_iter, devs, arg_params, aux_params)
+  File "/workspace/image_classification/common/fit.py", line 1342, in fit
+    fit.fit(args, kv, model, initializer, lambda_fnc_dali_get_rec_iter, devs, arg_params, aux_params)
+  File "/workspace/image_classification/common/fit.py", line 1342, in fit
+    fit.fit(args, kv, model, initializer, lambda_fnc_dali_get_rec_iter, devs, arg_params, aux_params)
+  File "/workspace/image_classification/common/fit.py", line 1342, in fit
+    fit.fit(args, kv, model, initializer, lambda_fnc_dali_get_rec_iter, devs, arg_params, aux_params)
+  File "/workspace/image_classification/common/fit.py", line 1342, in fit
+    (train, val) = data_loader(args, kv)
+  File "/workspace/image_classification/common/dali.py", line 476, in <lambda>
+    (train, val) = data_loader(args, kv)
+  File "/workspace/image_classification/common/dali.py", line 476, in <lambda>
+    (train, val) = data_loader(args, kv)
+  File "/workspace/image_classification/common/dali.py", line 476, in <lambda>
+    (train, val) = data_loader(args, kv)
+  File "/workspace/image_classification/common/dali.py", line 476, in <lambda>
+    (train, val) = data_loader(args, kv)
+  File "/workspace/image_classification/common/dali.py", line 476, in <lambda>
+    (train, val) = data_loader(args, kv)
+  File "/workspace/image_classification/common/dali.py", line 476, in <lambda>
+    (train, val) = data_loader(args, kv)
+  File "/workspace/image_classification/common/dali.py", line 476, in <lambda>
+    return lambda args, kv: get_rec_iter(args, trainpipes, valpipes, data_paths, kv)
+  File "/workspace/image_classification/common/dali.py", line 571, in get_rec_iter
+    return lambda args, kv: get_rec_iter(args, trainpipes, valpipes, data_paths, kv)
+  File "/workspace/image_classification/common/dali.py", line 571, in get_rec_iter
+    return lambda args, kv: get_rec_iter(args, trainpipes, valpipes, data_paths, kv)
+  File "/workspace/image_classification/common/dali.py", line 571, in get_rec_iter
+    return lambda args, kv: get_rec_iter(args, trainpipes, valpipes, data_paths, kv)
+  File "/workspace/image_classification/common/dali.py", line 571, in get_rec_iter
+    return lambda args, kv: get_rec_iter(args, trainpipes, valpipes, data_paths, kv)
+  File "/workspace/image_classification/common/dali.py", line 571, in get_rec_iter
+    return lambda args, kv: get_rec_iter(args, trainpipes, valpipes, data_paths, kv)
+  File "/workspace/image_classification/common/dali.py", line 571, in get_rec_iter
+    return lambda args, kv: get_rec_iter(args, trainpipes, valpipes, data_paths, kv)
+  File "/workspace/image_classification/common/dali.py", line 571, in get_rec_iter
+    dali_train_iter = get_dali_classification_iterator(pipes=trainpipes,
+  File "/workspace/image_classification/common/dali.py", line 126, in get_dali_classification_iterator
+    (train, val) = data_loader(args, kv)
+  File "/workspace/image_classification/common/dali.py", line 476, in <lambda>
+    return DALIClassificationIterator(pipes,
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/mxnet.py", line 603, in __init__
+    dali_train_iter = get_dali_classification_iterator(pipes=trainpipes,
+  File "/workspace/image_classification/common/dali.py", line 126, in get_dali_classification_iterator
+    dali_train_iter = get_dali_classification_iterator(pipes=trainpipes,
+  File "/workspace/image_classification/common/dali.py", line 126, in get_dali_classification_iterator
+    dali_train_iter = get_dali_classification_iterator(pipes=trainpipes,
+  File "/workspace/image_classification/common/dali.py", line 126, in get_dali_classification_iterator
+    dali_train_iter = get_dali_classification_iterator(pipes=trainpipes,
+  File "/workspace/image_classification/common/dali.py", line 126, in get_dali_classification_iterator
+    dali_train_iter = get_dali_classification_iterator(pipes=trainpipes,
+  File "/workspace/image_classification/common/dali.py", line 126, in get_dali_classification_iterator
+    dali_train_iter = get_dali_classification_iterator(pipes=trainpipes,
+  File "/workspace/image_classification/common/dali.py", line 126, in get_dali_classification_iterator
+    return DALIClassificationIterator(pipes,
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/mxnet.py", line 603, in __init__
+    return DALIClassificationIterator(pipes,
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/mxnet.py", line 603, in __init__
+    return DALIClassificationIterator(pipes,
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/mxnet.py", line 603, in __init__
+    return DALIClassificationIterator(pipes,
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/mxnet.py", line 603, in __init__
+    return DALIClassificationIterator(pipes,
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/mxnet.py", line 603, in __init__
+    return DALIClassificationIterator(pipes,
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/mxnet.py", line 603, in __init__
+    return lambda args, kv: get_rec_iter(args, trainpipes, valpipes, data_paths, kv)
+  File "/workspace/image_classification/common/dali.py", line 571, in get_rec_iter
+    dali_train_iter = get_dali_classification_iterator(pipes=trainpipes,
+  File "/workspace/image_classification/common/dali.py", line 126, in get_dali_classification_iterator
+    return DALIClassificationIterator(pipes,
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/mxnet.py", line 603, in __init__
+    super(DALIClassificationIterator, self).__init__(
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/mxnet.py", line 286, in __init__
+    super(DALIClassificationIterator, self).__init__(
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/mxnet.py", line 286, in __init__
+    super(DALIClassificationIterator, self).__init__(
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/mxnet.py", line 286, in __init__
+    super(DALIClassificationIterator, self).__init__(
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/mxnet.py", line 286, in __init__
+    super(DALIClassificationIterator, self).__init__(
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/mxnet.py", line 286, in __init__
+    super(DALIClassificationIterator, self).__init__(
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/mxnet.py", line 286, in __init__
+    super(DALIClassificationIterator, self).__init__(
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/mxnet.py", line 286, in __init__
+    super(DALIClassificationIterator, self).__init__(
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/mxnet.py", line 286, in __init__
+    super().__init__(
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/mxnet.py", line 102, in __init__
+    super().__init__(
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/mxnet.py", line 102, in __init__
+    super().__init__(
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/mxnet.py", line 102, in __init__
+    super().__init__(
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/mxnet.py", line 102, in __init__
+    super().__init__(
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/mxnet.py", line 102, in __init__
+    super().__init__(
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/mxnet.py", line 102, in __init__
+    super().__init__(
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/mxnet.py", line 102, in __init__
+    super().__init__(
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/mxnet.py", line 102, in __init__
+    _DaliBaseIterator.__init__(
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/base_iterator.py", line 217, in __init__
+    _DaliBaseIterator.__init__(
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/base_iterator.py", line 217, in __init__
+    _DaliBaseIterator.__init__(
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/base_iterator.py", line 217, in __init__
+    _DaliBaseIterator.__init__(
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/base_iterator.py", line 217, in __init__
+    _DaliBaseIterator.__init__(
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/base_iterator.py", line 217, in __init__
+    _DaliBaseIterator.__init__(
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/base_iterator.py", line 217, in __init__
+    _DaliBaseIterator.__init__(
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/base_iterator.py", line 217, in __init__
+    _DaliBaseIterator.__init__(
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/base_iterator.py", line 217, in __init__
+    self._extract_from_reader_and_validate()
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/base_iterator.py", line 292, in _extract_from_reader_and_validate
+    self._extract_from_reader_and_validate()
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/base_iterator.py", line 292, in _extract_from_reader_and_validate
+    self._extract_from_reader_and_validate()
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/base_iterator.py", line 292, in _extract_from_reader_and_validate
+    self._extract_from_reader_and_validate()
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/base_iterator.py", line 292, in _extract_from_reader_and_validate
+    self._extract_from_reader_and_validate()
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/base_iterator.py", line 292, in _extract_from_reader_and_validate
+    self._extract_from_reader_and_validate()
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/base_iterator.py", line 292, in _extract_from_reader_and_validate
+    self._extract_from_reader_and_validate()
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/base_iterator.py", line 292, in _extract_from_reader_and_validate
+    readers_meta = [p.reader_meta(self._reader_name) for p in self._pipes]
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/base_iterator.py", line 292, in <listcomp>
+    self._extract_from_reader_and_validate()
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/base_iterator.py", line 292, in _extract_from_reader_and_validate
+    readers_meta = [p.reader_meta(self._reader_name) for p in self._pipes]
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/base_iterator.py", line 292, in <listcomp>
+    readers_meta = [p.reader_meta(self._reader_name) for p in self._pipes]
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/base_iterator.py", line 292, in <listcomp>
+    readers_meta = [p.reader_meta(self._reader_name) for p in self._pipes]
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/base_iterator.py", line 292, in <listcomp>
+    readers_meta = [p.reader_meta(self._reader_name) for p in self._pipes]
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/base_iterator.py", line 292, in <listcomp>
+    readers_meta = [p.reader_meta(self._reader_name) for p in self._pipes]
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/base_iterator.py", line 292, in <listcomp>
+    readers_meta = [p.reader_meta(self._reader_name) for p in self._pipes]
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/base_iterator.py", line 292, in <listcomp>
+    readers_meta = [p.reader_meta(self._reader_name) for p in self._pipes]
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/plugin/base_iterator.py", line 292, in <listcomp>
+    readers_meta = [p.reader_meta(self._reader_name) for p in self._pipes]
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/pipeline.py", line 564, in reader_meta
+    readers_meta = [p.reader_meta(self._reader_name) for p in self._pipes]
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/pipeline.py", line 564, in reader_meta
+    readers_meta = [p.reader_meta(self._reader_name) for p in self._pipes]
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/pipeline.py", line 564, in reader_meta
+    readers_meta = [p.reader_meta(self._reader_name) for p in self._pipes]
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/pipeline.py", line 564, in reader_meta
+    readers_meta = [p.reader_meta(self._reader_name) for p in self._pipes]
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/pipeline.py", line 564, in reader_meta
+    readers_meta = [p.reader_meta(self._reader_name) for p in self._pipes]
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/pipeline.py", line 564, in reader_meta
+    readers_meta = [p.reader_meta(self._reader_name) for p in self._pipes]
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/pipeline.py", line 564, in reader_meta
+    readers_meta = [p.reader_meta(self._reader_name) for p in self._pipes]
+  File "/usr/local/lib/python3.10/dist-packages/nvidia/dali/pipeline.py", line 564, in reader_meta
+    return self._pipe.reader_meta(name)
+RuntimeError: [/opt/dali/dali/util/std_file.cc:29] Assert on "fp_ != nullptr" failed: Could not open file /data/train.rec: No such file or directory
+Stacktrace (52 entries):
+[frame 0]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(+0xd106b) [0x79afe80d106b]
+[frame 1]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(+0x20e0bd) [0x79afe820e0bd]
+[frame 2]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(dali::FileStream::Open(std::string const&, bool, bool, bool)+0x144) [0x79afe81ff214]
+[frame 3]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x418eb15) [0x79afcd18eb15]
+[frame 4]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x41856aa) [0x79afcd1856aa]
+[frame 5]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x4175001) [0x79afcd175001]
+[frame 6]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x41758a6) [0x79afcd1758a6]
+[frame 7]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(dali::Pipeline::GetReaderMeta(std::string const&)+0xdf) [0x79afe81db17f]
+[frame 8]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/backend_impl.cpython-310-x86_64-linux-gnu.so(+0x3e0a1) [0x79afdde560a1]
+[frame 9]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/backend_impl.cpython-310-x86_64-linux-gnu.so(+0x4555d) [0x79afdde5d55d]
+[frame 10]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/backend_impl.cpython-310-x86_64-linux-gnu.so(+0xc810a) [0x79afddee010a]
+[frame 11]: python(+0x15a10e) [0x582bbb29310e]
+[frame 12]: python(_PyObject_MakeTpCall+0x25b) [0x582bbb289a7b]
+[frame 13]: python(+0x168acb) [0x582bbb2a1acb]
+[frame 14]: python(_PyEval_EvalFrameDefault+0x614a) [0x582bbb281cfa]
+[frame 15]: python(_PyFunction_Vectorcall+0x7c) [0x582bbb2939fc]
+[frame 16]: python(_PyEval_EvalFrameDefault+0x8ac) [0x582bbb27c45c]
+[frame 17]: python(_PyFunction_Vectorcall+0x7c) [0x582bbb2939fc]
+[frame 18]: python(_PyEval_EvalFrameDefault+0x6bd) [0x582bbb27c26d]
+[frame 19]: python(+0x1687f1) [0x582bbb2a17f1]
+[frame 20]: python(_PyEval_EvalFrameDefault+0x614a) [0x582bbb281cfa]
+[frame 21]: python(_PyFunction_Vectorcall+0x7c) [0x582bbb2939fc]
+[frame 22]: python(_PyEval_EvalFrameDefault+0x198c) [0x582bbb27d53c]
+[frame 23]: python(+0x1687f1) [0x582bbb2a17f1]
+[frame 24]: python(_PyEval_EvalFrameDefault+0x198c) [0x582bbb27d53c]
+[frame 25]: python(+0x1687f1) [0x582bbb2a17f1]
+[frame 26]: python(_PyEval_EvalFrameDefault+0x198c) [0x582bbb27d53c]
+[frame 27]: python(_PyFunction_Vectorcall+0x7c) [0x582bbb2939fc]
+[frame 28]: python(_PyObject_FastCallDictTstate+0x16d) [0x582bbb288cbd]
+[frame 29]: python(+0x164a64) [0x582bbb29da64]
+[frame 30]: python(_PyObject_MakeTpCall+0x1fc) [0x582bbb289a1c]
+[frame 31]: python(_PyEval_EvalFrameDefault+0x75a0) [0x582bbb283150]
+[frame 32]: python(_PyFunction_Vectorcall+0x7c) [0x582bbb2939fc]
+[frame 33]: python(_PyEval_EvalFrameDefault+0x198c) [0x582bbb27d53c]
+[frame 34]: python(_PyFunction_Vectorcall+0x7c) [0x582bbb2939fc]
+[frame 35]: python(_PyEval_EvalFrameDefault+0x6bd) [0x582bbb27c26d]
+[frame 36]: python(_PyFunction_Vectorcall+0x7c) [0x582bbb2939fc]
+[frame 37]: python(_PyEval_EvalFrameDefault+0x6bd) [0x582bbb27c26d]
+[frame 38]: python(_PyFunction_Vectorcall+0x7c) [0x582bbb2939fc]
+[frame 39]: python(_PyEval_EvalFrameDefault+0x614a) [0x582bbb281cfa]
+[frame 40]: python(+0x13f9c6) [0x582bbb2789c6]
+[frame 41]: python(PyEval_EvalCode+0x86) [0x582bbb36e256]
+[frame 42]: python(+0x260108) [0x582bbb399108]
+[frame 43]: python(+0x2599cb) [0x582bbb3929cb]
+[frame 44]: python(+0x25fe55) [0x582bbb398e55]
+[frame 45]: python(_PyRun_SimpleFileObject+0x1a8) [0x582bbb398338]
+[frame 46]: python(_PyRun_AnyFileObject+0x43) [0x582bbb397f83]
+[frame 47]: python(Py_RunMain+0x2be) [0x582bbb38aa5e]
+[frame 48]: python(Py_BytesMain+0x2d) [0x582bbb36102d]
+[frame 49]: /usr/lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x79b0db029d90]
+[frame 50]: /usr/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x79b0db029e40]
+    return self._pipe.reader_meta(name)
+RuntimeError: [/opt/dali/dali/util/std_file.cc:29] Assert on "fp_ != nullptr" failed: Could not open file /data/train.rec: No such file or directory
+Stacktrace (52 entries):
+[frame 0]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(+0xd106b) [0x75d8b98d106b]
+[frame 1]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(+0x20e0bd) [0x75d8b9a0e0bd]
+[frame 2]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(dali::FileStream::Open(std::string const&, bool, bool, bool)+0x144) [0x75d8b99ff214]
+[frame 3]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x418eb15) [0x75d89e78eb15]
+[frame 4]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x41856aa) [0x75d89e7856aa]
+[frame 5]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x4175001) [0x75d89e775001]
+[frame 6]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x41758a6) [0x75d89e7758a6]
+[frame 7]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(dali::Pipeline::GetReaderMeta(std::string const&)+0xdf) [0x75d8b99db17f]
+[frame 8]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/backend_impl.cpython-310-x86_64-linux-gnu.so(+0x3e0a1) [0x75d8af4560a1]
+[frame 9]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/backend_impl.cpython-310-x86_64-linux-gnu.so(+0x4555d) [0x75d8af45d55d]
+[frame 10]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/backend_impl.cpython-310-x86_64-linux-gnu.so(+0xc810a) [0x75d8af4e010a]
+[frame 11]: python(+0x15a10e) [0x5aca7085410e]
+[frame 12]: python(_PyObject_MakeTpCall+0x25b) [0x5aca7084aa7b]
+[frame 13]: python(+0x168acb) [0x5aca70862acb]
+[frame 14]: python(_PyEval_EvalFrameDefault+0x614a) [0x5aca70842cfa]
+[frame 15]: python(_PyFunction_Vectorcall+0x7c) [0x5aca708549fc]
+[frame 16]: python(_PyEval_EvalFrameDefault+0x8ac) [0x5aca7083d45c]
+[frame 17]: python(_PyFunction_Vectorcall+0x7c) [0x5aca708549fc]
+[frame 18]: python(_PyEval_EvalFrameDefault+0x6bd) [0x5aca7083d26d]
+[frame 19]: python(+0x1687f1) [0x5aca708627f1]
+[frame 20]: python(_PyEval_EvalFrameDefault+0x614a) [0x5aca70842cfa]
+[frame 21]: python(_PyFunction_Vectorcall+0x7c) [0x5aca708549fc]
+[frame 22]: python(_PyEval_EvalFrameDefault+0x198c) [0x5aca7083e53c]
+[frame 23]: python(+0x1687f1) [0x5aca708627f1]
+[frame 24]: python(_PyEval_EvalFrameDefault+0x198c) [0x5aca7083e53c]
+[frame 25]: python(+0x1687f1) [0x5aca708627f1]
+[frame 26]: python(_PyEval_EvalFrameDefault+0x198c) [0x5aca7083e53c]
+[frame 27]: python(_PyFunction_Vectorcall+0x7c) [0x5aca708549fc]
+[frame 28]: python(_PyObject_FastCallDictTstate+0x16d) [0x5aca70849cbd]
+[frame 29]: python(+0x164a64) [0x5aca7085ea64]
+[frame 30]: python(_PyObject_MakeTpCall+0x1fc) [0x5aca7084aa1c]
+[frame 31]: python(_PyEval_EvalFrameDefault+0x75a0) [0x5aca70844150]
+[frame 32]: python(_PyFunction_Vectorcall+0x7c) [0x5aca708549fc]
+[frame 33]: python(_PyEval_EvalFrameDefault+0x198c) [0x5aca7083e53c]
+[frame 34]: python(_PyFunction_Vectorcall+0x7c) [0x5aca708549fc]
+[frame 35]: python(_PyEval_EvalFrameDefault+0x6bd) [0x5aca7083d26d]
+[frame 36]: python(_PyFunction_Vectorcall+0x7c) [0x5aca708549fc]
+[frame 37]: python(_PyEval_EvalFrameDefault+0x6bd) [0x5aca7083d26d]
+[frame 38]: python(_PyFunction_Vectorcall+0x7c) [0x5aca708549fc]
+[frame 39]: python(_PyEval_EvalFrameDefault+0x614a) [0x5aca70842cfa]
+[frame 40]: python(+0x13f9c6) [0x5aca708399c6]
+[frame 41]: python(PyEval_EvalCode+0x86) [0x5aca7092f256]
+[frame 42]: python(+0x260108) [0x5aca7095a108]
+[frame 43]: python(+0x2599cb) [0x5aca709539cb]
+[frame 44]: python(+0x25fe55) [0x5aca70959e55]
+[frame 45]: python(_PyRun_SimpleFileObject+0x1a8) [0x5aca70959338]
+[frame 46]: python(_PyRun_AnyFileObject+0x43) [0x5aca70958f83]
+[frame 47]: python(Py_RunMain+0x2be) [0x5aca7094ba5e]
+[frame 48]: python(Py_BytesMain+0x2d) [0x5aca7092202d]
+[frame 49]: /usr/lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x75d9ac829d90]
+[frame 50]: /usr/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x75d9ac829e40]
+    return self._pipe.reader_meta(name)
+RuntimeError: [/opt/dali/dali/util/std_file.cc:29] Assert on "fp_ != nullptr" failed: Could not open file /data/train.rec: No such file or directory
+Stacktrace (52 entries):
+[frame 0]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(+0xd106b) [0x791b0ead106b]
+[frame 1]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(+0x20e0bd) [0x791b0ec0e0bd]
+[frame 2]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(dali::FileStream::Open(std::string const&, bool, bool, bool)+0x144) [0x791b0ebff214]
+[frame 3]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x418eb15) [0x791af398eb15]
+[frame 4]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x41856aa) [0x791af39856aa]
+[frame 5]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x4175001) [0x791af3975001]
+[frame 6]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x41758a6) [0x791af39758a6]
+[frame 7]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(dali::Pipeline::GetReaderMeta(std::string const&)+0xdf) [0x791b0ebdb17f]
+[frame 8]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/backend_impl.cpython-310-x86_64-linux-gnu.so(+0x3e0a1) [0x791b046560a1]
+[frame 9]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/backend_impl.cpython-310-x86_64-linux-gnu.so(+0x4555d) [0x791b0465d55d]
+[frame 10]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/backend_impl.cpython-310-x86_64-linux-gnu.so(+0xc810a) [0x791b046e010a]
+[frame 11]: python(+0x15a10e) [0x5ef8c8a1d10e]
+[frame 12]: python(_PyObject_MakeTpCall+0x25b) [0x5ef8c8a13a7b]
+[frame 13]: python(+0x168acb) [0x5ef8c8a2bacb]
+[frame 14]: python(_PyEval_EvalFrameDefault+0x614a) [0x5ef8c8a0bcfa]
+[frame 15]: python(_PyFunction_Vectorcall+0x7c) [0x5ef8c8a1d9fc]
+[frame 16]: python(_PyEval_EvalFrameDefault+0x8ac) [0x5ef8c8a0645c]
+[frame 17]: python(_PyFunction_Vectorcall+0x7c) [0x5ef8c8a1d9fc]
+[frame 18]: python(_PyEval_EvalFrameDefault+0x6bd) [0x5ef8c8a0626d]
+[frame 19]: python(+0x1687f1) [0x5ef8c8a2b7f1]
+[frame 20]: python(_PyEval_EvalFrameDefault+0x614a) [0x5ef8c8a0bcfa]
+[frame 21]: python(_PyFunction_Vectorcall+0x7c) [0x5ef8c8a1d9fc]
+[frame 22]: python(_PyEval_EvalFrameDefault+0x198c) [0x5ef8c8a0753c]
+[frame 23]: python(+0x1687f1) [0x5ef8c8a2b7f1]
+[frame 24]: python(_PyEval_EvalFrameDefault+0x198c) [0x5ef8c8a0753c]
+[frame 25]: python(+0x1687f1) [0x5ef8c8a2b7f1]
+[frame 26]: python(_PyEval_EvalFrameDefault+0x198c) [0x5ef8c8a0753c]
+[frame 27]: python(_PyFunction_Vectorcall+0x7c) [0x5ef8c8a1d9fc]
+[frame 28]: python(_PyObject_FastCallDictTstate+0x16d) [0x5ef8c8a12cbd]
+[frame 29]: python(+0x164a64) [0x5ef8c8a27a64]
+[frame 30]: python(_PyObject_MakeTpCall+0x1fc) [0x5ef8c8a13a1c]
+[frame 31]: python(_PyEval_EvalFrameDefault+0x75a0) [0x5ef8c8a0d150]
+[frame 32]: python(_PyFunction_Vectorcall+0x7c) [0x5ef8c8a1d9fc]
+[frame 33]: python(_PyEval_EvalFrameDefault+0x198c) [0x5ef8c8a0753c]
+[frame 34]: python(_PyFunction_Vectorcall+0x7c) [0x5ef8c8a1d9fc]
+[frame 35]: python(_PyEval_EvalFrameDefault+0x6bd) [0x5ef8c8a0626d]
+[frame 36]: python(_PyFunction_Vectorcall+0x7c) [0x5ef8c8a1d9fc]
+[frame 37]: python(_PyEval_EvalFrameDefault+0x6bd) [0x5ef8c8a0626d]
+[frame 38]: python(_PyFunction_Vectorcall+0x7c) [0x5ef8c8a1d9fc]
+[frame 39]: python(_PyEval_EvalFrameDefault+0x614a) [0x5ef8c8a0bcfa]
+[frame 40]: python(+0x13f9c6) [0x5ef8c8a029c6]
+[frame 41]: python(PyEval_EvalCode+0x86) [0x5ef8c8af8256]
+[frame 42]: python(+0x260108) [0x5ef8c8b23108]
+[frame 43]: python(+0x2599cb) [0x5ef8c8b1c9cb]
+[frame 44]: python(+0x25fe55) [0x5ef8c8b22e55]
+[frame 45]: python(_PyRun_SimpleFileObject+0x1a8) [0x5ef8c8b22338]
+[frame 46]: python(_PyRun_AnyFileObject+0x43) [0x5ef8c8b21f83]
+[frame 47]: python(Py_RunMain+0x2be) [0x5ef8c8b14a5e]
+[frame 48]: python(Py_BytesMain+0x2d) [0x5ef8c8aeb02d]
+[frame 49]: /usr/lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x791c01a29d90]
+[frame 50]: /usr/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x791c01a29e40]
+    return self._pipe.reader_meta(name)
+RuntimeError: [/opt/dali/dali/util/std_file.cc:29] Assert on "fp_ != nullptr" failed: Could not open file /data/train.rec: No such file or directory
+Stacktrace (52 entries):
+[frame 0]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(+0xd106b) [0x7f87caed106b]
+[frame 1]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(+0x20e0bd) [0x7f87cb00e0bd]
+[frame 2]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(dali::FileStream::Open(std::string const&, bool, bool, bool)+0x144) [0x7f87cafff214]
+[frame 3]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x418eb15) [0x7f87aff8eb15]
+[frame 4]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x41856aa) [0x7f87aff856aa]
+[frame 5]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x4175001) [0x7f87aff75001]
+[frame 6]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x41758a6) [0x7f87aff758a6]
+[frame 7]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(dali::Pipeline::GetReaderMeta(std::string const&)+0xdf) [0x7f87cafdb17f]
+[frame 8]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/backend_impl.cpython-310-x86_64-linux-gnu.so(+0x3e0a1) [0x7f87c0c560a1]
+[frame 9]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/backend_impl.cpython-310-x86_64-linux-gnu.so(+0x4555d) [0x7f87c0c5d55d]
+[frame 10]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/backend_impl.cpython-310-x86_64-linux-gnu.so(+0xc810a) [0x7f87c0ce010a]
+[frame 11]: python(+0x15a10e) [0x64cb5a8fa10e]
+[frame 12]: python(_PyObject_MakeTpCall+0x25b) [0x64cb5a8f0a7b]
+[frame 13]: python(+0x168acb) [0x64cb5a908acb]
+[frame 14]: python(_PyEval_EvalFrameDefault+0x614a) [0x64cb5a8e8cfa]
+[frame 15]: python(_PyFunction_Vectorcall+0x7c) [0x64cb5a8fa9fc]
+[frame 16]: python(_PyEval_EvalFrameDefault+0x8ac) [0x64cb5a8e345c]
+[frame 17]: python(_PyFunction_Vectorcall+0x7c) [0x64cb5a8fa9fc]
+[frame 18]: python(_PyEval_EvalFrameDefault+0x6bd) [0x64cb5a8e326d]
+[frame 19]: python(+0x1687f1) [0x64cb5a9087f1]
+[frame 20]: python(_PyEval_EvalFrameDefault+0x614a) [0x64cb5a8e8cfa]
+[frame 21]: python(_PyFunction_Vectorcall+0x7c) [0x64cb5a8fa9fc]
+[frame 22]: python(_PyEval_EvalFrameDefault+0x198c) [0x64cb5a8e453c]
+[frame 23]: python(+0x1687f1) [0x64cb5a9087f1]
+[frame 24]: python(_PyEval_EvalFrameDefault+0x198c) [0x64cb5a8e453c]
+[frame 25]: python(+0x1687f1) [0x64cb5a9087f1]
+[frame 26]: python(_PyEval_EvalFrameDefault+0x198c) [0x64cb5a8e453c]
+[frame 27]: python(_PyFunction_Vectorcall+0x7c) [0x64cb5a8fa9fc]
+[frame 28]: python(_PyObject_FastCallDictTstate+0x16d) [0x64cb5a8efcbd]
+[frame 29]: python(+0x164a64) [0x64cb5a904a64]
+[frame 30]: python(_PyObject_MakeTpCall+0x1fc) [0x64cb5a8f0a1c]
+[frame 31]: python(_PyEval_EvalFrameDefault+0x75a0) [0x64cb5a8ea150]
+[frame 32]: python(_PyFunction_Vectorcall+0x7c) [0x64cb5a8fa9fc]
+[frame 33]: python(_PyEval_EvalFrameDefault+0x198c) [0x64cb5a8e453c]
+[frame 34]: python(_PyFunction_Vectorcall+0x7c) [0x64cb5a8fa9fc]
+[frame 35]: python(_PyEval_EvalFrameDefault+0x6bd) [0x64cb5a8e326d]
+[frame 36]: python(_PyFunction_Vectorcall+0x7c) [0x64cb5a8fa9fc]
+[frame 37]: python(_PyEval_EvalFrameDefault+0x6bd) [0x64cb5a8e326d]
+[frame 38]: python(_PyFunction_Vectorcall+0x7c) [0x64cb5a8fa9fc]
+[frame 39]: python(_PyEval_EvalFrameDefault+0x614a) [0x64cb5a8e8cfa]
+[frame 40]: python(+0x13f9c6) [0x64cb5a8df9c6]
+[frame 41]: python(PyEval_EvalCode+0x86) [0x64cb5a9d5256]
+[frame 42]: python(+0x260108) [0x64cb5aa00108]
+[frame 43]: python(+0x2599cb) [0x64cb5a9f99cb]
+[frame 44]: python(+0x25fe55) [0x64cb5a9ffe55]
+[frame 45]: python(_PyRun_SimpleFileObject+0x1a8) [0x64cb5a9ff338]
+[frame 46]: python(_PyRun_AnyFileObject+0x43) [0x64cb5a9fef83]
+[frame 47]: python(Py_RunMain+0x2be) [0x64cb5a9f1a5e]
+[frame 48]: python(Py_BytesMain+0x2d) [0x64cb5a9c802d]
+[frame 49]: /usr/lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x7f88bde29d90]
+[frame 50]: /usr/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x7f88bde29e40]
+    return self._pipe.reader_meta(name)
+RuntimeError: [/opt/dali/dali/util/std_file.cc:29] Assert on "fp_ != nullptr" failed: Could not open file /data/train.rec: No such file or directory
+Stacktrace (52 entries):
+[frame 0]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(+0xd106b) [0x7a91716d106b]
+[frame 1]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(+0x20e0bd) [0x7a917180e0bd]
+[frame 2]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(dali::FileStream::Open(std::string const&, bool, bool, bool)+0x144) [0x7a91717ff214]
+[frame 3]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x418eb15) [0x7a915658eb15]
+[frame 4]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x41856aa) [0x7a91565856aa]
+[frame 5]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x4175001) [0x7a9156575001]
+[frame 6]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x41758a6) [0x7a91565758a6]
+[frame 7]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(dali::Pipeline::GetReaderMeta(std::string const&)+0xdf) [0x7a91717db17f]
+[frame 8]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/backend_impl.cpython-310-x86_64-linux-gnu.so(+0x3e0a1) [0x7a91672560a1]
+[frame 9]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/backend_impl.cpython-310-x86_64-linux-gnu.so(+0x4555d) [0x7a916725d55d]
+[frame 10]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/backend_impl.cpython-310-x86_64-linux-gnu.so(+0xc810a) [0x7a91672e010a]
+[frame 11]: python(+0x15a10e) [0x56cb84e6810e]
+[frame 12]: python(_PyObject_MakeTpCall+0x25b) [0x56cb84e5ea7b]
+[frame 13]: python(+0x168acb) [0x56cb84e76acb]
+[frame 14]: python(_PyEval_EvalFrameDefault+0x614a) [0x56cb84e56cfa]
+[frame 15]: python(_PyFunction_Vectorcall+0x7c) [0x56cb84e689fc]
+[frame 16]: python(_PyEval_EvalFrameDefault+0x8ac) [0x56cb84e5145c]
+[frame 17]: python(_PyFunction_Vectorcall+0x7c) [0x56cb84e689fc]
+[frame 18]: python(_PyEval_EvalFrameDefault+0x6bd) [0x56cb84e5126d]
+[frame 19]: python(+0x1687f1) [0x56cb84e767f1]
+[frame 20]: python(_PyEval_EvalFrameDefault+0x614a) [0x56cb84e56cfa]
+[frame 21]: python(_PyFunction_Vectorcall+0x7c) [0x56cb84e689fc]
+[frame 22]: python(_PyEval_EvalFrameDefault+0x198c) [0x56cb84e5253c]
+[frame 23]: python(+0x1687f1) [0x56cb84e767f1]
+[frame 24]: python(_PyEval_EvalFrameDefault+0x198c) [0x56cb84e5253c]
+[frame 25]: python(+0x1687f1) [0x56cb84e767f1]
+[frame 26]: python(_PyEval_EvalFrameDefault+0x198c) [0x56cb84e5253c]
+[frame 27]: python(_PyFunction_Vectorcall+0x7c) [0x56cb84e689fc]
+[frame 28]: python(_PyObject_FastCallDictTstate+0x16d) [0x56cb84e5dcbd]
+[frame 29]: python(+0x164a64) [0x56cb84e72a64]
+[frame 30]: python(_PyObject_MakeTpCall+0x1fc) [0x56cb84e5ea1c]
+[frame 31]: python(_PyEval_EvalFrameDefault+0x75a0) [0x56cb84e58150]
+[frame 32]: python(_PyFunction_Vectorcall+0x7c) [0x56cb84e689fc]
+[frame 33]: python(_PyEval_EvalFrameDefault+0x198c) [0x56cb84e5253c]
+[frame 34]: python(_PyFunction_Vectorcall+0x7c) [0x56cb84e689fc]
+[frame 35]: python(_PyEval_EvalFrameDefault+0x6bd) [0x56cb84e5126d]
+[frame 36]: python(_PyFunction_Vectorcall+0x7c) [0x56cb84e689fc]
+[frame 37]: python(_PyEval_EvalFrameDefault+0x6bd) [0x56cb84e5126d]
+[frame 38]: python(_PyFunction_Vectorcall+0x7c) [0x56cb84e689fc]
+[frame 39]: python(_PyEval_EvalFrameDefault+0x614a) [0x56cb84e56cfa]
+[frame 40]: python(+0x13f9c6) [0x56cb84e4d9c6]
+[frame 41]: python(PyEval_EvalCode+0x86) [0x56cb84f43256]
+[frame 42]: python(+0x260108) [0x56cb84f6e108]
+[frame 43]: python(+0x2599cb) [0x56cb84f679cb]
+[frame 44]: python(+0x25fe55) [0x56cb84f6de55]
+[frame 45]: python(_PyRun_SimpleFileObject+0x1a8) [0x56cb84f6d338]
+[frame 46]: python(_PyRun_AnyFileObject+0x43) [0x56cb84f6cf83]
+[frame 47]: python(Py_RunMain+0x2be) [0x56cb84f5fa5e]
+[frame 48]: python(Py_BytesMain+0x2d) [0x56cb84f3602d]
+[frame 49]: /usr/lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x7a9264629d90]
+[frame 50]: /usr/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x7a9264629e40]
+    return self._pipe.reader_meta(name)
+RuntimeError: [/opt/dali/dali/util/std_file.cc:29] Assert on "fp_ != nullptr" failed: Could not open file /data/train.rec: No such file or directory
+Stacktrace (52 entries):
+[frame 0]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(+0xd106b) [0x7cf6614d106b]
+[frame 1]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(+0x20e0bd) [0x7cf66160e0bd]
+[frame 2]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(dali::FileStream::Open(std::string const&, bool, bool, bool)+0x144) [0x7cf6615ff214]
+[frame 3]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x418eb15) [0x7cf64638eb15]
+[frame 4]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x41856aa) [0x7cf6463856aa]
+[frame 5]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x4175001) [0x7cf646375001]
+[frame 6]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x41758a6) [0x7cf6463758a6]
+[frame 7]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(dali::Pipeline::GetReaderMeta(std::string const&)+0xdf) [0x7cf6615db17f]
+[frame 8]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/backend_impl.cpython-310-x86_64-linux-gnu.so(+0x3e0a1) [0x7cf6570560a1]
+[frame 9]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/backend_impl.cpython-310-x86_64-linux-gnu.so(+0x4555d) [0x7cf65705d55d]
+[frame 10]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/backend_impl.cpython-310-x86_64-linux-gnu.so(+0xc810a) [0x7cf6570e010a]
+[frame 11]: python(+0x15a10e) [0x5d449053310e]
+[frame 12]: python(_PyObject_MakeTpCall+0x25b) [0x5d4490529a7b]
+[frame 13]: python(+0x168acb) [0x5d4490541acb]
+[frame 14]: python(_PyEval_EvalFrameDefault+0x614a) [0x5d4490521cfa]
+[frame 15]: python(_PyFunction_Vectorcall+0x7c) [0x5d44905339fc]
+[frame 16]: python(_PyEval_EvalFrameDefault+0x8ac) [0x5d449051c45c]
+[frame 17]: python(_PyFunction_Vectorcall+0x7c) [0x5d44905339fc]
+[frame 18]: python(_PyEval_EvalFrameDefault+0x6bd) [0x5d449051c26d]
+[frame 19]: python(+0x1687f1) [0x5d44905417f1]
+[frame 20]: python(_PyEval_EvalFrameDefault+0x614a) [0x5d4490521cfa]
+[frame 21]: python(_PyFunction_Vectorcall+0x7c) [0x5d44905339fc]
+[frame 22]: python(_PyEval_EvalFrameDefault+0x198c) [0x5d449051d53c]
+[frame 23]: python(+0x1687f1) [0x5d44905417f1]
+[frame 24]: python(_PyEval_EvalFrameDefault+0x198c) [0x5d449051d53c]
+[frame 25]: python(+0x1687f1) [0x5d44905417f1]
+[frame 26]: python(_PyEval_EvalFrameDefault+0x198c) [0x5d449051d53c]
+[frame 27]: python(_PyFunction_Vectorcall+0x7c) [0x5d44905339fc]
+[frame 28]: python(_PyObject_FastCallDictTstate+0x16d) [0x5d4490528cbd]
+[frame 29]: python(+0x164a64) [0x5d449053da64]
+[frame 30]: python(_PyObject_MakeTpCall+0x1fc) [0x5d4490529a1c]
+[frame 31]: python(_PyEval_EvalFrameDefault+0x75a0) [0x5d4490523150]
+[frame 32]: python(_PyFunction_Vectorcall+0x7c) [0x5d44905339fc]
+[frame 33]: python(_PyEval_EvalFrameDefault+0x198c) [0x5d449051d53c]
+[frame 34]: python(_PyFunction_Vectorcall+0x7c) [0x5d44905339fc]
+[frame 35]: python(_PyEval_EvalFrameDefault+0x6bd) [0x5d449051c26d]
+[frame 36]: python(_PyFunction_Vectorcall+0x7c) [0x5d44905339fc]
+[frame 37]: python(_PyEval_EvalFrameDefault+0x6bd) [0x5d449051c26d]
+[frame 38]: python(_PyFunction_Vectorcall+0x7c) [0x5d44905339fc]
+[frame 39]: python(_PyEval_EvalFrameDefault+0x614a) [0x5d4490521cfa]
+[frame 40]: python(+0x13f9c6) [0x5d44905189c6]
+[frame 41]: python(PyEval_EvalCode+0x86) [0x5d449060e256]
+[frame 42]: python(+0x260108) [0x5d4490639108]
+[frame 43]: python(+0x2599cb) [0x5d44906329cb]
+[frame 44]: python(+0x25fe55) [0x5d4490638e55]
+[frame 45]: python(_PyRun_SimpleFileObject+0x1a8) [0x5d4490638338]
+[frame 46]: python(_PyRun_AnyFileObject+0x43) [0x5d4490637f83]
+[frame 47]: python(Py_RunMain+0x2be) [0x5d449062aa5e]
+[frame 48]: python(Py_BytesMain+0x2d) [0x5d449060102d]
+[frame 49]: /usr/lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x7cf754429d90]
+[frame 50]: /usr/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x7cf754429e40]
+    return self._pipe.reader_meta(name)
+RuntimeError: [/opt/dali/dali/util/std_file.cc:29] Assert on "fp_ != nullptr" failed: Could not open file /data/train.rec: No such file or directory
+Stacktrace (52 entries):
+[frame 0]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(+0xd106b) [0x7c3148ed106b]
+[frame 1]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(+0x20e0bd) [0x7c314900e0bd]
+[frame 2]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(dali::FileStream::Open(std::string const&, bool, bool, bool)+0x144) [0x7c3148fff214]
+[frame 3]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x418eb15) [0x7c312dd8eb15]
+[frame 4]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x41856aa) [0x7c312dd856aa]
+[frame 5]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x4175001) [0x7c312dd75001]
+[frame 6]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x41758a6) [0x7c312dd758a6]
+[frame 7]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(dali::Pipeline::GetReaderMeta(std::string const&)+0xdf) [0x7c3148fdb17f]
+[frame 8]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/backend_impl.cpython-310-x86_64-linux-gnu.so(+0x3e0a1) [0x7c313ea560a1]
+[frame 9]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/backend_impl.cpython-310-x86_64-linux-gnu.so(+0x4555d) [0x7c313ea5d55d]
+[frame 10]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/backend_impl.cpython-310-x86_64-linux-gnu.so(+0xc810a) [0x7c313eae010a]
+[frame 11]: python(+0x15a10e) [0x62da4eafb10e]
+[frame 12]: python(_PyObject_MakeTpCall+0x25b) [0x62da4eaf1a7b]
+[frame 13]: python(+0x168acb) [0x62da4eb09acb]
+[frame 14]: python(_PyEval_EvalFrameDefault+0x614a) [0x62da4eae9cfa]
+[frame 15]: python(_PyFunction_Vectorcall+0x7c) [0x62da4eafb9fc]
+[frame 16]: python(_PyEval_EvalFrameDefault+0x8ac) [0x62da4eae445c]
+[frame 17]: python(_PyFunction_Vectorcall+0x7c) [0x62da4eafb9fc]
+[frame 18]: python(_PyEval_EvalFrameDefault+0x6bd) [0x62da4eae426d]
+[frame 19]: python(+0x1687f1) [0x62da4eb097f1]
+[frame 20]: python(_PyEval_EvalFrameDefault+0x614a) [0x62da4eae9cfa]
+[frame 21]: python(_PyFunction_Vectorcall+0x7c) [0x62da4eafb9fc]
+[frame 22]: python(_PyEval_EvalFrameDefault+0x198c) [0x62da4eae553c]
+[frame 23]: python(+0x1687f1) [0x62da4eb097f1]
+[frame 24]: python(_PyEval_EvalFrameDefault+0x198c) [0x62da4eae553c]
+[frame 25]: python(+0x1687f1) [0x62da4eb097f1]
+[frame 26]: python(_PyEval_EvalFrameDefault+0x198c) [0x62da4eae553c]
+[frame 27]: python(_PyFunction_Vectorcall+0x7c) [0x62da4eafb9fc]
+[frame 28]: python(_PyObject_FastCallDictTstate+0x16d) [0x62da4eaf0cbd]
+[frame 29]: python(+0x164a64) [0x62da4eb05a64]
+[frame 30]: python(_PyObject_MakeTpCall+0x1fc) [0x62da4eaf1a1c]
+[frame 31]: python(_PyEval_EvalFrameDefault+0x75a0) [0x62da4eaeb150]
+[frame 32]: python(_PyFunction_Vectorcall+0x7c) [0x62da4eafb9fc]
+[frame 33]: python(_PyEval_EvalFrameDefault+0x198c) [0x62da4eae553c]
+[frame 34]: python(_PyFunction_Vectorcall+0x7c) [0x62da4eafb9fc]
+[frame 35]: python(_PyEval_EvalFrameDefault+0x6bd) [0x62da4eae426d]
+[frame 36]: python(_PyFunction_Vectorcall+0x7c) [0x62da4eafb9fc]
+[frame 37]: python(_PyEval_EvalFrameDefault+0x6bd) [0x62da4eae426d]
+[frame 38]: python(_PyFunction_Vectorcall+0x7c) [0x62da4eafb9fc]
+[frame 39]: python(_PyEval_EvalFrameDefault+0x614a) [0x62da4eae9cfa]
+[frame 40]: python(+0x13f9c6) [0x62da4eae09c6]
+[frame 41]: python(PyEval_EvalCode+0x86) [0x62da4ebd6256]
+[frame 42]: python(+0x260108) [0x62da4ec01108]
+[frame 43]: python(+0x2599cb) [0x62da4ebfa9cb]
+[frame 44]: python(+0x25fe55) [0x62da4ec00e55]
+[frame 45]: python(_PyRun_SimpleFileObject+0x1a8) [0x62da4ec00338]
+[frame 46]: python(_PyRun_AnyFileObject+0x43) [0x62da4ebfff83]
+[frame 47]: python(Py_RunMain+0x2be) [0x62da4ebf2a5e]
+[frame 48]: python(Py_BytesMain+0x2d) [0x62da4ebc902d]
+[frame 49]: /usr/lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x7c323be29d90]
+[frame 50]: /usr/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x7c323be29e40]
+[frame 51]: python(_start+0x25) [0x582bbb360f25]
+
+[frame 51]: python(_start+0x25) [0x5aca70921f25]
+
+[frame 51]: python(_start+0x25) [0x5ef8c8aeaf25]
+
+[frame 51]: python(_start+0x25) [0x64cb5a9c7f25]
+
+[frame 51]: python(_start+0x25) [0x56cb84f35f25]
+
+[frame 51]: python(_start+0x25) [0x5d4490600f25]
+
+    return self._pipe.reader_meta(name)
+RuntimeError: [/opt/dali/dali/util/std_file.cc:29] Assert on "fp_ != nullptr" failed: Could not open file /data/train.rec: No such file or directory
+Stacktrace (52 entries):
+[frame 0]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(+0xd106b) [0x7f219aad106b]
+[frame 1]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(+0x20e0bd) [0x7f219ac0e0bd]
+[frame 2]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(dali::FileStream::Open(std::string const&, bool, bool, bool)+0x144) [0x7f219abff214]
+[frame 3]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x418eb15) [0x7f217f98eb15]
+[frame 4]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x41856aa) [0x7f217f9856aa]
+[frame 5]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x4175001) [0x7f217f975001]
+[frame 6]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali_operators.so(+0x41758a6) [0x7f217f9758a6]
+[frame 7]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/libdali.so(dali::Pipeline::GetReaderMeta(std::string const&)+0xdf) [0x7f219abdb17f]
+[frame 8]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/backend_impl.cpython-310-x86_64-linux-gnu.so(+0x3e0a1) [0x7f21906560a1]
+[frame 9]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/backend_impl.cpython-310-x86_64-linux-gnu.so(+0x4555d) [0x7f219065d55d]
+[frame 10]: /usr/local/lib/python3.10/dist-packages/nvidia/dali/backend_impl.cpython-310-x86_64-linux-gnu.so(+0xc810a) [0x7f21906e010a]
+[frame 11]: python(+0x15a10e) [0x63bc3d29510e]
+[frame 12]: python(_PyObject_MakeTpCall+0x25b) [0x63bc3d28ba7b]
+[frame 13]: python(+0x168acb) [0x63bc3d2a3acb]
+[frame 14]: python(_PyEval_EvalFrameDefault+0x614a) [0x63bc3d283cfa]
+[frame 15]: python(_PyFunction_Vectorcall+0x7c) [0x63bc3d2959fc]
+[frame 16]: python(_PyEval_EvalFrameDefault+0x8ac) [0x63bc3d27e45c]
+[frame 17]: python(_PyFunction_Vectorcall+0x7c) [0x63bc3d2959fc]
+[frame 18]: python(_PyEval_EvalFrameDefault+0x6bd) [0x63bc3d27e26d]
+[frame 19]: python(+0x1687f1) [0x63bc3d2a37f1]
+[frame 20]: python(_PyEval_EvalFrameDefault+0x614a) [0x63bc3d283cfa]
+[frame 21]: python(_PyFunction_Vectorcall+0x7c) [0x63bc3d2959fc]
+[frame 22]: python(_PyEval_EvalFrameDefault+0x198c) [0x63bc3d27f53c]
+[frame 23]: python(+0x1687f1) [0x63bc3d2a37f1]
+[frame 24]: python(_PyEval_EvalFrameDefault+0x198c) [0x63bc3d27f53c]
+[frame 25]: python(+0x1687f1) [0x63bc3d2a37f1]
+[frame 26]: python(_PyEval_EvalFrameDefault+0x198c) [0x63bc3d27f53c]
+[frame 27]: python(_PyFunction_Vectorcall+0x7c) [0x63bc3d2959fc]
+[frame 28]: python(_PyObject_FastCallDictTstate+0x16d) [0x63bc3d28acbd]
+[frame 29]: python(+0x164a64) [0x63bc3d29fa64]
+[frame 30]: python(_PyObject_MakeTpCall+0x1fc) [0x63bc3d28ba1c]
+[frame 31]: python(_PyEval_EvalFrameDefault+0x75a0) [0x63bc3d285150]
+[frame 32]: python(_PyFunction_Vectorcall+0x7c) [0x63bc3d2959fc]
+[frame 33]: python(_PyEval_EvalFrameDefault+0x198c) [0x63bc3d27f53c]
+[frame 34]: python(_PyFunction_Vectorcall+0x7c) [0x63bc3d2959fc]
+[frame 35]: python(_PyEval_EvalFrameDefault+0x6bd) [0x63bc3d27e26d]
+[frame 36]: python(_PyFunction_Vectorcall+0x7c) [0x63bc3d2959fc]
+[frame 37]: python(_PyEval_EvalFrameDefault+0x6bd) [0x63bc3d27e26d]
+[frame 38]: python(_PyFunction_Vectorcall+0x7c) [0x63bc3d2959fc]
+[frame 39]: python(_PyEval_EvalFrameDefault+0x614a) [0x63bc3d283cfa]
+[frame 40]: python(+0x13f9c6) [0x63bc3d27a9c6]
+[frame 41]: python(PyEval_EvalCode+0x86) [0x63bc3d370256]
+[frame 42]: python(+0x260108) [0x63bc3d39b108]
+[frame 43]: python(+0x2599cb) [0x63bc3d3949cb]
+[frame 44]: python(+0x25fe55) [0x63bc3d39ae55]
+[frame 45]: python(_PyRun_SimpleFileObject+0x1a8) [0x63bc3d39a338]
+[frame 46]: python(_PyRun_AnyFileObject+0x43) [0x63bc3d399f83]
+[frame 47]: python(Py_RunMain+0x2be) [0x63bc3d38ca5e]
+[frame 48]: python(Py_BytesMain+0x2d) [0x63bc3d36302d]
+[frame 49]: /usr/lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x7f228da29d90]
+[frame 50]: /usr/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x7f228da29e40]
+[frame 51]: python(_start+0x25) [0x62da4ebc8f25]
+
+[frame 51]: python(_start+0x25) [0x63bc3d362f25]
+
+srun: error: compute-hpc-node-25: task 0: Exited with exit code 1
+srun: error: compute-hpc-node-25: task 1: Exited with exit code 1
+srun: error: compute-hpc-node-25: task 5: Exited with exit code 1
+srun: error: compute-hpc-node-25: task 7: Exited with exit code 1
+srun: error: compute-hpc-node-25: task 4: Exited with exit code 1
+srun: error: compute-hpc-node-25: task 3: Exited with exit code 1
+srun: error: compute-hpc-node-25: task 2: Exited with exit code 1
+srun: error: compute-hpc-node-25: task 6: Exited with exit code 1

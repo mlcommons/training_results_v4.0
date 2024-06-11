@@ -1,0 +1,47 @@
+## TP2 MBS1, NEED TO TUNE
+
+## AllGather
+qkv_fprop:
+  method: ring_exchange
+  aggregate: 0
+
+fc1_fprop:
+  method: ring_exchange
+  aggregate: 0
+
+proj_dgrad:
+  method: ring_exchange
+  aggregate: 0
+
+fc2_dgrad:
+  method: ring_exchange
+  aggregate: 0
+
+## ReduceScatter
+proj_fprop:
+  method: pipeline
+  num_sm: 32
+  cga_size: 2
+  num_splits: 2
+  set_sm_margin: 1
+  atomic_gemm: 1
+
+fc2_fprop:
+  method: pipeline
+  num_sm: 16
+  cga_size: 2
+  num_splits: 2
+  set_sm_margin: 1
+  atomic_gemm: 1
+
+qkv_dgrad: # DGRAD-RS OVERLAP NOT ENABLED
+  method: bulk
+  num_sm: 4
+  cga_size: 2
+  set_sm_margin: 0
+
+fc1_dgrad: # DGRAD-RS OVERLAP NOT ENABLED
+  method: bulk
+  num_sm: 2
+  cga_size: 2
+  set_sm_margin: 0

@@ -1,0 +1,91 @@
++ echo 'Beginning trial 1 of 1'
+Beginning trial 1 of 1
++ echo ':::DLPAL /mnt/weka/MLPerf/smc_nvidia_v4/nvdlfwea+mlperfv40+bert+20230926.pytorch.sqsh 2545 1 292KF14 '\''unknown'\'' SMC_H100_1x8x48x1_pack'
+:::DLPAL /mnt/weka/MLPerf/smc_nvidia_v4/nvdlfwea+mlperfv40+bert+20230926.pytorch.sqsh 2545 1 292KF14 'unknown' SMC_H100_1x8x48x1_pack
++ '[' 1 -eq 1 ']'
++ srun --ntasks=1 bash -c 'echo -n '\''Clearing cache on '\'' && hostname && sync && sudo /sbin/sysctl vm.drop_caches=3'
+Clearing cache on 292KF14
+vm.drop_caches = 3
++ srun --ntasks=1 --container-name=language_model_2545 python -c '
+from mlperf_logger import mllogger
+mllogger.event(key=mllogger.constants.CACHE_CLEAR, value=True)'
+:::MLLOG {"namespace": "", "time_ms": 1713506188855, "event_type": "POINT_IN_TIME", "key": "cache_clear", "value": true, "metadata": {"file": "<string>", "lineno": 3}}
++ srun -l --mpi=pmix --ntasks=8 --ntasks-per-node=8 --container-name=language_model_2545 --container-mounts=/mnt/weka/MLPerf/data/bert/packed_data:/workspace/data_phase2,/mnt/weka/MLPerf/data/bert/phase1:/workspace/phase1,/mnt/weka/MLPerf/data/bert/hdf5/eval_varlength:/workspace/evaldata,./results:/results --container-workdir=/workspace/bert slurm2pytorch ./run_and_time.sh
+6: Run vars: id 2545 gpus 8 mparams ''
+2: Run vars: id 2545 gpus 8 mparams ''
+3: Run vars: id 2545 gpus 8 mparams ''
+5: Run vars: id 2545 gpus 8 mparams ''
+7: Run vars: id 2545 gpus 8 mparams ''
+4: Run vars: id 2545 gpus 8 mparams ''
+0: Run vars: id 2545 gpus 8 mparams ''
+1: Run vars: id 2545 gpus 8 mparams ''
+6: STARTING TIMING RUN AT 2024-04-19 01:56:29 PM
+7: STARTING TIMING RUN AT 2024-04-19 01:56:29 PM
+2: STARTING TIMING RUN AT 2024-04-19 01:56:29 PM
+5: STARTING TIMING RUN AT 2024-04-19 01:56:29 PM
+3: STARTING TIMING RUN AT 2024-04-19 01:56:29 PM
+0: STARTING TIMING RUN AT 2024-04-19 01:56:29 PM
+1: STARTING TIMING RUN AT 2024-04-19 01:56:29 PM
+4: STARTING TIMING RUN AT 2024-04-19 01:56:29 PM
+5: num_gpus=8 num_sockets = 2 num_nodes=2 cores_per_socket=32
+3: num_gpus=8 num_sockets = 2 num_nodes=2 cores_per_socket=32
+7: num_gpus=8 num_sockets = 2 num_nodes=2 cores_per_socket=32
+2: num_gpus=8 num_sockets = 2 num_nodes=2 cores_per_socket=32
+0: num_gpus=8 num_sockets = 2 num_nodes=2 cores_per_socket=32
+0: libnuma: Warning: cpu argument 64-71 is out of range
+0: 
+0: usage: numactl [--all | -a] [--interleave= | -i <nodes>] [--preferred= | -p <node>]
+0:                [--physcpubind= | -C <cpus>] [--cpunodebind= | -N <nodes>]
+0:                [--membind= | -m <nodes>] [--localalloc | -l] command args ...
+0:        numactl [--show | -s]
+0:        numactl [--hardware | -H]
+0:        numactl [--length | -l <length>] [--offset | -o <offset>] [--shmmode | -M <shmmode>]
+0:                [--strict | -t]
+0:                [--shmid | -I <id>] --shm | -S <shmkeyfile>
+0:                [--shmid | -I <id>] --file | -f <tmpfsfile>
+0:                [--huge | -u] [--touch | -T] 
+0:                memory policy | --dump | -d | --dump-nodes | -D
+0: 
+0: memory policy is --interleave | -i, --preferred | -p, --membind | -m, --localalloc | -l
+0: <nodes> is a comma delimited list of node numbers or A-B ranges or all.
+0: Instead of a number a node can also be:
+0:   netdev:DEV the node connected to network device DEV
+0:   file:PATH  the node the block device of path is connected to
+0:   ip:HOST    the node of the network device host routes through
+0:   block:PATH the node of block device path
+0:   pci:[seg:]bus:dev[:func] The node of a PCI device
+0: <cpus> is a comma delimited list of cpu numbers or A-B ranges or all
+0: all ranges can be inverted with !
+0: all numbers and ranges can be made cpuset-relative with +
+0: the old --cpubind argument is deprecated.
+0: use --cpunodebind or --physcpubind instead
+0: <length> can have g (GB), m (MB) or k (KB) suffixes
+0: <0-7,64-71> is invalid
+srun: error: 292KF14: task 0: Exited with exit code 1
+1: num_gpus=8 num_sockets = 2 num_nodes=2 cores_per_socket=32
+4: num_gpus=8 num_sockets = 2 num_nodes=2 cores_per_socket=32
+6: num_gpus=8 num_sockets = 2 num_nodes=2 cores_per_socket=32
+7: /usr/local/lib/python3.10/dist-packages/apex/__init__.py:68: DeprecatedFeatureWarning: apex.amp is deprecated and will be removed by the end of February 2023. Use [PyTorch AMP](https://pytorch.org/docs/stable/amp.html)
+7:   warnings.warn(msg, DeprecatedFeatureWarning)
+3: /usr/local/lib/python3.10/dist-packages/apex/__init__.py:68: DeprecatedFeatureWarning: apex.amp is deprecated and will be removed by the end of February 2023. Use [PyTorch AMP](https://pytorch.org/docs/stable/amp.html)
+3:   warnings.warn(msg, DeprecatedFeatureWarning)
+2: /usr/local/lib/python3.10/dist-packages/apex/__init__.py:68: DeprecatedFeatureWarning: apex.amp is deprecated and will be removed by the end of February 2023. Use [PyTorch AMP](https://pytorch.org/docs/stable/amp.html)
+2:   warnings.warn(msg, DeprecatedFeatureWarning)
+5: /usr/local/lib/python3.10/dist-packages/apex/__init__.py:68: DeprecatedFeatureWarning: apex.amp is deprecated and will be removed by the end of February 2023. Use [PyTorch AMP](https://pytorch.org/docs/stable/amp.html)
+5:   warnings.warn(msg, DeprecatedFeatureWarning)
+4: /usr/local/lib/python3.10/dist-packages/apex/__init__.py:68: DeprecatedFeatureWarning: apex.amp is deprecated and will be removed by the end of February 2023. Use [PyTorch AMP](https://pytorch.org/docs/stable/amp.html)
+4:   warnings.warn(msg, DeprecatedFeatureWarning)
+6: /usr/local/lib/python3.10/dist-packages/apex/__init__.py:68: DeprecatedFeatureWarning: apex.amp is deprecated and will be removed by the end of February 2023. Use [PyTorch AMP](https://pytorch.org/docs/stable/amp.html)
+6:   warnings.warn(msg, DeprecatedFeatureWarning)
+1: /usr/local/lib/python3.10/dist-packages/apex/__init__.py:68: DeprecatedFeatureWarning: apex.amp is deprecated and will be removed by the end of February 2023. Use [PyTorch AMP](https://pytorch.org/docs/stable/amp.html)
+1:   warnings.warn(msg, DeprecatedFeatureWarning)
+1: :::MLLOG {"namespace": "", "time_ms": 1713506204999, "event_type": "INTERVAL_START", "key": "init_start", "value": null, "metadata": {"file": "/workspace/bert/run_pretraining.py", "lineno": 1270}}
+2: :::MLLOG {"namespace": "", "time_ms": 1713506204999, "event_type": "INTERVAL_START", "key": "init_start", "value": null, "metadata": {"file": "/workspace/bert/run_pretraining.py", "lineno": 1270}}
+5: :::MLLOG {"namespace": "", "time_ms": 1713506204999, "event_type": "INTERVAL_START", "key": "init_start", "value": null, "metadata": {"file": "/workspace/bert/run_pretraining.py", "lineno": 1270}}
+6: :::MLLOG {"namespace": "", "time_ms": 1713506204999, "event_type": "INTERVAL_START", "key": "init_start", "value": null, "metadata": {"file": "/workspace/bert/run_pretraining.py", "lineno": 1270}}
+3: :::MLLOG {"namespace": "", "time_ms": 1713506204999, "event_type": "INTERVAL_START", "key": "init_start", "value": null, "metadata": {"file": "/workspace/bert/run_pretraining.py", "lineno": 1270}}
+4: :::MLLOG {"namespace": "", "time_ms": 1713506204999, "event_type": "INTERVAL_START", "key": "init_start", "value": null, "metadata": {"file": "/workspace/bert/run_pretraining.py", "lineno": 1270}}
+7: :::MLLOG {"namespace": "", "time_ms": 1713506204999, "event_type": "INTERVAL_START", "key": "init_start", "value": null, "metadata": {"file": "/workspace/bert/run_pretraining.py", "lineno": 1270}}
+0: slurmstepd: error: *** STEP 2545.7 ON 292KF14 CANCELLED AT 2024-04-19T14:08:52 DUE TO TIME LIMIT ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+srun: error: 292KF14: tasks 1-7: Terminated

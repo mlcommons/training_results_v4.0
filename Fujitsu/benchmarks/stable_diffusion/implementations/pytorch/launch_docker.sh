@@ -1,0 +1,1 @@
+docker run --cap-add=sys_nice --gpus=all --ipc=host -it --rm -v ${PWD}/results:/results -v /raid/mlperf/sd/dataset:/datasets -v /raid/mlperf/sd/checkpoints/:/checkpoints -v /raid/mlperf/sd/nemologs:/nemologs gitlab-master.nvidia.com/dl/mlperf/optimized:stable_diffusion.pytorch.14382938  

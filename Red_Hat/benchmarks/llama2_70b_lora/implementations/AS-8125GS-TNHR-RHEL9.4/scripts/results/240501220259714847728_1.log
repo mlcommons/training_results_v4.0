@@ -1,0 +1,924 @@
++ echo 'Beginning trial 1 of 1'
+Beginning trial 1 of 1
++ [[ 1 == 1 ]]
++ bash -c 'echo -n '\''Clearing cache on '\'' && hostname && sync && sudo /sbin/sysctl vm.drop_caches=3'
+Clearing cache on smciserver
+vm.drop_caches = 3
++ docker exec -it --env=CP --env=CUBLAS_FORCE_XMMA_KERNEL_INIT --env=CUDA_DEVICE_MAX_CONNECTIONS --env=CUDNN_FRONTEND_ATTN_DP_WORKSPACE_LIMIT --env=DGXNGPU --env=DGXNNODES --env=DGXSYSTEM --env=FP8 --env=FP8_AMAX_ALGO --env=FP8_AMAX_HISTORY --env=FP8_DPA --env=FP8_REDUCE_AMAX --env=HYDRA_FULL_ERROR --env=LORA_A2A --env=MAX_STEPS --env=MBS --env=MC_TP_OVERLAP_AG --env=MC_TP_OVERLAP_RS --env=MC_TP_OVERLAP_RS_DGRAD --env=MINIBS --env=NCCL_CFG_PATH --env=NCCL_NVLS_ENABLE --env=NVTE_FLASH_ATTN --env=NVTE_FP8_DPA_BWD --env=NVTE_FUSED_ATTN --env=NVTE_RS_STRIDED_ATOMIC --env=POSSIBLE_USER_WARNINGS --env=PP --env=SKIP_EVALS --env=SP --env=TORCH_NCCL_AVOID_RECORD_STREAMS --env=TP --env=TP_COMM_OVERLAP --env=VAL_CHECK_INTERVAL --env=WALLTIME --env=WALLTIME_MINUTES --env=WARMUP --env=DATADIR --env=MODEL --env=DGXSYSTEM --env=SEED llama2_lora ./run_and_time.sh
+./run_and_time.sh: line 61: [: : integer expression expected
+W0501 22:03:53.288000 139692391809664 torch/distributed/run.py:757] 
+W0501 22:03:53.288000 139692391809664 torch/distributed/run.py:757] *****************************************
+W0501 22:03:53.288000 139692391809664 torch/distributed/run.py:757] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W0501 22:03:53.288000 139692391809664 torch/distributed/run.py:757] *****************************************
+FlashAttention Installed
+FlashAttention Installed
+FlashAttention Installed
+FlashAttention Installed
+FlashAttention Installed
+FlashAttention Installed
+FlashAttention Installed
+FlashAttention Installed
+[NeMo W 2024-05-01 22:04:11 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/hydra/_internal/defaults_list.py:251: UserWarning: In 'megatron_gpt_peft_tuning_config': Defaults list is missing `_self_`. See https://hydra.cc/docs/1.2/upgrades/1.0_to_1.1/default_composition_order for more information
+      warnings.warn(msg, UserWarning)
+    
+[NeMo W 2024-05-01 22:04:11 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/hydra/_internal/hydra.py:119: UserWarning: Future Hydra versions will no longer change working directory at job runtime by default.
+    See https://hydra.cc/docs/1.2/upgrades/1.1_to_1.2/changes_to_job_working_dir/ for more information.
+      ret = run_job(
+    
+[NeMo I 2024-05-01 22:04:11 train:59] 
+    
+    ************** Experiment configuration ***********
+[NeMo I 2024-05-01 22:04:11 train:60] 
+    model:
+      ub_tp_comm_overlap_cfg:
+        qkv_fprop:
+          method: ring_exchange
+          aggregate: 0
+        fc1_fprop:
+          method: ring_exchange
+          aggregate: 0
+        proj_dgrad:
+          method: ring_exchange
+          aggregate: 0
+        fc2_dgrad:
+          method: ring_exchange
+          aggregate: 0
+        proj_fprop:
+          method: pipeline
+          num_sm: 32
+          cga_size: 2
+          num_splits: 4
+          set_sm_margin: 1
+          atomic_gemm: 1
+        fc2_fprop:
+          method: pipeline
+          num_sm: 16
+          cga_size: 2
+          num_splits: 4
+          set_sm_margin: 1
+          atomic_gemm: 1
+        qkv_dgrad:
+          method: bulk
+          num_sm: 4
+          cga_size: 2
+          set_sm_margin: 0
+        fc1_dgrad:
+          method: bulk
+          num_sm: 2
+          cga_size: 2
+          set_sm_margin: 0
+      mcore_gpt: true
+      seed: 1
+      tensor_model_parallel_size: 4
+      pipeline_model_parallel_size: 1
+      context_parallel_size: 1
+      cpu_offloading: false
+      global_batch_size: 8
+      micro_batch_size: 1
+      max_position_embeddings: 8192
+      encoder_seq_length: 8192
+      restore_from_path: /ckpt
+      resume_from_checkpoint: null
+      save_nemo_on_validation_end: false
+      sync_batch_comm: false
+      megatron_amp_O2: true
+      sequence_parallel: 1
+      activations_checkpoint_granularity: null
+      activations_checkpoint_method: null
+      activations_checkpoint_num_layers: null
+      activations_checkpoint_layers_per_pipeline: null
+      answer_only_loss: true
+      gradient_as_bucket_view: false
+      hidden_dropout: 0.0
+      attention_dropout: 0.0
+      ffn_dropout: 0.0
+      bias_activation_fusion: true
+      bias_dropout_add_fusion: false
+      transformer_engine: true
+      fp8: true
+      fp8_params: true
+      fp8_hybrid: true
+      fp8_amax_history_len: 4
+      fp8_amax_compute_algo: most_recent
+      reduce_amax: false
+      fp8_e4m3: false
+      fp8_interval: 1
+      fp8_margin: 0
+      fp8_dot_product_attention: 1
+      fp8_activation_input_store: 0
+      apply_rope_fusion: true
+      disable_parameter_transpose_cache: true
+      ub_tp_comm_overlap: true
+      tp_comm_overlap_ag: true
+      tp_comm_overlap_rs: true
+      tp_comm_overlap_rs_dgrad: false
+      batch_p2p_comm: 'False'
+      virtual_pipeline_model_parallel_size: 1
+      sharp: false
+      nccl_communicator_config_path: conf/nccl/custom_communicator_cta.yaml
+      peft:
+        peft_scheme: lora
+        restore_from_path: null
+        lora_tuning:
+          adapter_dim: 16
+          alpha: 32
+          adapter_dropout: 0.1
+          dropout_position: pre
+          target_modules:
+          - attention
+          column_init_method: kaiming
+          row_init_method: zero
+          layer_selection: null
+          weight_tying: false
+          position_embedding_strategy: null
+          a2a_experimental: 1
+      data:
+        multiprocessing_context: spawn
+        pin_memory: true
+        sample_weight: constant
+        validation_drop_last: false
+        train_ds:
+          file_names:
+          - /data/train.npy
+          packed_sequence: true
+          packed_sequence_return_cu_seqlen: false
+          index_mapping_dir: /results/data_index/train
+          global_batch_size: 8
+          micro_batch_size: 1
+          shuffle: true
+          num_workers: 1
+          memmap_workers: 2
+          pin_memory: true
+          max_seq_length: 8192
+          min_seq_length: 1
+          drop_last: true
+          concat_sampling_probabilities:
+          - 1.0
+          label_key: output
+          add_eos: true
+          add_sep: false
+          add_bos: false
+          truncation_field: input
+          prompt_template: '{input} {output}'
+          truncation_method: right
+          seed: 1
+        validation_ds:
+          file_names:
+          - /data/validation.npy
+          packed_sequence: true
+          packed_sequence_return_cu_seqlen: false
+          index_mapping_dir: /results/data_index/val
+          names: null
+          global_batch_size: 8
+          micro_batch_size: 1
+          shuffle: false
+          num_workers: 1
+          memmap_workers: 2
+          pin_memory: true
+          max_seq_length: 8192
+          min_seq_length: 1
+          drop_last: false
+          label_key: output
+          add_eos: true
+          add_sep: false
+          add_bos: false
+          write_predictions_to_file: false
+          output_file_path_prefix: null
+          truncation_field: input
+          prompt_template: '{input} {output}'
+          tokens_to_generate: 32
+          truncation_method: right
+          metric:
+            name: loss
+            average: null
+            num_classes: null
+      optim:
+        name: fused_adam
+        lr: 0.0004
+        weight_decay: 0.0001
+        betas:
+        - 0.9
+        - 0.999
+        eps: 1.0e-08
+        amsgrad: false
+        sched:
+          name: CosineAnnealing
+          warmup_ratio: 0.0
+          min_lr: 0.0
+          constant_steps: 0
+          monitor: val_loss
+          reduce_on_plateau: false
+      custom:
+        warmup: true
+        warmup_train_steps: 5
+        warmup_validation_steps: 5
+        reset_fp8_stats_after_warmup: 1
+    name: megatron_gpt_peft_lora_tuning
+    trainer:
+      devices: 8
+      num_nodes: 1
+      accelerator: gpu
+      precision: bf16-mixed
+      max_steps: 1024
+      val_check_interval: 192
+      check_val_every_n_epoch: null
+      log_every_n_steps: 0
+      gradient_clip_val: 0.3
+      gradient_clip_algorithm: norm
+      num_sanity_val_steps: 0
+      max_epochs: 1000
+      limit_val_batches: 1.0
+      limit_train_batches: 1.0
+      limit_test_batches: 0
+      logger: false
+      enable_checkpointing: false
+      use_distributed_sampler: false
+      enable_progress_bar: false
+    exp_manager:
+      explicit_log_dir: null
+      exp_dir: /results
+      create_wandb_logger: false
+      resume_if_exists: false
+      resume_ignore_no_checkpoint: true
+      create_checkpoint_callback: false
+      log_global_rank_0_only: true
+      create_early_stopping_callback: false
+      create_tensorboard_logger: false
+    
+[NeMo W 2024-05-01 22:04:11 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/pytorch_lightning/_graveyard/precision.py:49: The `MixedPrecisionPlugin` is deprecated. Use `pytorch_lightning.plugins.precision.MixedPrecision` instead.
+    
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+`Trainer(limit_train_batches=1.0)` was configured so 100% of the batches per epoch will be used..
+`Trainer(limit_val_batches=1.0)` was configured so 100% of the batches will be used..
+[NeMo I 2024-05-01 22:04:11 save_restore_connector:134] Restoration will occur within pre-extracted directory : `/ckpt`.
+[NeMo I 2024-05-01 22:04:11 save_restore_connector:134] Restoration will occur within pre-extracted directory : `/ckpt`.
+[W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+[W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+[W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+[W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+[W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: expert_model_parallel_size in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: finalize_model_grads_func in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: use_te_rng_tracker in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_bulk_wgrad in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_bulk_dgrad in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_split_ag in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_atomic_ag in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_split_rs in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_atomic_rs in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: defer_embedding_wgrad_compute in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: pipeline_model_parallel_split_rank in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: cpu_offloading_num_layers in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: _cpu_offloading_context in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: cpu_offloading_activations in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: cpu_offloading_weights in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: barrier_with_L1_time in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+[NeMo I 2024-05-01 22:04:12 megatron_init:265] Rank 0 has data parallel group : [0, 4]
+[NeMo I 2024-05-01 22:04:12 megatron_init:271] Rank 0 has combined group of data parallel and context parallel : [0, 4]
+[NeMo I 2024-05-01 22:04:12 megatron_init:276] All data parallel group ranks with context parallel combined: [[0, 4], [1, 5], [2, 6], [3, 7]]
+[NeMo I 2024-05-01 22:04:12 megatron_init:279] Ranks 0 has data parallel rank: 0
+[NeMo I 2024-05-01 22:04:12 megatron_init:287] Rank 0 has context parallel group: [0]
+[NeMo I 2024-05-01 22:04:12 megatron_init:290] All context parallel group ranks: [[0], [1], [2], [3], [4], [5], [6], [7]]
+[NeMo I 2024-05-01 22:04:12 megatron_init:291] Ranks 0 has context parallel rank: 0
+[NeMo I 2024-05-01 22:04:12 megatron_init:298] Rank 0 has model parallel group: [0, 1, 2, 3]
+[NeMo I 2024-05-01 22:04:12 megatron_init:299] All model parallel group ranks: [[0, 1, 2, 3], [4, 5, 6, 7]]
+[NeMo I 2024-05-01 22:04:12 megatron_init:308] Rank 0 has tensor model parallel group: [0, 1, 2, 3]
+[NeMo I 2024-05-01 22:04:12 megatron_init:312] All tensor model parallel group ranks: [[0, 1, 2, 3], [4, 5, 6, 7]]
+[NeMo I 2024-05-01 22:04:12 megatron_init:313] Rank 0 has tensor model parallel rank: 0
+[NeMo I 2024-05-01 22:04:12 megatron_init:333] Rank 0 has pipeline model parallel group: [0]
+[NeMo I 2024-05-01 22:04:12 megatron_init:345] Rank 0 has embedding group: [0]
+[NeMo I 2024-05-01 22:04:12 megatron_init:351] All pipeline model parallel group ranks: [[0], [1], [2], [3], [4], [5], [6], [7]]
+[NeMo I 2024-05-01 22:04:12 megatron_init:352] Rank 0 has pipeline model parallel rank 0
+[NeMo I 2024-05-01 22:04:12 megatron_init:353] All embedding group ranks: [[0], [1], [2], [3], [4], [5], [6], [7]]
+[NeMo I 2024-05-01 22:04:12 megatron_init:354] Rank 0 has embedding rank: 0
+[W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+24-05-01 22:04:12 - PID:222 - rank:(0, 0, 0, 0) - microbatches.py:39 - INFO - setting number of micro-batches to constant 4
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: expert_model_parallel_size in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: finalize_model_grads_func in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: use_te_rng_tracker in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_bulk_wgrad in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_bulk_dgrad in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_split_ag in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_atomic_ag in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_split_rs in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_atomic_rs in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: defer_embedding_wgrad_compute in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: pipeline_model_parallel_split_rank in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: cpu_offloading_num_layers in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: _cpu_offloading_context in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: cpu_offloading_activations in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: cpu_offloading_weights in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: barrier_with_L1_time in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[W init.cpp:767] Warning: nvfuser is no longer supported in torch script, use _jit_set_nvfuser_enabled is deprecated and a no-op (function operator())
+[NeMo I 2024-05-01 22:04:12 tokenizer_utils:187] Getting SentencePiece with model: /ckpt/0801dc76a7e142dab9b1e7c89a52f65f_tokenizer.model
+[NeMo I 2024-05-01 22:04:12 megatron_base_model:586] Padded vocab_size: 32256, original vocab_size: 32000, dummy tokens: 256.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: expert_model_parallel_size in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: finalize_model_grads_func in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: use_te_rng_tracker in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_bulk_wgrad in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_bulk_dgrad in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_split_ag in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_atomic_ag in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_split_rs in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: tp_comm_atomic_rs in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: defer_embedding_wgrad_compute in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: pipeline_model_parallel_split_rank in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: cpu_offloading_num_layers in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: _cpu_offloading_context in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: cpu_offloading_activations in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: cpu_offloading_weights in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:1147] The model: CustomMegatronGPTSFTModel() does not have field.name: barrier_with_L1_time in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:499] apply_query_key_layer_scaling is only enabled when using FP16, setting it to False and setting NVTE_APPLY_QK_LAYER_SCALING=0
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: activation_func_fp8_input_store in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: num_moe_experts in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: window_size in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: qk_layernorm in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: test_mode in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: memory_efficient_layer_norm in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: fp8_wgrad in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: fp8_multi_head_attention in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: moe_router_load_balancing_type in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: moe_router_topk in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: moe_grouped_gemm in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: moe_aux_loss_coeff in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: moe_z_loss_coeff in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: moe_input_jitter_eps in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: moe_token_dropping in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: moe_token_dispatcher_type in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: moe_per_layer_logging in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: clone_scatter_output_in_embedding in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: enable_cuda_graph in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+[NeMo W 2024-05-01 22:04:12 megatron_base_model:558] The model: CustomMegatronGPTSFTModel() does not have field.name: rotary_percent in its cfg. Add this key to cfg or config_mapping to make to make it configurable.
+Initializing distributed: GLOBAL_RANK: 4, MEMBER: 5/8
+Initializing distributed: GLOBAL_RANK: 6, MEMBER: 7/8
+Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/8
+Initializing distributed: GLOBAL_RANK: 3, MEMBER: 4/8
+Initializing distributed: GLOBAL_RANK: 7, MEMBER: 8/8
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/8
+Initializing distributed: GLOBAL_RANK: 2, MEMBER: 3/8
+Initializing distributed: GLOBAL_RANK: 5, MEMBER: 6/8
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 8 processes
+----------------------------------------------------------------------------------------------------
+
+[NeMo W 2024-05-01 22:04:12 nemo_logging:349] /usr/local/lib/python3.10/dist-packages/torch/distributed/distributed_c10d.py:1507: UserWarning: pg_options._timeout was specified, but timeout kwarg has a default value that will always override it. 
+      warnings.warn(
+    
+[smciserver:227  :0:227] Caught signal 11 (Segmentation fault: address not mapped to object at address 0xa00020000000a)
+[smciserver:229  :0:229] Caught signal 11 (Segmentation fault: address not mapped to object at address 0xa00020000000a)
+[smciserver:228  :0:228] Caught signal 11 (Segmentation fault: address not mapped to object at address 0x28)
+[smciserver:224  :0:224] Caught signal 11 (Segmentation fault: address not mapped to object at address 0x1008)
+[smciserver:226  :0:226] Caught signal 11 (Segmentation fault: address not mapped to object at address 0x28)
+[smciserver:223  :0:223] Caught signal 11 (Segmentation fault: address not mapped to object at address 0x28)
+[smciserver:225  :0:225] Caught signal 11 (Segmentation fault: address not mapped to object at address 0x28)
+[smciserver:222  :0:222] Caught signal 11 (Segmentation fault: address not mapped to object at address 0x1008)
+==== backtrace (tid:    227) ====
+ 0 0x0000000000042520 __sigaction()  ???:0
+ 1 0x000000000004d128 ompi_group_increment_proc_count()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/group/group_init.c:229
+ 2 0x000000000004d128 opal_atomic_add_fetch_32()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/../opal/include/opal/sys/atomic_impl.h:384
+ 3 0x000000000004d128 opal_thread_add_fetch_32()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/../opal/threads/thread_usage.h:152
+ 4 0x000000000004d128 opal_obj_update()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/../opal/class/opal_object.h:534
+ 5 0x000000000004d128 ompi_group_increment_proc_count()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/group/group_init.c:226
+ 6 0x000000000004d9e9 ompi_group_incl_plist()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/group/group_plist.c:128
+ 7 0x000000000007421b PMPI_Group_incl()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/mpi/c/profile/pgroup_incl.c:87
+ 8 0x0000000004f1ea5d c10d::ProcessGroupMPI::createProcessGroupMPI()  ???:0
+ 9 0x0000000000c35470 pybind11::cpp_function::initialize<torch::distributed::c10d::(anonymous namespace)::c10d_init(_object*, _object*)::{lambda(std::vector<int, std::allocator<int> >)#74}, c10::intrusive_ptr<c10d::ProcessGroupMPI, c10::detail::intrusive_target_default_null_type<c10d::ProcessGroupMPI> >, std::vector<int, std::allocator<int> >, pybind11::name, pybind11::scope, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(torch::distributed::c10d::(anonymous namespace)::c10d_init(_object*, _object*)::{lambda(std::vector<int, std::allocator<int> >)#74}&&, c10::intrusive_ptr<c10d::ProcessGroupMPI, c10::detail::intrusive_target_default_null_type<c10d::ProcessGroupMPI> > (*)(std::vector<int, std::allocator<int> >), pybind11::name const&, pybind11::scope const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#3}::_FUN()  init.cpp:0
+10 0x000000000042efb7 pybind11::cpp_function::dispatcher()  :0
+11 0x000000000015a10e PyObject_CallFunctionObjArgs()  ???:0
+12 0x0000000000150a7b _PyObject_MakeTpCall()  ???:0
+13 0x0000000000149629 _PyEval_EvalFrameDefault()  ???:0
+14 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+15 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+16 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+17 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+18 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+19 0x0000000000169492 PyObject_Call()  ???:0
+20 0x00000000001455d7 _PyEval_EvalFrameDefault()  ???:0
+21 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+22 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+23 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+24 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+25 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+26 0x000000000014345c _PyEval_EvalFrameDefault()  ???:0
+27 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+28 0x000000000014345c _PyEval_EvalFrameDefault()  ???:0
+29 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+30 0x000000000014345c _PyEval_EvalFrameDefault()  ???:0
+31 0x00000000001687f1 PyMethod_New()  ???:0
+32 0x0000000000148cfa _PyEval_EvalFrameDefault()  ???:0
+33 0x00000000001687f1 PyMethod_New()  ???:0
+34 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+35 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+36 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+37 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+38 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+39 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+40 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+41 0x00000000001687f1 PyMethod_New()  ???:0
+42 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+43 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+44 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+45 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+46 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+47 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+48 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+49 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+50 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+51 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+52 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+53 0x000000000013f9c6 _PyArg_ParseTuple_SizeT()  ???:0
+54 0x0000000000235256 PyEval_EvalCode()  ???:0
+55 0x0000000000260108 PyUnicode_Tailmatch()  ???:0
+56 0x00000000002599cb PyInit__collections()  ???:0
+=================================
+==== backtrace (tid:    229) ====
+ 0 0x0000000000042520 __sigaction()  ???:0
+ 1 0x000000000004d128 ompi_group_increment_proc_count()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/group/group_init.c:229
+ 2 0x000000000004d128 opal_atomic_add_fetch_32()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/../opal/include/opal/sys/atomic_impl.h:384
+ 3 0x000000000004d128 opal_thread_add_fetch_32()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/../opal/threads/thread_usage.h:152
+ 4 0x000000000004d128 opal_obj_update()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/../opal/class/opal_object.h:534
+ 5 0x000000000004d128 ompi_group_increment_proc_count()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/group/group_init.c:226
+ 6 0x000000000004d9e9 ompi_group_incl_plist()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/group/group_plist.c:128
+ 7 0x000000000007421b PMPI_Group_incl()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/mpi/c/profile/pgroup_incl.c:87
+ 8 0x0000000004f1ea5d c10d::ProcessGroupMPI::createProcessGroupMPI()  ???:0
+ 9 0x0000000000c35470 pybind11::cpp_function::initialize<torch::distributed::c10d::(anonymous namespace)::c10d_init(_object*, _object*)::{lambda(std::vector<int, std::allocator<int> >)#74}, c10::intrusive_ptr<c10d::ProcessGroupMPI, c10::detail::intrusive_target_default_null_type<c10d::ProcessGroupMPI> >, std::vector<int, std::allocator<int> >, pybind11::name, pybind11::scope, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(torch::distributed::c10d::(anonymous namespace)::c10d_init(_object*, _object*)::{lambda(std::vector<int, std::allocator<int> >)#74}&&, c10::intrusive_ptr<c10d::ProcessGroupMPI, c10::detail::intrusive_target_default_null_type<c10d::ProcessGroupMPI> > (*)(std::vector<int, std::allocator<int> >), pybind11::name const&, pybind11::scope const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#3}::_FUN()  init.cpp:0
+10 0x000000000042efb7 pybind11::cpp_function::dispatcher()  :0
+11 0x000000000015a10e PyObject_CallFunctionObjArgs()  ???:0
+12 0x0000000000150a7b _PyObject_MakeTpCall()  ???:0
+13 0x0000000000149629 _PyEval_EvalFrameDefault()  ???:0
+14 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+15 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+16 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+17 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+18 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+19 0x0000000000169492 PyObject_Call()  ???:0
+20 0x00000000001455d7 _PyEval_EvalFrameDefault()  ???:0
+21 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+22 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+23 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+24 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+25 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+26 0x000000000014345c _PyEval_EvalFrameDefault()  ???:0
+27 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+28 0x000000000014345c _PyEval_EvalFrameDefault()  ???:0
+29 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+30 0x000000000014345c _PyEval_EvalFrameDefault()  ???:0
+31 0x00000000001687f1 PyMethod_New()  ???:0
+32 0x0000000000148cfa _PyEval_EvalFrameDefault()  ???:0
+33 0x00000000001687f1 PyMethod_New()  ???:0
+34 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+35 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+36 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+37 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+38 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+39 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+40 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+41 0x00000000001687f1 PyMethod_New()  ???:0
+42 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+43 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+44 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+45 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+46 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+47 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+48 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+49 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+50 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+51 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+52 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+53 0x000000000013f9c6 _PyArg_ParseTuple_SizeT()  ???:0
+54 0x0000000000235256 PyEval_EvalCode()  ???:0
+55 0x0000000000260108 PyUnicode_Tailmatch()  ???:0
+56 0x00000000002599cb PyInit__collections()  ???:0
+=================================
+==== backtrace (tid:    228) ====
+ 0 0x0000000000042520 __sigaction()  ???:0
+ 1 0x0000000000042b60 ompi_dpm_group_is_dyn()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/dpm/dpm.c:1267
+ 2 0x0000000000042b60 ompi_dpm_group_is_dyn()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/dpm/dpm.c:1268
+ 3 0x0000000000042b60 ompi_dpm_mark_dyncomm()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/dpm/dpm.c:1299
+ 4 0x0000000000034388 ompi_comm_set_nb()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/communicator/comm.c:215
+ 5 0x00000000000346ba ompi_comm_set()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/communicator/comm.c:116
+ 6 0x0000000000034ef3 ompi_comm_create()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/communicator/comm.c:344
+ 7 0x000000000006b24a PMPI_Comm_create()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/mpi/c/profile/pcomm_create.c:66
+ 8 0x0000000004f1ea87 c10d::ProcessGroupMPI::createProcessGroupMPI()  ???:0
+ 9 0x0000000000c35470 pybind11::cpp_function::initialize<torch::distributed::c10d::(anonymous namespace)::c10d_init(_object*, _object*)::{lambda(std::vector<int, std::allocator<int> >)#74}, c10::intrusive_ptr<c10d::ProcessGroupMPI, c10::detail::intrusive_target_default_null_type<c10d::ProcessGroupMPI> >, std::vector<int, std::allocator<int> >, pybind11::name, pybind11::scope, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(torch::distributed::c10d::(anonymous namespace)::c10d_init(_object*, _object*)::{lambda(std::vector<int, std::allocator<int> >)#74}&&, c10::intrusive_ptr<c10d::ProcessGroupMPI, c10::detail::intrusive_target_default_null_type<c10d::ProcessGroupMPI> > (*)(std::vector<int, std::allocator<int> >), pybind11::name const&, pybind11::scope const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#3}::_FUN()  init.cpp:0
+10 0x000000000042efb7 pybind11::cpp_function::dispatcher()  :0
+11 0x000000000015a10e PyObject_CallFunctionObjArgs()  ???:0
+12 0x0000000000150a7b _PyObject_MakeTpCall()  ???:0
+13 0x0000000000149629 _PyEval_EvalFrameDefault()  ???:0
+14 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+15 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+16 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+17 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+18 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+19 0x0000000000169492 PyObject_Call()  ???:0
+20 0x00000000001455d7 _PyEval_EvalFrameDefault()  ???:0
+21 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+22 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+23 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+24 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+25 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+26 0x000000000014345c _PyEval_EvalFrameDefault()  ???:0
+27 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+28 0x000000000014345c _PyEval_EvalFrameDefault()  ???:0
+29 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+30 0x000000000014345c _PyEval_EvalFrameDefault()  ???:0
+31 0x00000000001687f1 PyMethod_New()  ???:0
+32 0x0000000000148cfa _PyEval_EvalFrameDefault()  ???:0
+33 0x00000000001687f1 PyMethod_New()  ???:0
+34 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+35 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+36 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+37 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+38 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+39 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+40 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+41 0x00000000001687f1 PyMethod_New()  ???:0
+42 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+43 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+44 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+45 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+46 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+47 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+48 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+49 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+50 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+51 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+52 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+53 0x000000000013f9c6 _PyArg_ParseTuple_SizeT()  ???:0
+54 0x0000000000235256 PyEval_EvalCode()  ???:0
+55 0x0000000000260108 PyUnicode_Tailmatch()  ???:0
+56 0x00000000002599cb PyInit__collections()  ???:0
+=================================
+==== backtrace (tid:    224) ====
+ 0 0x0000000000042520 __sigaction()  ???:0
+ 1 0x000000000004d128 ompi_group_increment_proc_count()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/group/group_init.c:229
+ 2 0x000000000004d128 opal_atomic_add_fetch_32()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/../opal/include/opal/sys/atomic_impl.h:384
+ 3 0x000000000004d128 opal_thread_add_fetch_32()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/../opal/threads/thread_usage.h:152
+ 4 0x000000000004d128 opal_obj_update()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/../opal/class/opal_object.h:534
+ 5 0x000000000004d128 ompi_group_increment_proc_count()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/group/group_init.c:226
+ 6 0x000000000004d9e9 ompi_group_incl_plist()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/group/group_plist.c:128
+ 7 0x000000000007421b PMPI_Group_incl()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/mpi/c/profile/pgroup_incl.c:87
+ 8 0x0000000004f1ea5d c10d::ProcessGroupMPI::createProcessGroupMPI()  ???:0
+ 9 0x0000000000c35470 pybind11::cpp_function::initialize<torch::distributed::c10d::(anonymous namespace)::c10d_init(_object*, _object*)::{lambda(std::vector<int, std::allocator<int> >)#74}, c10::intrusive_ptr<c10d::ProcessGroupMPI, c10::detail::intrusive_target_default_null_type<c10d::ProcessGroupMPI> >, std::vector<int, std::allocator<int> >, pybind11::name, pybind11::scope, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(torch::distributed::c10d::(anonymous namespace)::c10d_init(_object*, _object*)::{lambda(std::vector<int, std::allocator<int> >)#74}&&, c10::intrusive_ptr<c10d::ProcessGroupMPI, c10::detail::intrusive_target_default_null_type<c10d::ProcessGroupMPI> > (*)(std::vector<int, std::allocator<int> >), pybind11::name const&, pybind11::scope const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#3}::_FUN()  init.cpp:0
+10 0x000000000042efb7 pybind11::cpp_function::dispatcher()  :0
+11 0x000000000015a10e PyObject_CallFunctionObjArgs()  ???:0
+12 0x0000000000150a7b _PyObject_MakeTpCall()  ???:0
+13 0x0000000000149629 _PyEval_EvalFrameDefault()  ???:0
+14 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+15 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+16 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+17 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+18 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+19 0x0000000000169492 PyObject_Call()  ???:0
+20 0x00000000001455d7 _PyEval_EvalFrameDefault()  ???:0
+21 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+22 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+23 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+24 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+25 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+26 0x000000000014345c _PyEval_EvalFrameDefault()  ???:0
+27 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+28 0x000000000014345c _PyEval_EvalFrameDefault()  ???:0
+29 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+30 0x000000000014345c _PyEval_EvalFrameDefault()  ???:0
+31 0x00000000001687f1 PyMethod_New()  ???:0
+32 0x0000000000148cfa _PyEval_EvalFrameDefault()  ???:0
+33 0x00000000001687f1 PyMethod_New()  ???:0
+34 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+35 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+36 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+37 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+38 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+39 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+40 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+41 0x00000000001687f1 PyMethod_New()  ???:0
+42 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+43 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+44 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+45 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+46 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+47 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+48 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+49 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+50 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+51 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+52 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+53 0x000000000013f9c6 _PyArg_ParseTuple_SizeT()  ???:0
+54 0x0000000000235256 PyEval_EvalCode()  ???:0
+55 0x0000000000260108 PyUnicode_Tailmatch()  ???:0
+56 0x00000000002599cb PyInit__collections()  ???:0
+=================================
+==== backtrace (tid:    222) ====
+ 0 0x0000000000042520 __sigaction()  ???:0
+ 1 0x000000000004d128 ompi_group_increment_proc_count()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/group/group_init.c:229
+ 2 0x000000000004d128 opal_atomic_add_fetch_32()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/../opal/include/opal/sys/atomic_impl.h:384
+ 3 0x000000000004d128 opal_thread_add_fetch_32()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/../opal/threads/thread_usage.h:152
+ 4 0x000000000004d128 opal_obj_update()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/../opal/class/opal_object.h:534
+ 5 0x000000000004d128 ompi_group_increment_proc_count()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/group/group_init.c:226
+ 6 0x000000000004d9e9 ompi_group_incl_plist()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/group/group_plist.c:128
+ 7 0x000000000007421b PMPI_Group_incl()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/mpi/c/profile/pgroup_incl.c:87
+ 8 0x0000000004f1ea5d c10d::ProcessGroupMPI::createProcessGroupMPI()  ???:0
+ 9 0x0000000000c35470 pybind11::cpp_function::initialize<torch::distributed::c10d::(anonymous namespace)::c10d_init(_object*, _object*)::{lambda(std::vector<int, std::allocator<int> >)#74}, c10::intrusive_ptr<c10d::ProcessGroupMPI, c10::detail::intrusive_target_default_null_type<c10d::ProcessGroupMPI> >, std::vector<int, std::allocator<int> >, pybind11::name, pybind11::scope, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(torch::distributed::c10d::(anonymous namespace)::c10d_init(_object*, _object*)::{lambda(std::vector<int, std::allocator<int> >)#74}&&, c10::intrusive_ptr<c10d::ProcessGroupMPI, c10::detail::intrusive_target_default_null_type<c10d::ProcessGroupMPI> > (*)(std::vector<int, std::allocator<int> >), pybind11::name const&, pybind11::scope const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#3}::_FUN()  init.cpp:0
+10 0x000000000042efb7 pybind11::cpp_function::dispatcher()  :0
+11 0x000000000015a10e PyObject_CallFunctionObjArgs()  ???:0
+12 0x0000000000150a7b _PyObject_MakeTpCall()  ???:0
+13 0x0000000000149629 _PyEval_EvalFrameDefault()  ???:0
+14 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+15 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+16 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+17 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+18 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+19 0x0000000000169492 PyObject_Call()  ???:0
+20 0x00000000001455d7 _PyEval_EvalFrameDefault()  ???:0
+21 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+22 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+23 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+24 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+25 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+26 0x000000000014345c _PyEval_EvalFrameDefault()  ???:0
+27 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+28 0x000000000014345c _PyEval_EvalFrameDefault()  ???:0
+29 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+30 0x000000000014345c _PyEval_EvalFrameDefault()  ???:0
+31 0x00000000001687f1 PyMethod_New()  ???:0
+32 0x0000000000148cfa _PyEval_EvalFrameDefault()  ???:0
+33 0x00000000001687f1 PyMethod_New()  ???:0
+34 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+35 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+36 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+37 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+38 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+39 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+40 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+41 0x00000000001687f1 PyMethod_New()  ???:0
+42 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+43 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+44 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+45 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+46 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+47 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+48 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+49 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+50 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+51 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+52 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+53 0x000000000013f9c6 _PyArg_ParseTuple_SizeT()  ???:0
+54 0x0000000000235256 PyEval_EvalCode()  ???:0
+55 0x0000000000260108 PyUnicode_Tailmatch()  ???:0
+56 0x00000000002599cb PyInit__collections()  ???:0
+=================================
+==== backtrace (tid:    225) ====
+ 0 0x0000000000042520 __sigaction()  ???:0
+ 1 0x0000000000042b60 ompi_dpm_group_is_dyn()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/dpm/dpm.c:1267
+ 2 0x0000000000042b60 ompi_dpm_group_is_dyn()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/dpm/dpm.c:1268
+ 3 0x0000000000042b60 ompi_dpm_mark_dyncomm()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/dpm/dpm.c:1299
+ 4 0x0000000000034388 ompi_comm_set_nb()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/communicator/comm.c:215
+ 5 0x00000000000346ba ompi_comm_set()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/communicator/comm.c:116
+ 6 0x0000000000034ef3 ompi_comm_create()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/communicator/comm.c:344
+ 7 0x000000000006b24a PMPI_Comm_create()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/mpi/c/profile/pcomm_create.c:66
+ 8 0x0000000004f1ea87 c10d::ProcessGroupMPI::createProcessGroupMPI()  ???:0
+ 9 0x0000000000c35470 pybind11::cpp_function::initialize<torch::distributed::c10d::(anonymous namespace)::c10d_init(_object*, _object*)::{lambda(std::vector<int, std::allocator<int> >)#74}, c10::intrusive_ptr<c10d::ProcessGroupMPI, c10::detail::intrusive_target_default_null_type<c10d::ProcessGroupMPI> >, std::vector<int, std::allocator<int> >, pybind11::name, pybind11::scope, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(torch::distributed::c10d::(anonymous namespace)::c10d_init(_object*, _object*)::{lambda(std::vector<int, std::allocator<int> >)#74}&&, c10::intrusive_ptr<c10d::ProcessGroupMPI, c10::detail::intrusive_target_default_null_type<c10d::ProcessGroupMPI> > (*)(std::vector<int, std::allocator<int> >), pybind11::name const&, pybind11::scope const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#3}::_FUN()  init.cpp:0
+10 0x000000000042efb7 pybind11::cpp_function::dispatcher()  :0
+11 0x000000000015a10e PyObject_CallFunctionObjArgs()  ???:0
+12 0x0000000000150a7b _PyObject_MakeTpCall()  ???:0
+13 0x0000000000149629 _PyEval_EvalFrameDefault()  ???:0
+14 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+15 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+16 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+17 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+18 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+19 0x0000000000169492 PyObject_Call()  ???:0
+20 0x00000000001455d7 _PyEval_EvalFrameDefault()  ???:0
+21 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+22 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+23 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+24 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+25 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+26 0x000000000014345c _PyEval_EvalFrameDefault()  ???:0
+27 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+28 0x000000000014345c _PyEval_EvalFrameDefault()  ???:0
+29 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+30 0x000000000014345c _PyEval_EvalFrameDefault()  ???:0
+31 0x00000000001687f1 PyMethod_New()  ???:0
+32 0x0000000000148cfa _PyEval_EvalFrameDefault()  ???:0
+33 0x00000000001687f1 PyMethod_New()  ???:0
+34 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+35 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+36 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+37 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+38 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+39 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+40 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+41 0x00000000001687f1 PyMethod_New()  ???:0
+42 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+43 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+44 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+45 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+46 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+47 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+48 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+49 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+50 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+51 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+52 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+53 0x000000000013f9c6 _PyArg_ParseTuple_SizeT()  ???:0
+54 0x0000000000235256 PyEval_EvalCode()  ???:0
+55 0x0000000000260108 PyUnicode_Tailmatch()  ???:0
+56 0x00000000002599cb PyInit__collections()  ???:0
+=================================
+==== backtrace (tid:    226) ====
+ 0 0x0000000000042520 __sigaction()  ???:0
+ 1 0x0000000000042b60 ompi_dpm_group_is_dyn()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/dpm/dpm.c:1267
+ 2 0x0000000000042b60 ompi_dpm_group_is_dyn()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/dpm/dpm.c:1268
+ 3 0x0000000000042b60 ompi_dpm_mark_dyncomm()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/dpm/dpm.c:1299
+ 4 0x0000000000034388 ompi_comm_set_nb()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/communicator/comm.c:215
+ 5 0x00000000000346ba ompi_comm_set()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/communicator/comm.c:116
+ 6 0x0000000000034ef3 ompi_comm_create()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/communicator/comm.c:344
+ 7 0x000000000006b24a PMPI_Comm_create()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/mpi/c/profile/pcomm_create.c:66
+ 8 0x0000000004f1ea87 c10d::ProcessGroupMPI::createProcessGroupMPI()  ???:0
+ 9 0x0000000000c35470 pybind11::cpp_function::initialize<torch::distributed::c10d::(anonymous namespace)::c10d_init(_object*, _object*)::{lambda(std::vector<int, std::allocator<int> >)#74}, c10::intrusive_ptr<c10d::ProcessGroupMPI, c10::detail::intrusive_target_default_null_type<c10d::ProcessGroupMPI> >, std::vector<int, std::allocator<int> >, pybind11::name, pybind11::scope, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(torch::distributed::c10d::(anonymous namespace)::c10d_init(_object*, _object*)::{lambda(std::vector<int, std::allocator<int> >)#74}&&, c10::intrusive_ptr<c10d::ProcessGroupMPI, c10::detail::intrusive_target_default_null_type<c10d::ProcessGroupMPI> > (*)(std::vector<int, std::allocator<int> >), pybind11::name const&, pybind11::scope const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#3}::_FUN()  init.cpp:0
+10 0x000000000042efb7 pybind11::cpp_function::dispatcher()  :0
+11 0x000000000015a10e PyObject_CallFunctionObjArgs()  ???:0
+12 0x0000000000150a7b _PyObject_MakeTpCall()  ???:0
+13 0x0000000000149629 _PyEval_EvalFrameDefault()  ???:0
+14 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+15 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+16 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+17 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+18 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+19 0x0000000000169492 PyObject_Call()  ???:0
+20 0x00000000001455d7 _PyEval_EvalFrameDefault()  ???:0
+21 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+22 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+23 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+24 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+25 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+26 0x000000000014345c _PyEval_EvalFrameDefault()  ???:0
+27 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+28 0x000000000014345c _PyEval_EvalFrameDefault()  ???:0
+29 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+30 0x000000000014345c _PyEval_EvalFrameDefault()  ???:0
+31 0x00000000001687f1 PyMethod_New()  ???:0
+32 0x0000000000148cfa _PyEval_EvalFrameDefault()  ???:0
+33 0x00000000001687f1 PyMethod_New()  ???:0
+34 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+35 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+36 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+37 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+38 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+==== backtrace (tid:    223) ====
+39 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+40 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+ 0 0x0000000000042520 __sigaction()  ???:0
+41 0x00000000001687f1 PyMethod_New()  ???:0
+ 1 0x0000000000042b60 ompi_dpm_group_is_dyn()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/dpm/dpm.c:1267
+42 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+ 2 0x0000000000042b60 ompi_dpm_group_is_dyn()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/dpm/dpm.c:1268
+43 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+ 3 0x0000000000042b60 ompi_dpm_mark_dyncomm()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/dpm/dpm.c:1299
+44 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+ 4 0x0000000000034388 ompi_comm_set_nb()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/communicator/comm.c:215
+45 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+ 5 0x00000000000346ba ompi_comm_set()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/communicator/comm.c:116
+46 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+ 6 0x0000000000034ef3 ompi_comm_create()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/communicator/comm.c:344
+47 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+ 7 0x000000000006b24a PMPI_Comm_create()  /build-result/src/hpcx-v2.18-gcc-inbox-ubuntu22.04-cuda12-x86_64/ompi-efbeca7056b93dd17c67b66d1d514d39712e28d6/ompi/mpi/c/profile/pcomm_create.c:66
+48 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+ 8 0x0000000004f1ea87 c10d::ProcessGroupMPI::createProcessGroupMPI()  ???:0
+49 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+ 9 0x0000000000c35470 pybind11::cpp_function::initialize<torch::distributed::c10d::(anonymous namespace)::c10d_init(_object*, _object*)::{lambda(std::vector<int, std::allocator<int> >)#74}, c10::intrusive_ptr<c10d::ProcessGroupMPI, c10::detail::intrusive_target_default_null_type<c10d::ProcessGroupMPI> >, std::vector<int, std::allocator<int> >, pybind11::name, pybind11::scope, pybind11::sibling, pybind11::call_guard<pybind11::gil_scoped_release> >(torch::distributed::c10d::(anonymous namespace)::c10d_init(_object*, _object*)::{lambda(std::vector<int, std::allocator<int> >)#74}&&, c10::intrusive_ptr<c10d::ProcessGroupMPI, c10::detail::intrusive_target_default_null_type<c10d::ProcessGroupMPI> > (*)(std::vector<int, std::allocator<int> >), pybind11::name const&, pybind11::scope const&, pybind11::sibling const&, pybind11::call_guard<pybind11::gil_scoped_release> const&)::{lambda(pybind11::detail::function_call&)#3}::_FUN()  init.cpp:0
+50 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+10 0x000000000042efb7 pybind11::cpp_function::dispatcher()  :0
+51 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+11 0x000000000015a10e PyObject_CallFunctionObjArgs()  ???:0
+52 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+12 0x0000000000150a7b _PyObject_MakeTpCall()  ???:0
+53 0x000000000013f9c6 _PyArg_ParseTuple_SizeT()  ???:0
+13 0x0000000000149629 _PyEval_EvalFrameDefault()  ???:0
+54 0x0000000000235256 PyEval_EvalCode()  ???:0
+14 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+55 0x0000000000260108 PyUnicode_Tailmatch()  ???:0
+15 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+56 0x00000000002599cb PyInit__collections()  ???:0
+16 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+=================================
+17 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+18 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+19 0x0000000000169492 PyObject_Call()  ???:0
+20 0x00000000001455d7 _PyEval_EvalFrameDefault()  ???:0
+21 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+22 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+23 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+24 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+25 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+26 0x000000000014345c _PyEval_EvalFrameDefault()  ???:0
+27 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+28 0x000000000014345c _PyEval_EvalFrameDefault()  ???:0
+29 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+30 0x000000000014345c _PyEval_EvalFrameDefault()  ???:0
+31 0x00000000001687f1 PyMethod_New()  ???:0
+32 0x0000000000148cfa _PyEval_EvalFrameDefault()  ???:0
+33 0x00000000001687f1 PyMethod_New()  ???:0
+34 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+35 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+36 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+37 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+38 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+39 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+40 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+41 0x00000000001687f1 PyMethod_New()  ???:0
+42 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+43 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+44 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+45 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+46 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+47 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+48 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+49 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+50 0x000000000014453c _PyEval_EvalFrameDefault()  ???:0
+51 0x000000000015a9fc _PyFunction_Vectorcall()  ???:0
+52 0x000000000014326d _PyEval_EvalFrameDefault()  ???:0
+53 0x000000000013f9c6 _PyArg_ParseTuple_SizeT()  ???:0
+54 0x0000000000235256 PyEval_EvalCode()  ???:0
+55 0x0000000000260108 PyUnicode_Tailmatch()  ???:0
+56 0x00000000002599cb PyInit__collections()  ???:0
+=================================
+W0501 22:04:48.360000 139692391809664 torch/distributed/elastic/multiprocessing/api.py:906] Sending process 227 closing signal SIGTERM
+W0501 22:05:18.361000 139692391809664 torch/distributed/elastic/multiprocessing/api.py:923] Unable to shutdown process 227 via Signals.SIGTERM, forcefully exiting via Signals.SIGKILL
+E0501 22:05:19.414000 139692391809664 torch/distributed/elastic/multiprocessing/api.py:881] failed (exitcode: -11) local_rank: 0 (pid: 222) of binary: /usr/bin/python
+Traceback (most recent call last):
+  File "/usr/local/bin/torchrun", line 8, in <module>
+    sys.exit(main())
+  File "/usr/local/lib/python3.10/dist-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 347, in wrapper
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/distributed/run.py", line 879, in main
+    run(args)
+  File "/usr/local/lib/python3.10/dist-packages/torch/distributed/run.py", line 870, in run
+    elastic_launch(
+  File "/usr/local/lib/python3.10/dist-packages/torch/distributed/launcher/api.py", line 132, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/usr/local/lib/python3.10/dist-packages/torch/distributed/launcher/api.py", line 263, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+=====================================================
+train.py FAILED
+-----------------------------------------------------
+Failures:
+[1]:
+  time      : 2024-05-01_22:04:48
+  host      : smciserver
+  rank      : 1 (local_rank: 1)
+  exitcode  : -11 (pid: 223)
+  error_file: <N/A>
+  traceback : Signal 11 (SIGSEGV) received by PID 223
+[2]:
+  time      : 2024-05-01_22:04:48
+  host      : smciserver
+  rank      : 2 (local_rank: 2)
+  exitcode  : -11 (pid: 224)
+  error_file: <N/A>
+  traceback : Signal 11 (SIGSEGV) received by PID 224
+[3]:
+  time      : 2024-05-01_22:04:48
+  host      : smciserver
+  rank      : 3 (local_rank: 3)
+  exitcode  : -11 (pid: 225)
+  error_file: <N/A>
+  traceback : Signal 11 (SIGSEGV) received by PID 225
+[4]:
+  time      : 2024-05-01_22:04:48
+  host      : smciserver
+  rank      : 4 (local_rank: 4)
+  exitcode  : -11 (pid: 226)
+  error_file: <N/A>
+  traceback : Signal 11 (SIGSEGV) received by PID 226
+[5]:
+  time      : 2024-05-01_22:04:48
+  host      : smciserver
+  rank      : 6 (local_rank: 6)
+  exitcode  : -11 (pid: 228)
+  error_file: <N/A>
+  traceback : Signal 11 (SIGSEGV) received by PID 228
+[6]:
+  time      : 2024-05-01_22:04:48
+  host      : smciserver
+  rank      : 7 (local_rank: 7)
+  exitcode  : -11 (pid: 229)
+  error_file: <N/A>
+  traceback : Signal 11 (SIGSEGV) received by PID 229
+-----------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2024-05-01_22:04:48
+  host      : smciserver
+  rank      : 0 (local_rank: 0)
+  exitcode  : -11 (pid: 222)
+  error_file: <N/A>
+  traceback : Signal 11 (SIGSEGV) received by PID 222
+=====================================================

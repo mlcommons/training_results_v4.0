@@ -1,0 +1,103 @@
++ echo 'Beginning trial 1 of 5'
+Beginning trial 1 of 5
++ echo ':::DLPAL /nfs/scratch/sd/ResNet50/images/sd+mlperf-nvidia+resnet.sqsh 556 1 compute-hpc-node-73  '\''unknown'\'' DGXH100'
+:::DLPAL /nfs/scratch/sd/ResNet50/images/sd+mlperf-nvidia+resnet.sqsh 556 1 compute-hpc-node-73  'unknown' DGXH100
+++ srun --ntasks=1 --container-name=image_classification_556 mlperf-sysjson.sh
+srun: error: compute-hpc-node-73: task 0: Exited with exit code 1
+the only legal values for MLPERF_STATUS are
+* onprem (means: available on premise)
+* cloud  (means: available in cloud)
+* preview
+* reserach (means: research, devlopment, or internal)
++ echo ':::SYSJSON 
+usage: mlperf-sysjson.sh
+   behavior is controlled by envvars
+   Required:
+   * MLPERF_SUBMITTER
+   * MLPERF_SYSTEM_NAME
+   * MLPERF_STATUS (must be '\''onprem'\'', '\''cloud'\'', '\''preview'\'', or '\''research'\'')
+
+   Required but usually have reasonable defaults:
+   * MLPERF_DIVISION (defaults to '\''closed'\'', may change to '\''open'\'')
+   * MLPERF_NUM_NODES (defaults to DGXNNODES if defined)
+
+   Optional:
+    * MLPERF_HOST_STORAGE_TYPE
+    * MLPERF_HOST_STORAGE_CAPACITY
+    * MLPERF_HOST_NETWORKING
+    * MLPERF_HOST_NETWORKING_TOPOLOGY
+    * MLPERF_HOST_MEMORY_CONFIGURATION
+    * MLPERF_ACCELERATOR_MODEL_NAME
+    * MLPERF_ACCELERATOR_HOST_INTERCONNECT
+    * MLPERF_ACCELERATOR_FREQUENCY
+    * MLPERF_ACCELERATOR_ON_CHIP_MEMORIES
+    * MLPERF_ACCELERATOR_MEMORY_CONFIGURATION
+    * MLPERF_ACCELERATOR_INTERCONNECT
+    * MLPERF_ACCELERATOR_INTERCONNECT_TOPOLOGY
+    * MLPERF_COOLING
+    * MLPERF_HW_NOTES
+
+    Automatically generated:
+    * most of the rest of the fields in the system json, including things like
+      * cpu sockets, cores, model name
+      * accelerator model name, quantity
+      * cuda and library versions'
+:::SYSJSON 
+usage: mlperf-sysjson.sh
+   behavior is controlled by envvars
+   Required:
+   * MLPERF_SUBMITTER
+   * MLPERF_SYSTEM_NAME
+   * MLPERF_STATUS (must be 'onprem', 'cloud', 'preview', or 'research')
+
+   Required but usually have reasonable defaults:
+   * MLPERF_DIVISION (defaults to 'closed', may change to 'open')
+   * MLPERF_NUM_NODES (defaults to DGXNNODES if defined)
+
+   Optional:
+    * MLPERF_HOST_STORAGE_TYPE
+    * MLPERF_HOST_STORAGE_CAPACITY
+    * MLPERF_HOST_NETWORKING
+    * MLPERF_HOST_NETWORKING_TOPOLOGY
+    * MLPERF_HOST_MEMORY_CONFIGURATION
+    * MLPERF_ACCELERATOR_MODEL_NAME
+    * MLPERF_ACCELERATOR_HOST_INTERCONNECT
+    * MLPERF_ACCELERATOR_FREQUENCY
+    * MLPERF_ACCELERATOR_ON_CHIP_MEMORIES
+    * MLPERF_ACCELERATOR_MEMORY_CONFIGURATION
+    * MLPERF_ACCELERATOR_INTERCONNECT
+    * MLPERF_ACCELERATOR_INTERCONNECT_TOPOLOGY
+    * MLPERF_COOLING
+    * MLPERF_HW_NOTES
+
+    Automatically generated:
+    * most of the rest of the fields in the system json, including things like
+      * cpu sockets, cores, model name
+      * accelerator model name, quantity
+      * cuda and library versions
++ srun -N1 -n1 --container-name=image_classification_556 python -c '
+from mlperf_log_utils import mllogger
+mllogger.mlperf_submission_log(mllogger.constants.RESNET)'
+[compute-hpc-node-73:353840] OPAL ERROR: Unreachable in file pmix3x_client.c at line 111
+srun: error: compute-hpc-node-73: task 0: Exited with exit code 1
+--------------------------------------------------------------------------
+The application appears to have been direct launched using "srun",
+but OMPI was not built with SLURM's PMI support and therefore cannot
+execute. There are several options for building PMI support under
+SLURM, depending upon the SLURM version you are using:
+
+  version 16.05 or later: you can use SLURM's PMIx support. This
+  requires that you configure and build SLURM --with-pmix.
+
+  Versions earlier than 16.05: you must use either SLURM's PMI-1 or
+  PMI-2 support. SLURM builds PMI-1 by default, or you can manually
+  install PMI-2. You must then build Open MPI using --with-pmi pointing
+  to the SLURM PMI library location.
+
+Please configure as appropriate and try again.
+--------------------------------------------------------------------------
+*** An error occurred in MPI_Init_thread
+*** on a NULL communicator
+*** MPI_ERRORS_ARE_FATAL (processes in this communicator will now abort,
+***    and potentially your MPI job)
+[compute-hpc-node-73:353840] Local abort before MPI_INIT completed completed successfully, but am not able to aggregate error messages, and not able to guarantee that all other processes were killed!

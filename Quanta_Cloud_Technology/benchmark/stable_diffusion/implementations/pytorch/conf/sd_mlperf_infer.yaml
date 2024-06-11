@@ -1,0 +1,51 @@
+# Copyright (c) 2023-2024, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: stable-diffusion-train
+
+custom:
+  prompts_csv: "/datasets/coco2014/val2014_30k.tsv"
+  num_prompts: null
+  precomputed_coco_activations_path: "/datasets/coco2014/val2014_512x512_30k_stats.npz"
+  clip_cache_dir: "/checkpoints/clip"
+  fid_weights_path: "/checkpoints/inception/pt_inception-2015-12-05-6726825d.pth"
+  sd_checkpoint_dir: null
+  infer_start_step: null
+
+infer:
+  unconditional_guidance_scale: 8.0
+  num_images_per_prompt: 1
+  height: 512
+  width: 512
+  down_factor: 8
+  inference_steps: 50
+  sampler_type: 'DDIM'
+  eta: 0
+  output_type: 'pil'
+  save_to_file: False  # if False, the images will be returned
+  seed: 123
+  prompts: null  # Unused, custom.prompts_dir is used instead
+  save_images_to: null  # if set, the images will be saved to the directory
+  batch_size: 1
+
+trainer:
+  devices: null
+  num_nodes: null
+  accelerator: gpu
+  precision: 16-mixed
+  logger: False # logger provided by exp_manager
+
+model:
+  precision: ${trainer.precision}
+  restore_from_path: null

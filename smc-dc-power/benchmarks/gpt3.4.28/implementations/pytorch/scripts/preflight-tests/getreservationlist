@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [[ "${1:-}" ]]; then
+   reservation_name="$1"
+else
+    echo "usage: getnodelist <reservation-name>"
+    exit 1
+fi
+
+scontrol show res="${reservation_name}" | grep -oP 'Nodes=\K[^ ]+' | xargs scontrol show hostnames

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [[ "${1:-}" ]]; then
+   reservation_name="$1"
+else
+    echo "usage: getnodelist <reservation-name>"
+    exit 1
+fi
+
+sinfo -pbatch --Node --noheader --format='%N|%t|%i' | tr '|' '\t' | grep -Ev '(drain)|(down)|(inval)' | grep -E "$reservation_name" | cut -f1

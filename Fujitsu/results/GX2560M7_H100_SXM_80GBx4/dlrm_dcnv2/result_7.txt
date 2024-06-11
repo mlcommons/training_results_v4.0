@@ -1,0 +1,1151 @@
++ echo 'Beginning trial 8 of 10'
+Beginning trial 8 of 10
++ [[ 1 == 1 ]]
++ bash -c 'echo -n '\''Clearing cache on '\'' && hostname && sync && sudo /sbin/sysctl vm.drop_caches=3'
+Clearing cache on mlperf-h100-0208
+vm.drop_caches = 3
++ docker exec -it dlrm_hugectr python3 -c '
+import mlperf_logging.mllog as mllog
+mllogger = mllog.get_mllogger()
+mllogger.event(key=mllog.constants.CACHE_CLEAR, value=True)'
+:::MLLOG {"namespace": "", "time_ms": 1713876581218, "event_type": "POINT_IN_TIME", "key": "cache_clear", "value": true, "metadata": {"file": "<string>", "lineno": 4}}
++ docker exec -it --env=BATCHSIZE --env=BATCHSIZE_EVAL --env=DGXNGPU --env=DGXNNODES --env=DGXSYSTEM --env=DP_SHARDING_THRESHOLD --env=GEN_LOSS_SUMMARY --env=LEARNING_RATE --env=MEM_COMM_BW_RATIO --env=MINIMUM_TRAINING_TIME --env=RUN_SCRIPT --env=SCALER --env=SHARDING_PLAN --env=USE_MIXED_PRECISION --env=WALLTIME --env=DATADIR --env=DATASET_TYPE --env=DGXSYSTEM dlrm_hugectr bash ./run_and_time.sh
++ ARGS=
++ '[' -n '' ']'
++ '[' -n 32768 ']'
++ ARGS+=' --batchsize 32768'
++ '[' -n 262144 ']'
++ ARGS+=' --batchsize_eval 262144'
++ '[' -n 0.004 ']'
++ ARGS+=' --lr 0.004'
++ '[' -n '' ']'
++ '[' -n '' ']'
++ '[' -n '' ']'
++ '[' '' = true ']'
++ '[' true = true ']'
++ ARGS+=' --use_mixed_precision'
++ '[' -n 16348 ']'
++ ARGS+=' --scaler 16348'
++ '[' true = true ']'
++ ARGS+=' --gen_loss_summary'
++ '[' '' = false ']'
++ '[' -n auto ']'
++ ARGS+=' --sharding_plan auto'
++ '[' -n 0.008 ']'
++ ARGS+=' --dp_sharding_threshold 0.008'
++ '[' -n '' ']'
++ '[' -n '' ']'
++ '[' -n '' ']'
++ '[' -n '' ']'
++ '[' -n '' ']'
++ '[' -n 4 ']'
++ ARGS+=' --num_gpus_per_node 4'
++ '[' -n 7 ']'
++ ARGS+=' --mem_comm_bw_ratio 7'
++ '[' -n '' ']'
++ '[' -n '' ']'
++ readonly node_rank=0
++ node_rank=0
++ readonly local_rank=
++ local_rank=
++ '[' '' = apiLog.sh ']'
++ echo 'DLRM_BIND is set to ""'
+DLRM_BIND is set to ""
++ tee /tmp/dlrm_hugectr.log
++ python3 train.py --batchsize 32768 --batchsize_eval 262144 --lr 0.004 --use_mixed_precision --scaler 16348 --gen_loss_summary --sharding_plan auto --dp_sharding_threshold 0.008 --num_gpus_per_node 4 --mem_comm_bw_ratio 7
+:::MLLOG {"namespace": "", "time_ms": 1713876586080, "event_type": "INTERVAL_START", "key": "init_start", "value": null, "metadata": {"file": "/workspace/dlrm/train.py", "lineno": 90}}
+:::MLLOG {"namespace": "", "time_ms": 1713876586091, "event_type": "POINT_IN_TIME", "key": "submission_benchmark", "value": "dlrm_dcnv2", "metadata": {"file": "/workspace/dlrm/train.py", "lineno": 284}}
+:::MLLOG {"namespace": "", "time_ms": 1713876586091, "event_type": "POINT_IN_TIME", "key": "submission_org", "value": "NVIDIA", "metadata": {"file": "/workspace/dlrm/train.py", "lineno": 284}}
+:::MLLOG {"namespace": "", "time_ms": 1713876586091, "event_type": "POINT_IN_TIME", "key": "submission_division", "value": "closed", "metadata": {"file": "/workspace/dlrm/train.py", "lineno": 284}}
+:::MLLOG {"namespace": "", "time_ms": 1713876586091, "event_type": "POINT_IN_TIME", "key": "submission_status", "value": "onprem", "metadata": {"file": "/workspace/dlrm/train.py", "lineno": 284}}
+:::MLLOG {"namespace": "", "time_ms": 1713876586091, "event_type": "POINT_IN_TIME", "key": "submission_platform", "value": "GX2560M7_H100_SXM_80GBx4", "metadata": {"file": "/workspace/dlrm/train.py", "lineno": 284}}
+:::MLLOG {"namespace": "", "time_ms": 1713876586092, "event_type": "POINT_IN_TIME", "key": "global_batch_size", "value": 32768, "metadata": {"file": "/workspace/dlrm/mlperf_logger/param_info.py", "lineno": 27}}
+:::MLLOG {"namespace": "", "time_ms": 1713876586092, "event_type": "POINT_IN_TIME", "key": "opt_name", "value": "adagrad", "metadata": {"file": "/workspace/dlrm/mlperf_logger/param_info.py", "lineno": 31}}
+:::MLLOG {"namespace": "", "time_ms": 1713876586092, "event_type": "POINT_IN_TIME", "key": "opt_base_learning_rate", "value": 0.004, "metadata": {"file": "/workspace/dlrm/mlperf_logger/param_info.py", "lineno": 35}}
+:::MLLOG {"namespace": "", "time_ms": 1713876586092, "event_type": "POINT_IN_TIME", "key": "opt_adagrad_learning_rate_decay", "value": 0, "metadata": {"file": "/workspace/dlrm/mlperf_logger/param_info.py", "lineno": 39}}
+:::MLLOG {"namespace": "", "time_ms": 1713876586092, "event_type": "POINT_IN_TIME", "key": "opt_weight_decay", "value": 0, "metadata": {"file": "/workspace/dlrm/mlperf_logger/param_info.py", "lineno": 43}}
+:::MLLOG {"namespace": "", "time_ms": 1713876586092, "event_type": "POINT_IN_TIME", "key": "opt_adagrad_initial_accumulator_value", "value": 0.0, "metadata": {"file": "/workspace/dlrm/mlperf_logger/param_info.py", "lineno": 47}}
+:::MLLOG {"namespace": "", "time_ms": 1713876586092, "event_type": "POINT_IN_TIME", "key": "opt_adagrad_epsilon", "value": 1e-08, "metadata": {"file": "/workspace/dlrm/mlperf_logger/param_info.py", "lineno": 51}}
+:::MLLOG {"namespace": "", "time_ms": 1713876586092, "event_type": "POINT_IN_TIME", "key": "opt_learning_rate_warmup_steps", "value": 0, "metadata": {"file": "/workspace/dlrm/mlperf_logger/param_info.py", "lineno": 55}}
+:::MLLOG {"namespace": "", "time_ms": 1713876586092, "event_type": "POINT_IN_TIME", "key": "opt_learning_rate_decay_start_step", "value": 0, "metadata": {"file": "/workspace/dlrm/mlperf_logger/param_info.py", "lineno": 59}}
+:::MLLOG {"namespace": "", "time_ms": 1713876586092, "event_type": "POINT_IN_TIME", "key": "opt_learning_rate_decay_steps", "value": 0, "metadata": {"file": "/workspace/dlrm/mlperf_logger/param_info.py", "lineno": 63}}
+:::MLLOG {"namespace": "", "time_ms": 1713876586092, "event_type": "POINT_IN_TIME", "key": "gradient_accumulation_steps", "value": 1, "metadata": {"file": "/workspace/dlrm/mlperf_logger/param_info.py", "lineno": 67}}
+Planner took 0.003011 sec
+[('mp', [0, 1, 2, 4, 9, 10, 11, 14, 19, 20, 21, 22, 23]), ('dp', [3, 5, 6, 7, 8, 12, 13, 15, 16, 17, 18, 24, 25])]
+[[20, 9, 0, 3, 5, 6, 7, 8, 12, 13, 15, 16, 17, 18, 24, 25], [20, 9, 0, 3, 5, 6, 7, 8, 12, 13, 15, 16, 17, 18, 24, 25], [21, 11, 10, 23, 0, 3, 5, 6, 7, 8, 12, 13, 15, 16, 17, 18, 24, 25], [19, 22, 14, 4, 1, 2, 0, 3, 5, 6, 7, 8, 12, 13, 15, 16, 17, 18, 24, 25]]
+hotness cost is:
+[54.25 54.25 41.75 40.75]
+table cost is:
+[ 5.25  5.25  8.75 12.25]
+mem cost is:
+[51.2        51.2        54.76988006 51.89499904]
+Provided system info: 
+num_gpu_per_nodes: 4
+Memory to communication BW ratio: 7.000000
+Memory to communication work ratio: 4.000000
+DRAM capacity: 60.000000 GB
+shard_matrix:
+[['20', '9', '0', '3', '5', '6', '7', '8', '12', '13', '15', '16', '17', '18', '24', '25'], ['20', '9', '0', '3', '5', '6', '7', '8', '12', '13', '15', '16', '17', '18', '24', '25'], ['21', '11', '10', '23', '0', '3', '5', '6', '7', '8', '12', '13', '15', '16', '17', '18', '24', '25'], ['19', '22', '14', '4', '1', '2', '0', '3', '5', '6', '7', '8', '12', '13', '15', '16', '17', '18', '24', '25']]
+
+
+MpiInitService: MPI was already initialized by another (non-HugeCTR) mechanism.
+HugeCTR Version: 24.4
+====================================================Model Init=====================================================
+[HCTR][12:49:46.096][INFO][RK0][main]: Initialize model: dlrm_dcnv2
+[HCTR][12:49:46.096][INFO][RK0][main]: Global seed is 2948086438
+[HCTR][12:49:46.367][INFO][RK0][main]: Device to NUMA mapping:
+[HCTR][12:49:46.461][INFO][RK0][main]:   GPU 0 ->  node 0
+[HCTR][12:49:46.468][INFO][RK0][main]:   GPU 1 ->  node 0
+[HCTR][12:49:46.476][INFO][RK0][main]:   GPU 2 ->  node 1
+[HCTR][12:49:46.483][INFO][RK0][main]:   GPU 3 ->  node 1
+[HCTR][12:50:01.279][DEBUG][RK0][main]: [device 0] allocating 0.0000 GB, available 77.2965 
+[HCTR][12:50:01.279][DEBUG][RK0][main]: [device 1] allocating 0.0000 GB, available 77.1949 
+[HCTR][12:50:01.279][DEBUG][RK0][main]: [device 2] allocating 0.0000 GB, available 77.1949 
+[HCTR][12:50:01.279][DEBUG][RK0][main]: [device 3] allocating 0.0000 GB, available 77.2965 
+[HCTR][12:50:01.279][INFO][RK0][main]: Start all2all warmup
+[HCTR][12:50:09.475][INFO][RK0][main]: End all2all warmup
+[HCTR][12:50:09.496][INFO][RK0][main]: Using All-reduce algorithm: NCCL
+[HCTR][12:50:09.499][INFO][RK0][main]: Device 0: NVIDIA H100 80GB HBM3
+[HCTR][12:50:09.501][INFO][RK0][main]: Device 1: NVIDIA H100 80GB HBM3
+[HCTR][12:50:09.503][INFO][RK0][main]: Device 2: NVIDIA H100 80GB HBM3
+[HCTR][12:50:09.504][INFO][RK0][main]: Device 3: NVIDIA H100 80GB HBM3
+[HCTR][12:50:09.517][INFO][RK0][main]: Multi-Hot AsyncDataReader: num_threads = 1
+[HCTR][12:50:09.517][INFO][RK0][main]: Multi-Hot AsyncDataReader: num_batches_per_thread = 16
+[HCTR][12:50:09.517][INFO][RK0][main]: Multi-Hot AsyncDataReader: shuffle = OFF
+[HCTR][12:50:09.517][INFO][RK0][main]: Multi-Hot AsyncDataReader: schedule_h2d = OFF
+[HCTR][12:50:36.153][INFO][RK0][main]: Graph analysis to resolve tensor dependency
+===================================================Model Compile===================================================
+[HCTR][12:51:31.435][INFO][RK0][main]: Starting AUC NCCL warm-up
+[HCTR][12:51:31.970][INFO][RK0][main]: Warm-up done
+===================================================Model Summary===================================================
+[HCTR][12:51:31.974][INFO][RK0][main]: Model structure on each GPU
+Label                                   Dense                         Sparse                        
+label                                   dense                          data0,data1,data2,data3,data4,data5,data6,data7,data8,data9,data10,data11,data12,data13,data14,data15,data16,data17,data18,data19,data20,data21,data22,data23,data24,data25
+(8192, 1)                               (8192, 13)                              
+——————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+Layer Type                              Input Name                    Output Name                   Output Shape                  
+——————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+EmbeddingCollection0                    data0                         sparse_embedding              (8192, 3328)                  
+                                        data1                                                                                     
+                                        data2                                                                                     
+                                        data3                                                                                     
+                                        data4                                                                                     
+                                        data5                                                                                     
+                                        data6                                                                                     
+                                        data7                                                                                     
+                                        data8                                                                                     
+                                        data9                                                                                     
+                                        data10                                                                                    
+                                        data11                                                                                    
+                                        data12                                                                                    
+                                        data13                                                                                    
+                                        data14                                                                                    
+                                        data15                                                                                    
+                                        data16                                                                                    
+                                        data17                                                                                    
+                                        data18                                                                                    
+                                        data19                                                                                    
+                                        data20                                                                                    
+                                        data21                                                                                    
+                                        data22                                                                                    
+                                        data23                                                                                    
+                                        data24                                                                                    
+                                        data25                                                                                    
+------------------------------------------------------------------------------------------------------------------
+MLP                                     dense                         mlp1                          (8192, 128)                   
+------------------------------------------------------------------------------------------------------------------
+Concat                                  sparse_embedding              concat1                       (8192, 3456)                  
+                                        mlp1                                                                                      
+------------------------------------------------------------------------------------------------------------------
+MultiCross                              concat1                       interaction1                  (8192, 3456)                  
+------------------------------------------------------------------------------------------------------------------
+MLP                                     interaction1                  mlp2                          (8192, 1)                     
+------------------------------------------------------------------------------------------------------------------
+BinaryCrossEntropyLoss                  mlp2                          loss                                                        
+                                        label                                                                                     
+------------------------------------------------------------------------------------------------------------------
+:::MLLOG {"namespace": "", "time_ms": 1713876691975, "event_type": "POINT_IN_TIME", "key": "train_samples", "value": 4195197692, "metadata": {"file": "/workspace/dlrm/train.py", "lineno": 462, "epoch_num": 0.0}}
+:::MLLOG {"namespace": "", "time_ms": 1713876691976, "event_type": "POINT_IN_TIME", "key": "eval_samples", "value": 89137319, "metadata": {"file": "/workspace/dlrm/train.py", "lineno": 467, "epoch_num": 0.0}}
+=====================================================Model Fit=====================================================
+[HCTR][12:51:31.976][INFO][RK0][main]: Use non-epoch mode with number of iterations: 128028
+[HCTR][12:51:31.976][INFO][RK0][main]: Training batchsize: 32768, evaluation batchsize: 262144
+[HCTR][12:51:31.976][INFO][RK0][main]: Evaluation interval: 6401, snapshot interval: 2000000
+[HCTR][12:51:31.976][INFO][RK0][main]: Dense network trainable: True
+[HCTR][12:51:31.976][INFO][RK0][main]: Use mixed precision: True, scaler: 16348.000000, use cuda graph: True
+[HCTR][12:51:31.976][INFO][RK0][main]: lr: 0.004000, warmup_steps: 0, end_lr: 0.000000
+[HCTR][12:51:31.976][INFO][RK0][main]: decay_start: 0, decay_steps: 0, decay_power: 2.000000
+[HCTR][12:51:31.976][INFO][RK0][main]: Training source file: /data/train_data.bin
+[HCTR][12:51:31.976][INFO][RK0][main]: Evaluation source file: /data_val/val_data.bin
+:::MLLOG {"namespace": "", "time_ms": 1713876691976, "event_type": "INTERVAL_END", "key": "init_stop", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 50}}
+:::MLLOG {"namespace": "", "time_ms": 1713876691977, "event_type": "INTERVAL_START", "key": "run_start", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 50}}
+:::MLLOG {"namespace": "", "time_ms": 1713876691977, "event_type": "INTERVAL_START", "key": "epoch_start", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 51, "epoch_num": 0}}
+[HCTR][12:51:32.730][INFO][RK0][main]: Iter: 100 Time(100 iters): 0.753465s Loss: 0.132359 lr:0.004
+[HCTR][12:51:33.171][INFO][RK0][main]: Iter: 200 Time(100 iters): 0.439592s Loss: 0.127245 lr:0.004
+[HCTR][12:51:33.614][INFO][RK0][main]: Iter: 300 Time(100 iters): 0.441692s Loss: 0.123013 lr:0.004
+[HCTR][12:51:34.053][INFO][RK0][main]: Iter: 400 Time(100 iters): 0.438676s Loss: 0.125676 lr:0.004
+[HCTR][12:51:34.493][INFO][RK0][main]: Iter: 500 Time(100 iters): 0.438488s Loss: 0.128408 lr:0.004
+[HCTR][12:51:34.934][INFO][RK0][main]: Iter: 600 Time(100 iters): 0.439608s Loss: 0.122289 lr:0.004
+[HCTR][12:51:35.374][INFO][RK0][main]: Iter: 700 Time(100 iters): 0.439428s Loss: 0.125208 lr:0.004
+[HCTR][12:51:35.814][INFO][RK0][main]: Iter: 800 Time(100 iters): 0.439329s Loss: 0.132472 lr:0.004
+[HCTR][12:51:36.252][INFO][RK0][main]: Iter: 900 Time(100 iters): 0.437001s Loss: 0.1371 lr:0.004
+[HCTR][12:51:36.690][INFO][RK0][main]: Iter: 1000 Time(100 iters): 0.436352s Loss: 0.122546 lr:0.004
+[HCTR][12:51:37.129][INFO][RK0][main]: Iter: 1100 Time(100 iters): 0.438494s Loss: 0.123706 lr:0.004
+[HCTR][12:51:37.568][INFO][RK0][main]: Iter: 1200 Time(100 iters): 0.437572s Loss: 0.129028 lr:0.004
+[HCTR][12:51:38.009][INFO][RK0][main]: Iter: 1300 Time(100 iters): 0.439781s Loss: 0.128918 lr:0.004
+[HCTR][12:51:38.447][INFO][RK0][main]: Iter: 1400 Time(100 iters): 0.437296s Loss: 0.128536 lr:0.004
+[HCTR][12:51:38.886][INFO][RK0][main]: Iter: 1500 Time(100 iters): 0.438277s Loss: 0.124822 lr:0.004
+[HCTR][12:51:39.327][INFO][RK0][main]: Iter: 1600 Time(100 iters): 0.43966s Loss: 0.124434 lr:0.004
+[HCTR][12:51:39.768][INFO][RK0][main]: Iter: 1700 Time(100 iters): 0.440251s Loss: 0.127602 lr:0.004
+[HCTR][12:51:40.208][INFO][RK0][main]: Iter: 1800 Time(100 iters): 0.43801s Loss: 0.125287 lr:0.004
+[HCTR][12:51:40.648][INFO][RK0][main]: Iter: 1900 Time(100 iters): 0.439395s Loss: 0.127528 lr:0.004
+[HCTR][12:51:41.088][INFO][RK0][main]: Iter: 2000 Time(100 iters): 0.438767s Loss: 0.127009 lr:0.004
+[HCTR][12:51:41.528][INFO][RK0][main]: Iter: 2100 Time(100 iters): 0.438812s Loss: 0.128236 lr:0.004
+[HCTR][12:51:41.966][INFO][RK0][main]: Iter: 2200 Time(100 iters): 0.437559s Loss: 0.120991 lr:0.004
+[HCTR][12:51:42.406][INFO][RK0][main]: Iter: 2300 Time(100 iters): 0.438542s Loss: 0.126197 lr:0.004
+[HCTR][12:51:42.846][INFO][RK0][main]: Iter: 2400 Time(100 iters): 0.439302s Loss: 0.125497 lr:0.004
+[HCTR][12:51:43.285][INFO][RK0][main]: Iter: 2500 Time(100 iters): 0.437939s Loss: 0.126124 lr:0.004
+[HCTR][12:51:43.724][INFO][RK0][main]: Iter: 2600 Time(100 iters): 0.437931s Loss: 0.126315 lr:0.004
+[HCTR][12:51:44.165][INFO][RK0][main]: Iter: 2700 Time(100 iters): 0.439423s Loss: 0.123374 lr:0.004
+[HCTR][12:51:44.603][INFO][RK0][main]: Iter: 2800 Time(100 iters): 0.43689s Loss: 0.127961 lr:0.004
+[HCTR][12:51:45.043][INFO][RK0][main]: Iter: 2900 Time(100 iters): 0.439207s Loss: 0.125969 lr:0.004
+[HCTR][12:51:45.482][INFO][RK0][main]: Iter: 3000 Time(100 iters): 0.438374s Loss: 0.130536 lr:0.004
+[HCTR][12:51:45.922][INFO][RK0][main]: Iter: 3100 Time(100 iters): 0.4385s Loss: 0.123541 lr:0.004
+[HCTR][12:51:46.361][INFO][RK0][main]: Iter: 3200 Time(100 iters): 0.437743s Loss: 0.124422 lr:0.004
+[HCTR][12:51:46.802][INFO][RK0][main]: Iter: 3300 Time(100 iters): 0.440241s Loss: 0.132944 lr:0.004
+[HCTR][12:51:47.239][INFO][RK0][main]: Iter: 3400 Time(100 iters): 0.436265s Loss: 0.126777 lr:0.004
+[HCTR][12:51:47.679][INFO][RK0][main]: Iter: 3500 Time(100 iters): 0.438878s Loss: 0.120146 lr:0.004
+[HCTR][12:51:48.119][INFO][RK0][main]: Iter: 3600 Time(100 iters): 0.438952s Loss: 0.128178 lr:0.004
+[HCTR][12:51:48.559][INFO][RK0][main]: Iter: 3700 Time(100 iters): 0.438492s Loss: 0.126615 lr:0.004
+[HCTR][12:51:48.997][INFO][RK0][main]: Iter: 3800 Time(100 iters): 0.437735s Loss: 0.130187 lr:0.004
+[HCTR][12:51:49.438][INFO][RK0][main]: Iter: 3900 Time(100 iters): 0.440069s Loss: 0.121015 lr:0.004
+[HCTR][12:51:49.880][INFO][RK0][main]: Iter: 4000 Time(100 iters): 0.440319s Loss: 0.127977 lr:0.004
+[HCTR][12:51:50.319][INFO][RK0][main]: Iter: 4100 Time(100 iters): 0.438667s Loss: 0.128632 lr:0.004
+[HCTR][12:51:50.759][INFO][RK0][main]: Iter: 4200 Time(100 iters): 0.437996s Loss: 0.121329 lr:0.004
+[HCTR][12:51:51.199][INFO][RK0][main]: Iter: 4300 Time(100 iters): 0.438944s Loss: 0.126426 lr:0.004
+[HCTR][12:51:51.637][INFO][RK0][main]: Iter: 4400 Time(100 iters): 0.437598s Loss: 0.127037 lr:0.004
+[HCTR][12:51:52.078][INFO][RK0][main]: Iter: 4500 Time(100 iters): 0.439564s Loss: 0.122961 lr:0.004
+[HCTR][12:51:52.517][INFO][RK0][main]: Iter: 4600 Time(100 iters): 0.438276s Loss: 0.128775 lr:0.004
+[HCTR][12:51:52.957][INFO][RK0][main]: Iter: 4700 Time(100 iters): 0.438823s Loss: 0.121675 lr:0.004
+[HCTR][12:51:53.397][INFO][RK0][main]: Iter: 4800 Time(100 iters): 0.438575s Loss: 0.122825 lr:0.004
+[HCTR][12:51:53.837][INFO][RK0][main]: Iter: 4900 Time(100 iters): 0.439856s Loss: 0.126025 lr:0.004
+[HCTR][12:51:54.278][INFO][RK0][main]: Iter: 5000 Time(100 iters): 0.439278s Loss: 0.122412 lr:0.004
+[HCTR][12:51:54.717][INFO][RK0][main]: Iter: 5100 Time(100 iters): 0.438694s Loss: 0.127233 lr:0.004
+[HCTR][12:51:55.158][INFO][RK0][main]: Iter: 5200 Time(100 iters): 0.43938s Loss: 0.125526 lr:0.004
+[HCTR][12:51:55.597][INFO][RK0][main]: Iter: 5300 Time(100 iters): 0.437907s Loss: 0.120654 lr:0.004
+[HCTR][12:51:56.036][INFO][RK0][main]: Iter: 5400 Time(100 iters): 0.438083s Loss: 0.126002 lr:0.004
+[HCTR][12:51:56.475][INFO][RK0][main]: Iter: 5500 Time(100 iters): 0.438447s Loss: 0.125819 lr:0.004
+[HCTR][12:51:56.916][INFO][RK0][main]: Iter: 5600 Time(100 iters): 0.43928s Loss: 0.125194 lr:0.004
+[HCTR][12:51:57.353][INFO][RK0][main]: Iter: 5700 Time(100 iters): 0.436673s Loss: 0.128352 lr:0.004
+[HCTR][12:51:57.792][INFO][RK0][main]: Iter: 5800 Time(100 iters): 0.43762s Loss: 0.123288 lr:0.004
+[HCTR][12:51:58.232][INFO][RK0][main]: Iter: 5900 Time(100 iters): 0.438749s Loss: 0.120763 lr:0.004
+[HCTR][12:51:58.672][INFO][RK0][main]: Iter: 6000 Time(100 iters): 0.439513s Loss: 0.124281 lr:0.004
+[HCTR][12:51:59.112][INFO][RK0][main]: Iter: 6100 Time(100 iters): 0.438042s Loss: 0.121134 lr:0.004
+[HCTR][12:51:59.550][INFO][RK0][main]: Iter: 6200 Time(100 iters): 0.437709s Loss: 0.125585 lr:0.004
+[HCTR][12:51:59.989][INFO][RK0][main]: Iter: 6300 Time(100 iters): 0.437709s Loss: 0.125966 lr:0.004
+[HCTR][12:52:00.431][INFO][RK0][main]: Iter: 6400 Time(100 iters): 0.440511s Loss: 0.123526 lr:0.004
+:::MLLOG {"namespace": "", "time_ms": 1713876720435, "event_type": "INTERVAL_START", "key": "eval_start", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 88, "epoch_num": 0.04998906489205486}}
+:::MLLOG {"namespace": "", "time_ms": 1713876724046, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.7903086543083191, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 97, "epoch_num": 0.04998906489205486}}
+:::MLLOG {"namespace": "", "time_ms": 1713876724046, "event_type": "INTERVAL_END", "key": "eval_stop", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 102, "epoch_num": 0.04998906489205486}}
+[HCTR][12:52:04.046][INFO][RK0][main]: Evaluation, AUC: 0.790309
+[HCTR][12:52:04.046][INFO][RK0][main]: Eval Time for 341 iters: 3.61081s
+[HCTR][12:52:04.482][INFO][RK0][main]: Iter: 6500 Time(100 iters): 4.05059s Loss: 0.123065 lr:0.004
+[HCTR][12:52:04.923][INFO][RK0][main]: Iter: 6600 Time(100 iters): 0.439225s Loss: 0.124558 lr:0.004
+[HCTR][12:52:05.362][INFO][RK0][main]: Iter: 6700 Time(100 iters): 0.43835s Loss: 0.122749 lr:0.004
+[HCTR][12:52:05.800][INFO][RK0][main]: Iter: 6800 Time(100 iters): 0.437353s Loss: 0.127082 lr:0.004
+[HCTR][12:52:06.240][INFO][RK0][main]: Iter: 6900 Time(100 iters): 0.438955s Loss: 0.123225 lr:0.004
+[HCTR][12:52:06.681][INFO][RK0][main]: Iter: 7000 Time(100 iters): 0.439529s Loss: 0.118498 lr:0.004
+[HCTR][12:52:07.120][INFO][RK0][main]: Iter: 7100 Time(100 iters): 0.437624s Loss: 0.123783 lr:0.004
+[HCTR][12:52:07.561][INFO][RK0][main]: Iter: 7200 Time(100 iters): 0.440252s Loss: 0.122258 lr:0.004
+[HCTR][12:52:08.001][INFO][RK0][main]: Iter: 7300 Time(100 iters): 0.439298s Loss: 0.124658 lr:0.004
+[HCTR][12:52:08.443][INFO][RK0][main]: Iter: 7400 Time(100 iters): 0.440632s Loss: 0.126985 lr:0.004
+[HCTR][12:52:08.882][INFO][RK0][main]: Iter: 7500 Time(100 iters): 0.43798s Loss: 0.125091 lr:0.004
+[HCTR][12:52:09.322][INFO][RK0][main]: Iter: 7600 Time(100 iters): 0.439473s Loss: 0.122022 lr:0.004
+[HCTR][12:52:09.763][INFO][RK0][main]: Iter: 7700 Time(100 iters): 0.439444s Loss: 0.120018 lr:0.004
+[HCTR][12:52:10.201][INFO][RK0][main]: Iter: 7800 Time(100 iters): 0.436948s Loss: 0.121881 lr:0.004
+[HCTR][12:52:10.642][INFO][RK0][main]: Iter: 7900 Time(100 iters): 0.439767s Loss: 0.126544 lr:0.004
+[HCTR][12:52:11.081][INFO][RK0][main]: Iter: 8000 Time(100 iters): 0.438211s Loss: 0.124383 lr:0.004
+[HCTR][12:52:11.520][INFO][RK0][main]: Iter: 8100 Time(100 iters): 0.438465s Loss: 0.129675 lr:0.004
+[HCTR][12:52:11.960][INFO][RK0][main]: Iter: 8200 Time(100 iters): 0.438619s Loss: 0.128772 lr:0.004
+[HCTR][12:52:12.401][INFO][RK0][main]: Iter: 8300 Time(100 iters): 0.439508s Loss: 0.127302 lr:0.004
+[HCTR][12:52:12.841][INFO][RK0][main]: Iter: 8400 Time(100 iters): 0.439242s Loss: 0.126443 lr:0.004
+[HCTR][12:52:13.280][INFO][RK0][main]: Iter: 8500 Time(100 iters): 0.43749s Loss: 0.124519 lr:0.004
+[HCTR][12:52:13.720][INFO][RK0][main]: Iter: 8600 Time(100 iters): 0.439499s Loss: 0.125915 lr:0.004
+[HCTR][12:52:14.161][INFO][RK0][main]: Iter: 8700 Time(100 iters): 0.439454s Loss: 0.124709 lr:0.004
+[HCTR][12:52:14.600][INFO][RK0][main]: Iter: 8800 Time(100 iters): 0.438055s Loss: 0.121567 lr:0.004
+[HCTR][12:52:15.039][INFO][RK0][main]: Iter: 8900 Time(100 iters): 0.43789s Loss: 0.117431 lr:0.004
+[HCTR][12:52:15.479][INFO][RK0][main]: Iter: 9000 Time(100 iters): 0.439454s Loss: 0.13228 lr:0.004
+[HCTR][12:52:15.919][INFO][RK0][main]: Iter: 9100 Time(100 iters): 0.439097s Loss: 0.128571 lr:0.004
+[HCTR][12:52:16.359][INFO][RK0][main]: Iter: 9200 Time(100 iters): 0.438591s Loss: 0.12551 lr:0.004
+[HCTR][12:52:16.798][INFO][RK0][main]: Iter: 9300 Time(100 iters): 0.438258s Loss: 0.122624 lr:0.004
+[HCTR][12:52:17.238][INFO][RK0][main]: Iter: 9400 Time(100 iters): 0.438818s Loss: 0.126345 lr:0.004
+[HCTR][12:52:17.678][INFO][RK0][main]: Iter: 9500 Time(100 iters): 0.438619s Loss: 0.126164 lr:0.004
+[HCTR][12:52:18.118][INFO][RK0][main]: Iter: 9600 Time(100 iters): 0.439108s Loss: 0.130024 lr:0.004
+[HCTR][12:52:18.559][INFO][RK0][main]: Iter: 9700 Time(100 iters): 0.439609s Loss: 0.124901 lr:0.004
+[HCTR][12:52:18.998][INFO][RK0][main]: Iter: 9800 Time(100 iters): 0.437954s Loss: 0.125478 lr:0.004
+[HCTR][12:52:19.437][INFO][RK0][main]: Iter: 9900 Time(100 iters): 0.4385s Loss: 0.121533 lr:0.004
+[HCTR][12:52:19.876][INFO][RK0][main]: Iter: 10000 Time(100 iters): 0.437868s Loss: 0.123381 lr:0.004
+[HCTR][12:52:20.314][INFO][RK0][main]: Iter: 10100 Time(100 iters): 0.437232s Loss: 0.119485 lr:0.004
+[HCTR][12:52:20.753][INFO][RK0][main]: Iter: 10200 Time(100 iters): 0.437691s Loss: 0.127676 lr:0.004
+[HCTR][12:52:21.193][INFO][RK0][main]: Iter: 10300 Time(100 iters): 0.439276s Loss: 0.122529 lr:0.004
+[HCTR][12:52:21.634][INFO][RK0][main]: Iter: 10400 Time(100 iters): 0.439115s Loss: 0.122502 lr:0.004
+[HCTR][12:52:22.072][INFO][RK0][main]: Iter: 10500 Time(100 iters): 0.437605s Loss: 0.123648 lr:0.004
+[HCTR][12:52:22.511][INFO][RK0][main]: Iter: 10600 Time(100 iters): 0.437844s Loss: 0.124302 lr:0.004
+[HCTR][12:52:22.952][INFO][RK0][main]: Iter: 10700 Time(100 iters): 0.440074s Loss: 0.126746 lr:0.004
+[HCTR][12:52:23.393][INFO][RK0][main]: Iter: 10800 Time(100 iters): 0.439481s Loss: 0.124585 lr:0.004
+[HCTR][12:52:23.833][INFO][RK0][main]: Iter: 10900 Time(100 iters): 0.439544s Loss: 0.121128 lr:0.004
+[HCTR][12:52:24.274][INFO][RK0][main]: Iter: 11000 Time(100 iters): 0.439474s Loss: 0.120114 lr:0.004
+[HCTR][12:52:24.713][INFO][RK0][main]: Iter: 11100 Time(100 iters): 0.437964s Loss: 0.121521 lr:0.004
+[HCTR][12:52:25.152][INFO][RK0][main]: Iter: 11200 Time(100 iters): 0.437627s Loss: 0.119567 lr:0.004
+[HCTR][12:52:25.592][INFO][RK0][main]: Iter: 11300 Time(100 iters): 0.439604s Loss: 0.122492 lr:0.004
+[HCTR][12:52:26.033][INFO][RK0][main]: Iter: 11400 Time(100 iters): 0.439236s Loss: 0.128546 lr:0.004
+[HCTR][12:52:26.472][INFO][RK0][main]: Iter: 11500 Time(100 iters): 0.438258s Loss: 0.126953 lr:0.004
+[HCTR][12:52:26.911][INFO][RK0][main]: Iter: 11600 Time(100 iters): 0.437707s Loss: 0.123307 lr:0.004
+[HCTR][12:52:27.351][INFO][RK0][main]: Iter: 11700 Time(100 iters): 0.439118s Loss: 0.120109 lr:0.004
+[HCTR][12:52:27.790][INFO][RK0][main]: Iter: 11800 Time(100 iters): 0.437743s Loss: 0.123161 lr:0.004
+[HCTR][12:52:28.230][INFO][RK0][main]: Iter: 11900 Time(100 iters): 0.439079s Loss: 0.122498 lr:0.004
+[HCTR][12:52:28.670][INFO][RK0][main]: Iter: 12000 Time(100 iters): 0.439146s Loss: 0.12661 lr:0.004
+[HCTR][12:52:29.109][INFO][RK0][main]: Iter: 12100 Time(100 iters): 0.438273s Loss: 0.125025 lr:0.004
+[HCTR][12:52:29.549][INFO][RK0][main]: Iter: 12200 Time(100 iters): 0.438911s Loss: 0.123573 lr:0.004
+[HCTR][12:52:29.989][INFO][RK0][main]: Iter: 12300 Time(100 iters): 0.438517s Loss: 0.124126 lr:0.004
+[HCTR][12:52:30.428][INFO][RK0][main]: Iter: 12400 Time(100 iters): 0.43828s Loss: 0.123983 lr:0.004
+[HCTR][12:52:30.869][INFO][RK0][main]: Iter: 12500 Time(100 iters): 0.439758s Loss: 0.121966 lr:0.004
+[HCTR][12:52:31.309][INFO][RK0][main]: Iter: 12600 Time(100 iters): 0.438929s Loss: 0.119791 lr:0.004
+[HCTR][12:52:31.750][INFO][RK0][main]: Iter: 12700 Time(100 iters): 0.439712s Loss: 0.123527 lr:0.004
+[HCTR][12:52:32.192][INFO][RK0][main]: Iter: 12800 Time(100 iters): 0.441112s Loss: 0.122633 lr:0.004
+:::MLLOG {"namespace": "", "time_ms": 1713876752201, "event_type": "INTERVAL_START", "key": "eval_start", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 88, "epoch_num": 0.09998594057549912}}
+:::MLLOG {"namespace": "", "time_ms": 1713876755835, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.7943452596664429, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 97, "epoch_num": 0.09998594057549912}}
+:::MLLOG {"namespace": "", "time_ms": 1713876755835, "event_type": "INTERVAL_END", "key": "eval_stop", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 102, "epoch_num": 0.09998594057549912}}
+[HCTR][12:52:35.835][INFO][RK0][main]: Evaluation, AUC: 0.794345
+[HCTR][12:52:35.835][INFO][RK0][main]: Eval Time for 341 iters: 3.63449s
+[HCTR][12:52:36.268][INFO][RK0][main]: Iter: 12900 Time(100 iters): 4.075s Loss: 0.126794 lr:0.004
+[HCTR][12:52:36.706][INFO][RK0][main]: Iter: 13000 Time(100 iters): 0.437491s Loss: 0.125254 lr:0.004
+[HCTR][12:52:37.146][INFO][RK0][main]: Iter: 13100 Time(100 iters): 0.438186s Loss: 0.124956 lr:0.004
+[HCTR][12:52:37.585][INFO][RK0][main]: Iter: 13200 Time(100 iters): 0.438659s Loss: 0.12802 lr:0.004
+[HCTR][12:52:38.025][INFO][RK0][main]: Iter: 13300 Time(100 iters): 0.438693s Loss: 0.124347 lr:0.004
+[HCTR][12:52:38.465][INFO][RK0][main]: Iter: 13400 Time(100 iters): 0.438779s Loss: 0.126498 lr:0.004
+[HCTR][12:52:38.904][INFO][RK0][main]: Iter: 13500 Time(100 iters): 0.438159s Loss: 0.12254 lr:0.004
+[HCTR][12:52:39.344][INFO][RK0][main]: Iter: 13600 Time(100 iters): 0.439069s Loss: 0.120482 lr:0.004
+[HCTR][12:52:39.785][INFO][RK0][main]: Iter: 13700 Time(100 iters): 0.440057s Loss: 0.119484 lr:0.004
+[HCTR][12:52:40.226][INFO][RK0][main]: Iter: 13800 Time(100 iters): 0.439295s Loss: 0.122458 lr:0.004
+[HCTR][12:52:40.665][INFO][RK0][main]: Iter: 13900 Time(100 iters): 0.437778s Loss: 0.12299 lr:0.004
+[HCTR][12:52:41.104][INFO][RK0][main]: Iter: 14000 Time(100 iters): 0.438811s Loss: 0.126675 lr:0.004
+[HCTR][12:52:41.545][INFO][RK0][main]: Iter: 14100 Time(100 iters): 0.439057s Loss: 0.124607 lr:0.004
+[HCTR][12:52:41.984][INFO][RK0][main]: Iter: 14200 Time(100 iters): 0.43798s Loss: 0.119135 lr:0.004
+[HCTR][12:52:42.423][INFO][RK0][main]: Iter: 14300 Time(100 iters): 0.438449s Loss: 0.123652 lr:0.004
+[HCTR][12:52:42.862][INFO][RK0][main]: Iter: 14400 Time(100 iters): 0.437905s Loss: 0.133644 lr:0.004
+[HCTR][12:52:43.302][INFO][RK0][main]: Iter: 14500 Time(100 iters): 0.438624s Loss: 0.121813 lr:0.004
+[HCTR][12:52:43.741][INFO][RK0][main]: Iter: 14600 Time(100 iters): 0.438495s Loss: 0.133998 lr:0.004
+[HCTR][12:52:44.182][INFO][RK0][main]: Iter: 14700 Time(100 iters): 0.439904s Loss: 0.12189 lr:0.004
+[HCTR][12:52:44.622][INFO][RK0][main]: Iter: 14800 Time(100 iters): 0.438444s Loss: 0.128069 lr:0.004
+[HCTR][12:52:45.063][INFO][RK0][main]: Iter: 14900 Time(100 iters): 0.439961s Loss: 0.124934 lr:0.004
+[HCTR][12:52:45.503][INFO][RK0][main]: Iter: 15000 Time(100 iters): 0.439382s Loss: 0.126511 lr:0.004
+[HCTR][12:52:45.943][INFO][RK0][main]: Iter: 15100 Time(100 iters): 0.438516s Loss: 0.125506 lr:0.004
+[HCTR][12:52:46.383][INFO][RK0][main]: Iter: 15200 Time(100 iters): 0.439182s Loss: 0.121518 lr:0.004
+[HCTR][12:52:46.824][INFO][RK0][main]: Iter: 15300 Time(100 iters): 0.440339s Loss: 0.128959 lr:0.004
+[HCTR][12:52:47.264][INFO][RK0][main]: Iter: 15400 Time(100 iters): 0.439226s Loss: 0.122121 lr:0.004
+[HCTR][12:52:47.706][INFO][RK0][main]: Iter: 15500 Time(100 iters): 0.440539s Loss: 0.116485 lr:0.004
+[HCTR][12:52:48.145][INFO][RK0][main]: Iter: 15600 Time(100 iters): 0.438115s Loss: 0.126825 lr:0.004
+[HCTR][12:52:48.586][INFO][RK0][main]: Iter: 15700 Time(100 iters): 0.439737s Loss: 0.123762 lr:0.004
+[HCTR][12:52:49.025][INFO][RK0][main]: Iter: 15800 Time(100 iters): 0.438129s Loss: 0.125346 lr:0.004
+[HCTR][12:52:49.466][INFO][RK0][main]: Iter: 15900 Time(100 iters): 0.439996s Loss: 0.121181 lr:0.004
+[HCTR][12:52:49.907][INFO][RK0][main]: Iter: 16000 Time(100 iters): 0.439967s Loss: 0.119333 lr:0.004
+[HCTR][12:52:50.347][INFO][RK0][main]: Iter: 16100 Time(100 iters): 0.438898s Loss: 0.119083 lr:0.004
+[HCTR][12:52:50.787][INFO][RK0][main]: Iter: 16200 Time(100 iters): 0.439067s Loss: 0.124891 lr:0.004
+[HCTR][12:52:51.228][INFO][RK0][main]: Iter: 16300 Time(100 iters): 0.43959s Loss: 0.126895 lr:0.004
+[HCTR][12:52:51.668][INFO][RK0][main]: Iter: 16400 Time(100 iters): 0.439548s Loss: 0.12425 lr:0.004
+[HCTR][12:52:52.109][INFO][RK0][main]: Iter: 16500 Time(100 iters): 0.439607s Loss: 0.127186 lr:0.004
+[HCTR][12:52:52.549][INFO][RK0][main]: Iter: 16600 Time(100 iters): 0.439247s Loss: 0.125078 lr:0.004
+[HCTR][12:52:52.989][INFO][RK0][main]: Iter: 16700 Time(100 iters): 0.438754s Loss: 0.121907 lr:0.004
+[HCTR][12:52:53.430][INFO][RK0][main]: Iter: 16800 Time(100 iters): 0.440075s Loss: 0.123475 lr:0.004
+[HCTR][12:52:53.870][INFO][RK0][main]: Iter: 16900 Time(100 iters): 0.438902s Loss: 0.125129 lr:0.004
+[HCTR][12:52:54.310][INFO][RK0][main]: Iter: 17000 Time(100 iters): 0.438888s Loss: 0.121115 lr:0.004
+[HCTR][12:52:54.749][INFO][RK0][main]: Iter: 17100 Time(100 iters): 0.437291s Loss: 0.12572 lr:0.004
+[HCTR][12:52:55.188][INFO][RK0][main]: Iter: 17200 Time(100 iters): 0.438013s Loss: 0.120777 lr:0.004
+[HCTR][12:52:55.629][INFO][RK0][main]: Iter: 17300 Time(100 iters): 0.440268s Loss: 0.124901 lr:0.004
+[HCTR][12:52:56.069][INFO][RK0][main]: Iter: 17400 Time(100 iters): 0.439236s Loss: 0.12103 lr:0.004
+[HCTR][12:52:56.508][INFO][RK0][main]: Iter: 17500 Time(100 iters): 0.438216s Loss: 0.127809 lr:0.004
+[HCTR][12:52:56.949][INFO][RK0][main]: Iter: 17600 Time(100 iters): 0.439446s Loss: 0.12466 lr:0.004
+[HCTR][12:52:57.386][INFO][RK0][main]: Iter: 17700 Time(100 iters): 0.436362s Loss: 0.122265 lr:0.004
+[HCTR][12:52:57.825][INFO][RK0][main]: Iter: 17800 Time(100 iters): 0.438088s Loss: 0.126235 lr:0.004
+[HCTR][12:52:58.266][INFO][RK0][main]: Iter: 17900 Time(100 iters): 0.439507s Loss: 0.126325 lr:0.004
+[HCTR][12:52:58.705][INFO][RK0][main]: Iter: 18000 Time(100 iters): 0.438363s Loss: 0.122232 lr:0.004
+[HCTR][12:52:59.145][INFO][RK0][main]: Iter: 18100 Time(100 iters): 0.438784s Loss: 0.117712 lr:0.004
+[HCTR][12:52:59.585][INFO][RK0][main]: Iter: 18200 Time(100 iters): 0.438794s Loss: 0.12677 lr:0.004
+[HCTR][12:53:00.026][INFO][RK0][main]: Iter: 18300 Time(100 iters): 0.439647s Loss: 0.123199 lr:0.004
+[HCTR][12:53:00.466][INFO][RK0][main]: Iter: 18400 Time(100 iters): 0.439523s Loss: 0.116193 lr:0.004
+[HCTR][12:53:00.908][INFO][RK0][main]: Iter: 18500 Time(100 iters): 0.440132s Loss: 0.119907 lr:0.004
+[HCTR][12:53:01.348][INFO][RK0][main]: Iter: 18600 Time(100 iters): 0.439624s Loss: 0.128338 lr:0.004
+[HCTR][12:53:01.789][INFO][RK0][main]: Iter: 18700 Time(100 iters): 0.439356s Loss: 0.120999 lr:0.004
+[HCTR][12:53:02.228][INFO][RK0][main]: Iter: 18800 Time(100 iters): 0.438803s Loss: 0.131192 lr:0.004
+[HCTR][12:53:02.669][INFO][RK0][main]: Iter: 18900 Time(100 iters): 0.439924s Loss: 0.125547 lr:0.004
+[HCTR][12:53:03.110][INFO][RK0][main]: Iter: 19000 Time(100 iters): 0.4391s Loss: 0.128564 lr:0.004
+[HCTR][12:53:03.549][INFO][RK0][main]: Iter: 19100 Time(100 iters): 0.438123s Loss: 0.123921 lr:0.004
+[HCTR][12:53:03.989][INFO][RK0][main]: Iter: 19200 Time(100 iters): 0.438961s Loss: 0.123313 lr:0.004
+:::MLLOG {"namespace": "", "time_ms": 1713876784002, "event_type": "INTERVAL_START", "key": "eval_start", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 88, "epoch_num": 0.14998281625894336}}
+:::MLLOG {"namespace": "", "time_ms": 1713876787632, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.7963653802871704, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 97, "epoch_num": 0.14998281625894336}}
+:::MLLOG {"namespace": "", "time_ms": 1713876787632, "event_type": "INTERVAL_END", "key": "eval_stop", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 102, "epoch_num": 0.14998281625894336}}
+[HCTR][12:53:07.632][INFO][RK0][main]: Evaluation, AUC: 0.796365
+[HCTR][12:53:07.632][INFO][RK0][main]: Eval Time for 341 iters: 3.62989s
+[HCTR][12:53:08.060][INFO][RK0][main]: Iter: 19300 Time(100 iters): 4.07041s Loss: 0.124985 lr:0.004
+[HCTR][12:53:08.502][INFO][RK0][main]: Iter: 19400 Time(100 iters): 0.4404s Loss: 0.122987 lr:0.004
+[HCTR][12:53:08.943][INFO][RK0][main]: Iter: 19500 Time(100 iters): 0.440246s Loss: 0.127525 lr:0.004
+[HCTR][12:53:09.385][INFO][RK0][main]: Iter: 19600 Time(100 iters): 0.440822s Loss: 0.124744 lr:0.004
+[HCTR][12:53:09.824][INFO][RK0][main]: Iter: 19700 Time(100 iters): 0.438466s Loss: 0.123323 lr:0.004
+[HCTR][12:53:10.266][INFO][RK0][main]: Iter: 19800 Time(100 iters): 0.440228s Loss: 0.124909 lr:0.004
+[HCTR][12:53:10.706][INFO][RK0][main]: Iter: 19900 Time(100 iters): 0.439143s Loss: 0.123766 lr:0.004
+[HCTR][12:53:11.146][INFO][RK0][main]: Iter: 20000 Time(100 iters): 0.438973s Loss: 0.124732 lr:0.004
+[HCTR][12:53:11.587][INFO][RK0][main]: Iter: 20100 Time(100 iters): 0.440528s Loss: 0.119501 lr:0.004
+[HCTR][12:53:12.027][INFO][RK0][main]: Iter: 20200 Time(100 iters): 0.438234s Loss: 0.125574 lr:0.004
+[HCTR][12:53:12.467][INFO][RK0][main]: Iter: 20300 Time(100 iters): 0.438997s Loss: 0.121462 lr:0.004
+[HCTR][12:53:12.906][INFO][RK0][main]: Iter: 20400 Time(100 iters): 0.438296s Loss: 0.122742 lr:0.004
+[HCTR][12:53:13.346][INFO][RK0][main]: Iter: 20500 Time(100 iters): 0.439327s Loss: 0.120736 lr:0.004
+[HCTR][12:53:13.788][INFO][RK0][main]: Iter: 20600 Time(100 iters): 0.440531s Loss: 0.122744 lr:0.004
+[HCTR][12:53:14.228][INFO][RK0][main]: Iter: 20700 Time(100 iters): 0.439019s Loss: 0.126671 lr:0.004
+[HCTR][12:53:14.668][INFO][RK0][main]: Iter: 20800 Time(100 iters): 0.43886s Loss: 0.129065 lr:0.004
+[HCTR][12:53:15.108][INFO][RK0][main]: Iter: 20900 Time(100 iters): 0.439189s Loss: 0.121119 lr:0.004
+[HCTR][12:53:15.548][INFO][RK0][main]: Iter: 21000 Time(100 iters): 0.438622s Loss: 0.119049 lr:0.004
+[HCTR][12:53:15.989][INFO][RK0][main]: Iter: 21100 Time(100 iters): 0.440431s Loss: 0.122218 lr:0.004
+[HCTR][12:53:16.429][INFO][RK0][main]: Iter: 21200 Time(100 iters): 0.438458s Loss: 0.126875 lr:0.004
+[HCTR][12:53:16.867][INFO][RK0][main]: Iter: 21300 Time(100 iters): 0.437616s Loss: 0.127146 lr:0.004
+[HCTR][12:53:17.307][INFO][RK0][main]: Iter: 21400 Time(100 iters): 0.438201s Loss: 0.11951 lr:0.004
+[HCTR][12:53:17.747][INFO][RK0][main]: Iter: 21500 Time(100 iters): 0.439141s Loss: 0.127473 lr:0.004
+[HCTR][12:53:18.188][INFO][RK0][main]: Iter: 21600 Time(100 iters): 0.440288s Loss: 0.124971 lr:0.004
+[HCTR][12:53:18.628][INFO][RK0][main]: Iter: 21700 Time(100 iters): 0.438535s Loss: 0.123549 lr:0.004
+[HCTR][12:53:19.068][INFO][RK0][main]: Iter: 21800 Time(100 iters): 0.439177s Loss: 0.12056 lr:0.004
+[HCTR][12:53:19.509][INFO][RK0][main]: Iter: 21900 Time(100 iters): 0.439947s Loss: 0.122859 lr:0.004
+[HCTR][12:53:19.949][INFO][RK0][main]: Iter: 22000 Time(100 iters): 0.438463s Loss: 0.123089 lr:0.004
+[HCTR][12:53:20.389][INFO][RK0][main]: Iter: 22100 Time(100 iters): 0.439711s Loss: 0.124425 lr:0.004
+[HCTR][12:53:20.830][INFO][RK0][main]: Iter: 22200 Time(100 iters): 0.439536s Loss: 0.129076 lr:0.004
+[HCTR][12:53:21.269][INFO][RK0][main]: Iter: 22300 Time(100 iters): 0.438364s Loss: 0.122965 lr:0.004
+[HCTR][12:53:21.711][INFO][RK0][main]: Iter: 22400 Time(100 iters): 0.440412s Loss: 0.124606 lr:0.004
+[HCTR][12:53:22.151][INFO][RK0][main]: Iter: 22500 Time(100 iters): 0.439303s Loss: 0.121852 lr:0.004
+[HCTR][12:53:22.591][INFO][RK0][main]: Iter: 22600 Time(100 iters): 0.438879s Loss: 0.119297 lr:0.004
+[HCTR][12:53:23.031][INFO][RK0][main]: Iter: 22700 Time(100 iters): 0.438639s Loss: 0.120899 lr:0.004
+[HCTR][12:53:23.472][INFO][RK0][main]: Iter: 22800 Time(100 iters): 0.440424s Loss: 0.127525 lr:0.004
+[HCTR][12:53:23.914][INFO][RK0][main]: Iter: 22900 Time(100 iters): 0.441178s Loss: 0.122258 lr:0.004
+[HCTR][12:53:24.355][INFO][RK0][main]: Iter: 23000 Time(100 iters): 0.439767s Loss: 0.123963 lr:0.004
+[HCTR][12:53:24.795][INFO][RK0][main]: Iter: 23100 Time(100 iters): 0.438363s Loss: 0.123173 lr:0.004
+[HCTR][12:53:25.233][INFO][RK0][main]: Iter: 23200 Time(100 iters): 0.437753s Loss: 0.126377 lr:0.004
+[HCTR][12:53:25.674][INFO][RK0][main]: Iter: 23300 Time(100 iters): 0.439619s Loss: 0.131335 lr:0.004
+[HCTR][12:53:26.114][INFO][RK0][main]: Iter: 23400 Time(100 iters): 0.438934s Loss: 0.122019 lr:0.004
+[HCTR][12:53:26.554][INFO][RK0][main]: Iter: 23500 Time(100 iters): 0.439233s Loss: 0.122304 lr:0.004
+[HCTR][12:53:26.993][INFO][RK0][main]: Iter: 23600 Time(100 iters): 0.437886s Loss: 0.119096 lr:0.004
+[HCTR][12:53:27.434][INFO][RK0][main]: Iter: 23700 Time(100 iters): 0.43948s Loss: 0.118764 lr:0.004
+[HCTR][12:53:27.875][INFO][RK0][main]: Iter: 23800 Time(100 iters): 0.440438s Loss: 0.122065 lr:0.004
+[HCTR][12:53:28.315][INFO][RK0][main]: Iter: 23900 Time(100 iters): 0.439058s Loss: 0.12081 lr:0.004
+[HCTR][12:53:28.755][INFO][RK0][main]: Iter: 24000 Time(100 iters): 0.438535s Loss: 0.118169 lr:0.004
+[HCTR][12:53:29.195][INFO][RK0][main]: Iter: 24100 Time(100 iters): 0.438732s Loss: 0.126579 lr:0.004
+[HCTR][12:53:29.635][INFO][RK0][main]: Iter: 24200 Time(100 iters): 0.438945s Loss: 0.120284 lr:0.004
+[HCTR][12:53:30.077][INFO][RK0][main]: Iter: 24300 Time(100 iters): 0.441562s Loss: 0.123695 lr:0.004
+[HCTR][12:53:30.516][INFO][RK0][main]: Iter: 24400 Time(100 iters): 0.438291s Loss: 0.12166 lr:0.004
+[HCTR][12:53:30.955][INFO][RK0][main]: Iter: 24500 Time(100 iters): 0.437477s Loss: 0.127534 lr:0.004
+[HCTR][12:53:31.397][INFO][RK0][main]: Iter: 24600 Time(100 iters): 0.440574s Loss: 0.123578 lr:0.004
+[HCTR][12:53:31.837][INFO][RK0][main]: Iter: 24700 Time(100 iters): 0.438995s Loss: 0.121433 lr:0.004
+[HCTR][12:53:32.276][INFO][RK0][main]: Iter: 24800 Time(100 iters): 0.438445s Loss: 0.122288 lr:0.004
+[HCTR][12:53:32.717][INFO][RK0][main]: Iter: 24900 Time(100 iters): 0.439727s Loss: 0.120144 lr:0.004
+[HCTR][12:53:33.157][INFO][RK0][main]: Iter: 25000 Time(100 iters): 0.43875s Loss: 0.118115 lr:0.004
+[HCTR][12:53:33.597][INFO][RK0][main]: Iter: 25100 Time(100 iters): 0.439164s Loss: 0.124798 lr:0.004
+[HCTR][12:53:34.036][INFO][RK0][main]: Iter: 25200 Time(100 iters): 0.438454s Loss: 0.121934 lr:0.004
+[HCTR][12:53:34.478][INFO][RK0][main]: Iter: 25300 Time(100 iters): 0.440372s Loss: 0.123677 lr:0.004
+[HCTR][12:53:34.918][INFO][RK0][main]: Iter: 25400 Time(100 iters): 0.439488s Loss: 0.118589 lr:0.004
+[HCTR][12:53:35.358][INFO][RK0][main]: Iter: 25500 Time(100 iters): 0.43856s Loss: 0.122432 lr:0.004
+[HCTR][12:53:35.798][INFO][RK0][main]: Iter: 25600 Time(100 iters): 0.439337s Loss: 0.120173 lr:0.004
+:::MLLOG {"namespace": "", "time_ms": 1713876815816, "event_type": "INTERVAL_START", "key": "eval_start", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 88, "epoch_num": 0.1999796919423876}}
+:::MLLOG {"namespace": "", "time_ms": 1713876819449, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.7980210781097412, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 97, "epoch_num": 0.1999796919423876}}
+:::MLLOG {"namespace": "", "time_ms": 1713876819450, "event_type": "INTERVAL_END", "key": "eval_stop", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 102, "epoch_num": 0.1999796919423876}}
+[HCTR][12:53:39.450][INFO][RK0][main]: Evaluation, AUC: 0.798021
+[HCTR][12:53:39.450][INFO][RK0][main]: Eval Time for 341 iters: 3.63369s
+[HCTR][12:53:39.872][INFO][RK0][main]: Iter: 25700 Time(100 iters): 4.07285s Loss: 0.119967 lr:0.004
+[HCTR][12:53:40.314][INFO][RK0][main]: Iter: 25800 Time(100 iters): 0.440482s Loss: 0.122997 lr:0.004
+[HCTR][12:53:40.758][INFO][RK0][main]: Iter: 25900 Time(100 iters): 0.442958s Loss: 0.125293 lr:0.004
+[HCTR][12:53:41.197][INFO][RK0][main]: Iter: 26000 Time(100 iters): 0.438242s Loss: 0.122128 lr:0.004
+[HCTR][12:53:41.636][INFO][RK0][main]: Iter: 26100 Time(100 iters): 0.438218s Loss: 0.12097 lr:0.004
+[HCTR][12:53:42.075][INFO][RK0][main]: Iter: 26200 Time(100 iters): 0.437175s Loss: 0.124446 lr:0.004
+[HCTR][12:53:42.514][INFO][RK0][main]: Iter: 26300 Time(100 iters): 0.438468s Loss: 0.120893 lr:0.004
+[HCTR][12:53:42.954][INFO][RK0][main]: Iter: 26400 Time(100 iters): 0.439226s Loss: 0.127014 lr:0.004
+[HCTR][12:53:43.395][INFO][RK0][main]: Iter: 26500 Time(100 iters): 0.439837s Loss: 0.122473 lr:0.004
+[HCTR][12:53:43.836][INFO][RK0][main]: Iter: 26600 Time(100 iters): 0.439822s Loss: 0.120791 lr:0.004
+[HCTR][12:53:44.277][INFO][RK0][main]: Iter: 26700 Time(100 iters): 0.439505s Loss: 0.12459 lr:0.004
+[HCTR][12:53:44.717][INFO][RK0][main]: Iter: 26800 Time(100 iters): 0.439716s Loss: 0.124451 lr:0.004
+[HCTR][12:53:45.158][INFO][RK0][main]: Iter: 26900 Time(100 iters): 0.439299s Loss: 0.126967 lr:0.004
+[HCTR][12:53:45.598][INFO][RK0][main]: Iter: 27000 Time(100 iters): 0.438904s Loss: 0.123284 lr:0.004
+[HCTR][12:53:46.038][INFO][RK0][main]: Iter: 27100 Time(100 iters): 0.438863s Loss: 0.119161 lr:0.004
+[HCTR][12:53:46.479][INFO][RK0][main]: Iter: 27200 Time(100 iters): 0.440219s Loss: 0.124728 lr:0.004
+[HCTR][12:53:46.920][INFO][RK0][main]: Iter: 27300 Time(100 iters): 0.439852s Loss: 0.123382 lr:0.004
+[HCTR][12:53:47.359][INFO][RK0][main]: Iter: 27400 Time(100 iters): 0.438052s Loss: 0.126557 lr:0.004
+[HCTR][12:53:47.800][INFO][RK0][main]: Iter: 27500 Time(100 iters): 0.440049s Loss: 0.124095 lr:0.004
+[HCTR][12:53:48.240][INFO][RK0][main]: Iter: 27600 Time(100 iters): 0.439195s Loss: 0.121458 lr:0.004
+[HCTR][12:53:48.679][INFO][RK0][main]: Iter: 27700 Time(100 iters): 0.438071s Loss: 0.124272 lr:0.004
+[HCTR][12:53:49.120][INFO][RK0][main]: Iter: 27800 Time(100 iters): 0.439629s Loss: 0.12605 lr:0.004
+[HCTR][12:53:49.560][INFO][RK0][main]: Iter: 27900 Time(100 iters): 0.438741s Loss: 0.125175 lr:0.004
+[HCTR][12:53:50.002][INFO][RK0][main]: Iter: 28000 Time(100 iters): 0.441252s Loss: 0.1275 lr:0.004
+[HCTR][12:53:50.444][INFO][RK0][main]: Iter: 28100 Time(100 iters): 0.44083s Loss: 0.118524 lr:0.004
+[HCTR][12:53:50.885][INFO][RK0][main]: Iter: 28200 Time(100 iters): 0.440468s Loss: 0.126418 lr:0.004
+[HCTR][12:53:51.325][INFO][RK0][main]: Iter: 28300 Time(100 iters): 0.438854s Loss: 0.128238 lr:0.004
+[HCTR][12:53:51.764][INFO][RK0][main]: Iter: 28400 Time(100 iters): 0.437896s Loss: 0.126948 lr:0.004
+[HCTR][12:53:52.206][INFO][RK0][main]: Iter: 28500 Time(100 iters): 0.440455s Loss: 0.127294 lr:0.004
+[HCTR][12:53:52.646][INFO][RK0][main]: Iter: 28600 Time(100 iters): 0.43862s Loss: 0.123057 lr:0.004
+[HCTR][12:53:53.086][INFO][RK0][main]: Iter: 28700 Time(100 iters): 0.43925s Loss: 0.117917 lr:0.004
+[HCTR][12:53:53.527][INFO][RK0][main]: Iter: 28800 Time(100 iters): 0.440139s Loss: 0.122411 lr:0.004
+[HCTR][12:53:53.967][INFO][RK0][main]: Iter: 28900 Time(100 iters): 0.439463s Loss: 0.122524 lr:0.004
+[HCTR][12:53:54.408][INFO][RK0][main]: Iter: 29000 Time(100 iters): 0.43977s Loss: 0.122906 lr:0.004
+[HCTR][12:53:54.850][INFO][RK0][main]: Iter: 29100 Time(100 iters): 0.440233s Loss: 0.122457 lr:0.004
+[HCTR][12:53:55.290][INFO][RK0][main]: Iter: 29200 Time(100 iters): 0.439262s Loss: 0.124354 lr:0.004
+[HCTR][12:53:55.732][INFO][RK0][main]: Iter: 29300 Time(100 iters): 0.44072s Loss: 0.124083 lr:0.004
+[HCTR][12:53:56.173][INFO][RK0][main]: Iter: 29400 Time(100 iters): 0.440596s Loss: 0.123134 lr:0.004
+[HCTR][12:53:56.614][INFO][RK0][main]: Iter: 29500 Time(100 iters): 0.439658s Loss: 0.125296 lr:0.004
+[HCTR][12:53:57.053][INFO][RK0][main]: Iter: 29600 Time(100 iters): 0.438285s Loss: 0.125043 lr:0.004
+[HCTR][12:53:57.494][INFO][RK0][main]: Iter: 29700 Time(100 iters): 0.439335s Loss: 0.121069 lr:0.004
+[HCTR][12:53:57.935][INFO][RK0][main]: Iter: 29800 Time(100 iters): 0.440721s Loss: 0.119812 lr:0.004
+[HCTR][12:53:58.375][INFO][RK0][main]: Iter: 29900 Time(100 iters): 0.43902s Loss: 0.118085 lr:0.004
+[HCTR][12:53:58.818][INFO][RK0][main]: Iter: 30000 Time(100 iters): 0.441273s Loss: 0.122876 lr:0.004
+[HCTR][12:53:59.258][INFO][RK0][main]: Iter: 30100 Time(100 iters): 0.438981s Loss: 0.122427 lr:0.004
+[HCTR][12:53:59.698][INFO][RK0][main]: Iter: 30200 Time(100 iters): 0.438938s Loss: 0.126853 lr:0.004
+[HCTR][12:54:00.137][INFO][RK0][main]: Iter: 30300 Time(100 iters): 0.438312s Loss: 0.12364 lr:0.004
+[HCTR][12:54:00.578][INFO][RK0][main]: Iter: 30400 Time(100 iters): 0.439807s Loss: 0.124405 lr:0.004
+[HCTR][12:54:01.018][INFO][RK0][main]: Iter: 30500 Time(100 iters): 0.439404s Loss: 0.118781 lr:0.004
+[HCTR][12:54:01.460][INFO][RK0][main]: Iter: 30600 Time(100 iters): 0.440283s Loss: 0.125232 lr:0.004
+[HCTR][12:54:01.898][INFO][RK0][main]: Iter: 30700 Time(100 iters): 0.437825s Loss: 0.122337 lr:0.004
+[HCTR][12:54:02.339][INFO][RK0][main]: Iter: 30800 Time(100 iters): 0.43906s Loss: 0.122787 lr:0.004
+[HCTR][12:54:02.778][INFO][RK0][main]: Iter: 30900 Time(100 iters): 0.438453s Loss: 0.125086 lr:0.004
+[HCTR][12:54:03.219][INFO][RK0][main]: Iter: 31000 Time(100 iters): 0.439842s Loss: 0.123279 lr:0.004
+[HCTR][12:54:03.658][INFO][RK0][main]: Iter: 31100 Time(100 iters): 0.438428s Loss: 0.125262 lr:0.004
+[HCTR][12:54:04.099][INFO][RK0][main]: Iter: 31200 Time(100 iters): 0.439768s Loss: 0.122254 lr:0.004
+[HCTR][12:54:04.539][INFO][RK0][main]: Iter: 31300 Time(100 iters): 0.438645s Loss: 0.12097 lr:0.004
+[HCTR][12:54:04.979][INFO][RK0][main]: Iter: 31400 Time(100 iters): 0.439401s Loss: 0.120435 lr:0.004
+[HCTR][12:54:05.419][INFO][RK0][main]: Iter: 31500 Time(100 iters): 0.438202s Loss: 0.119404 lr:0.004
+[HCTR][12:54:05.860][INFO][RK0][main]: Iter: 31600 Time(100 iters): 0.440257s Loss: 0.124071 lr:0.004
+[HCTR][12:54:06.298][INFO][RK0][main]: Iter: 31700 Time(100 iters): 0.436929s Loss: 0.120307 lr:0.004
+[HCTR][12:54:06.738][INFO][RK0][main]: Iter: 31800 Time(100 iters): 0.438957s Loss: 0.126171 lr:0.004
+[HCTR][12:54:07.179][INFO][RK0][main]: Iter: 31900 Time(100 iters): 0.439659s Loss: 0.122574 lr:0.004
+[HCTR][12:54:07.617][INFO][RK0][main]: Iter: 32000 Time(100 iters): 0.437294s Loss: 0.123428 lr:0.004
+:::MLLOG {"namespace": "", "time_ms": 1713876847640, "event_type": "INTERVAL_START", "key": "eval_start", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 88, "epoch_num": 0.24997656762583184}}
+:::MLLOG {"namespace": "", "time_ms": 1713876851269, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.7987486720085144, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 97, "epoch_num": 0.24997656762583184}}
+:::MLLOG {"namespace": "", "time_ms": 1713876851269, "event_type": "INTERVAL_END", "key": "eval_stop", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 102, "epoch_num": 0.24997656762583184}}
+[HCTR][12:54:11.269][INFO][RK0][main]: Evaluation, AUC: 0.798749
+[HCTR][12:54:11.269][INFO][RK0][main]: Eval Time for 341 iters: 3.62936s
+[HCTR][12:54:11.687][INFO][RK0][main]: Iter: 32100 Time(100 iters): 4.06897s Loss: 0.12378 lr:0.004
+[HCTR][12:54:12.126][INFO][RK0][main]: Iter: 32200 Time(100 iters): 0.438146s Loss: 0.123622 lr:0.004
+[HCTR][12:54:12.564][INFO][RK0][main]: Iter: 32300 Time(100 iters): 0.437163s Loss: 0.127981 lr:0.004
+[HCTR][12:54:13.005][INFO][RK0][main]: Iter: 32400 Time(100 iters): 0.439676s Loss: 0.122451 lr:0.004
+[HCTR][12:54:13.446][INFO][RK0][main]: Iter: 32500 Time(100 iters): 0.439328s Loss: 0.123872 lr:0.004
+[HCTR][12:54:13.885][INFO][RK0][main]: Iter: 32600 Time(100 iters): 0.438345s Loss: 0.121604 lr:0.004
+[HCTR][12:54:14.326][INFO][RK0][main]: Iter: 32700 Time(100 iters): 0.440154s Loss: 0.120545 lr:0.004
+[HCTR][12:54:14.767][INFO][RK0][main]: Iter: 32800 Time(100 iters): 0.439779s Loss: 0.123637 lr:0.004
+[HCTR][12:54:15.207][INFO][RK0][main]: Iter: 32900 Time(100 iters): 0.439373s Loss: 0.120552 lr:0.004
+[HCTR][12:54:15.648][INFO][RK0][main]: Iter: 33000 Time(100 iters): 0.439711s Loss: 0.127091 lr:0.004
+[HCTR][12:54:16.089][INFO][RK0][main]: Iter: 33100 Time(100 iters): 0.440003s Loss: 0.122933 lr:0.004
+[HCTR][12:54:16.531][INFO][RK0][main]: Iter: 33200 Time(100 iters): 0.441106s Loss: 0.120964 lr:0.004
+[HCTR][12:54:16.971][INFO][RK0][main]: Iter: 33300 Time(100 iters): 0.438228s Loss: 0.127354 lr:0.004
+[HCTR][12:54:17.412][INFO][RK0][main]: Iter: 33400 Time(100 iters): 0.440034s Loss: 0.130032 lr:0.004
+[HCTR][12:54:17.853][INFO][RK0][main]: Iter: 33500 Time(100 iters): 0.440016s Loss: 0.121783 lr:0.004
+[HCTR][12:54:18.292][INFO][RK0][main]: Iter: 33600 Time(100 iters): 0.438715s Loss: 0.133167 lr:0.004
+[HCTR][12:54:18.732][INFO][RK0][main]: Iter: 33700 Time(100 iters): 0.438697s Loss: 0.129531 lr:0.004
+[HCTR][12:54:19.172][INFO][RK0][main]: Iter: 33800 Time(100 iters): 0.439199s Loss: 0.123497 lr:0.004
+[HCTR][12:54:19.612][INFO][RK0][main]: Iter: 33900 Time(100 iters): 0.438842s Loss: 0.123672 lr:0.004
+[HCTR][12:54:20.052][INFO][RK0][main]: Iter: 34000 Time(100 iters): 0.438158s Loss: 0.123982 lr:0.004
+[HCTR][12:54:20.492][INFO][RK0][main]: Iter: 34100 Time(100 iters): 0.439606s Loss: 0.122768 lr:0.004
+[HCTR][12:54:20.933][INFO][RK0][main]: Iter: 34200 Time(100 iters): 0.439324s Loss: 0.118462 lr:0.004
+[HCTR][12:54:21.372][INFO][RK0][main]: Iter: 34300 Time(100 iters): 0.438871s Loss: 0.123969 lr:0.004
+[HCTR][12:54:21.813][INFO][RK0][main]: Iter: 34400 Time(100 iters): 0.439145s Loss: 0.125039 lr:0.004
+[HCTR][12:54:22.252][INFO][RK0][main]: Iter: 34500 Time(100 iters): 0.438627s Loss: 0.127208 lr:0.004
+[HCTR][12:54:22.691][INFO][RK0][main]: Iter: 34600 Time(100 iters): 0.43753s Loss: 0.119423 lr:0.004
+[HCTR][12:54:23.131][INFO][RK0][main]: Iter: 34700 Time(100 iters): 0.438539s Loss: 0.122871 lr:0.004
+[HCTR][12:54:23.570][INFO][RK0][main]: Iter: 34800 Time(100 iters): 0.437917s Loss: 0.122121 lr:0.004
+[HCTR][12:54:24.010][INFO][RK0][main]: Iter: 34900 Time(100 iters): 0.439265s Loss: 0.122658 lr:0.004
+[HCTR][12:54:24.451][INFO][RK0][main]: Iter: 35000 Time(100 iters): 0.440275s Loss: 0.12427 lr:0.004
+[HCTR][12:54:24.890][INFO][RK0][main]: Iter: 35100 Time(100 iters): 0.438223s Loss: 0.120286 lr:0.004
+[HCTR][12:54:25.329][INFO][RK0][main]: Iter: 35200 Time(100 iters): 0.437538s Loss: 0.124737 lr:0.004
+[HCTR][12:54:25.769][INFO][RK0][main]: Iter: 35300 Time(100 iters): 0.439146s Loss: 0.121433 lr:0.004
+[HCTR][12:54:26.209][INFO][RK0][main]: Iter: 35400 Time(100 iters): 0.439126s Loss: 0.126231 lr:0.004
+[HCTR][12:54:26.650][INFO][RK0][main]: Iter: 35500 Time(100 iters): 0.439608s Loss: 0.120519 lr:0.004
+[HCTR][12:54:27.089][INFO][RK0][main]: Iter: 35600 Time(100 iters): 0.438328s Loss: 0.119999 lr:0.004
+[HCTR][12:54:27.529][INFO][RK0][main]: Iter: 35700 Time(100 iters): 0.438932s Loss: 0.122559 lr:0.004
+[HCTR][12:54:27.971][INFO][RK0][main]: Iter: 35800 Time(100 iters): 0.4407s Loss: 0.124407 lr:0.004
+[HCTR][12:54:28.413][INFO][RK0][main]: Iter: 35900 Time(100 iters): 0.440935s Loss: 0.11996 lr:0.004
+[HCTR][12:54:28.852][INFO][RK0][main]: Iter: 36000 Time(100 iters): 0.438063s Loss: 0.118235 lr:0.004
+[HCTR][12:54:29.292][INFO][RK0][main]: Iter: 36100 Time(100 iters): 0.439101s Loss: 0.121197 lr:0.004
+[HCTR][12:54:29.732][INFO][RK0][main]: Iter: 36200 Time(100 iters): 0.438973s Loss: 0.122984 lr:0.004
+[HCTR][12:54:30.174][INFO][RK0][main]: Iter: 36300 Time(100 iters): 0.440705s Loss: 0.124917 lr:0.004
+[HCTR][12:54:30.613][INFO][RK0][main]: Iter: 36400 Time(100 iters): 0.438033s Loss: 0.116654 lr:0.004
+[HCTR][12:54:31.053][INFO][RK0][main]: Iter: 36500 Time(100 iters): 0.438962s Loss: 0.123314 lr:0.004
+[HCTR][12:54:31.493][INFO][RK0][main]: Iter: 36600 Time(100 iters): 0.438896s Loss: 0.11869 lr:0.004
+[HCTR][12:54:31.933][INFO][RK0][main]: Iter: 36700 Time(100 iters): 0.439368s Loss: 0.124668 lr:0.004
+[HCTR][12:54:32.373][INFO][RK0][main]: Iter: 36800 Time(100 iters): 0.438378s Loss: 0.119765 lr:0.004
+[HCTR][12:54:32.813][INFO][RK0][main]: Iter: 36900 Time(100 iters): 0.43927s Loss: 0.12083 lr:0.004
+[HCTR][12:54:33.253][INFO][RK0][main]: Iter: 37000 Time(100 iters): 0.439137s Loss: 0.125929 lr:0.004
+[HCTR][12:54:33.693][INFO][RK0][main]: Iter: 37100 Time(100 iters): 0.438245s Loss: 0.122697 lr:0.004
+[HCTR][12:54:34.133][INFO][RK0][main]: Iter: 37200 Time(100 iters): 0.439338s Loss: 0.124631 lr:0.004
+[HCTR][12:54:34.574][INFO][RK0][main]: Iter: 37300 Time(100 iters): 0.439507s Loss: 0.118539 lr:0.004
+[HCTR][12:54:35.014][INFO][RK0][main]: Iter: 37400 Time(100 iters): 0.439656s Loss: 0.125192 lr:0.004
+[HCTR][12:54:35.453][INFO][RK0][main]: Iter: 37500 Time(100 iters): 0.437893s Loss: 0.115496 lr:0.004
+[HCTR][12:54:35.892][INFO][RK0][main]: Iter: 37600 Time(100 iters): 0.437845s Loss: 0.118686 lr:0.004
+[HCTR][12:54:36.333][INFO][RK0][main]: Iter: 37700 Time(100 iters): 0.439937s Loss: 0.117092 lr:0.004
+[HCTR][12:54:36.774][INFO][RK0][main]: Iter: 37800 Time(100 iters): 0.440343s Loss: 0.121283 lr:0.004
+[HCTR][12:54:37.214][INFO][RK0][main]: Iter: 37900 Time(100 iters): 0.438623s Loss: 0.125762 lr:0.004
+[HCTR][12:54:37.654][INFO][RK0][main]: Iter: 38000 Time(100 iters): 0.438905s Loss: 0.12467 lr:0.004
+[HCTR][12:54:38.095][INFO][RK0][main]: Iter: 38100 Time(100 iters): 0.439711s Loss: 0.119833 lr:0.004
+[HCTR][12:54:38.534][INFO][RK0][main]: Iter: 38200 Time(100 iters): 0.438648s Loss: 0.128166 lr:0.004
+[HCTR][12:54:38.974][INFO][RK0][main]: Iter: 38300 Time(100 iters): 0.438123s Loss: 0.122063 lr:0.004
+[HCTR][12:54:39.413][INFO][RK0][main]: Iter: 38400 Time(100 iters): 0.438778s Loss: 0.1222 lr:0.004
+:::MLLOG {"namespace": "", "time_ms": 1713876879440, "event_type": "INTERVAL_START", "key": "eval_start", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 88, "epoch_num": 0.2999734433092761}}
+:::MLLOG {"namespace": "", "time_ms": 1713876883067, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.7996851205825806, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 97, "epoch_num": 0.2999734433092761}}
+:::MLLOG {"namespace": "", "time_ms": 1713876883067, "event_type": "INTERVAL_END", "key": "eval_stop", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 102, "epoch_num": 0.2999734433092761}}
+[HCTR][12:54:43.067][INFO][RK0][main]: Evaluation, AUC: 0.799685
+[HCTR][12:54:43.067][INFO][RK0][main]: Eval Time for 341 iters: 3.62792s
+[HCTR][12:54:43.483][INFO][RK0][main]: Iter: 38500 Time(100 iters): 4.06822s Loss: 0.12199 lr:0.004
+[HCTR][12:54:43.923][INFO][RK0][main]: Iter: 38600 Time(100 iters): 0.438822s Loss: 0.122515 lr:0.004
+[HCTR][12:54:44.363][INFO][RK0][main]: Iter: 38700 Time(100 iters): 0.439819s Loss: 0.118852 lr:0.004
+[HCTR][12:54:44.804][INFO][RK0][main]: Iter: 38800 Time(100 iters): 0.439314s Loss: 0.123809 lr:0.004
+[HCTR][12:54:45.242][INFO][RK0][main]: Iter: 38900 Time(100 iters): 0.437151s Loss: 0.121461 lr:0.004
+[HCTR][12:54:45.682][INFO][RK0][main]: Iter: 39000 Time(100 iters): 0.43946s Loss: 0.128814 lr:0.004
+[HCTR][12:54:46.122][INFO][RK0][main]: Iter: 39100 Time(100 iters): 0.438341s Loss: 0.117597 lr:0.004
+[HCTR][12:54:46.563][INFO][RK0][main]: Iter: 39200 Time(100 iters): 0.440537s Loss: 0.121458 lr:0.004
+[HCTR][12:54:47.004][INFO][RK0][main]: Iter: 39300 Time(100 iters): 0.43924s Loss: 0.12803 lr:0.004
+[HCTR][12:54:47.445][INFO][RK0][main]: Iter: 39400 Time(100 iters): 0.440258s Loss: 0.117622 lr:0.004
+[HCTR][12:54:47.886][INFO][RK0][main]: Iter: 39500 Time(100 iters): 0.439977s Loss: 0.12349 lr:0.004
+[HCTR][12:54:48.327][INFO][RK0][main]: Iter: 39600 Time(100 iters): 0.440256s Loss: 0.122511 lr:0.004
+[HCTR][12:54:48.766][INFO][RK0][main]: Iter: 39700 Time(100 iters): 0.437708s Loss: 0.123582 lr:0.004
+[HCTR][12:54:49.206][INFO][RK0][main]: Iter: 39800 Time(100 iters): 0.438613s Loss: 0.123153 lr:0.004
+[HCTR][12:54:49.646][INFO][RK0][main]: Iter: 39900 Time(100 iters): 0.439033s Loss: 0.12561 lr:0.004
+[HCTR][12:54:50.087][INFO][RK0][main]: Iter: 40000 Time(100 iters): 0.439817s Loss: 0.122986 lr:0.004
+[HCTR][12:54:50.526][INFO][RK0][main]: Iter: 40100 Time(100 iters): 0.437995s Loss: 0.12456 lr:0.004
+[HCTR][12:54:50.966][INFO][RK0][main]: Iter: 40200 Time(100 iters): 0.439387s Loss: 0.118857 lr:0.004
+[HCTR][12:54:51.408][INFO][RK0][main]: Iter: 40300 Time(100 iters): 0.441048s Loss: 0.124994 lr:0.004
+[HCTR][12:54:51.850][INFO][RK0][main]: Iter: 40400 Time(100 iters): 0.441129s Loss: 0.122477 lr:0.004
+[HCTR][12:54:52.291][INFO][RK0][main]: Iter: 40500 Time(100 iters): 0.439262s Loss: 0.125352 lr:0.004
+[HCTR][12:54:52.733][INFO][RK0][main]: Iter: 40600 Time(100 iters): 0.441146s Loss: 0.124465 lr:0.004
+[HCTR][12:54:53.171][INFO][RK0][main]: Iter: 40700 Time(100 iters): 0.437185s Loss: 0.126454 lr:0.004
+[HCTR][12:54:53.612][INFO][RK0][main]: Iter: 40800 Time(100 iters): 0.439539s Loss: 0.118896 lr:0.004
+[HCTR][12:54:54.052][INFO][RK0][main]: Iter: 40900 Time(100 iters): 0.43893s Loss: 0.123407 lr:0.004
+[HCTR][12:54:54.490][INFO][RK0][main]: Iter: 41000 Time(100 iters): 0.437208s Loss: 0.118758 lr:0.004
+[HCTR][12:54:54.930][INFO][RK0][main]: Iter: 41100 Time(100 iters): 0.438868s Loss: 0.117844 lr:0.004
+[HCTR][12:54:55.371][INFO][RK0][main]: Iter: 41200 Time(100 iters): 0.439754s Loss: 0.117024 lr:0.004
+[HCTR][12:54:55.813][INFO][RK0][main]: Iter: 41300 Time(100 iters): 0.441526s Loss: 0.122284 lr:0.004
+[HCTR][12:54:56.253][INFO][RK0][main]: Iter: 41400 Time(100 iters): 0.438884s Loss: 0.120137 lr:0.004
+[HCTR][12:54:56.692][INFO][RK0][main]: Iter: 41500 Time(100 iters): 0.438022s Loss: 0.122506 lr:0.004
+[HCTR][12:54:57.134][INFO][RK0][main]: Iter: 41600 Time(100 iters): 0.440723s Loss: 0.120257 lr:0.004
+[HCTR][12:54:57.573][INFO][RK0][main]: Iter: 41700 Time(100 iters): 0.438227s Loss: 0.126055 lr:0.004
+[HCTR][12:54:58.014][INFO][RK0][main]: Iter: 41800 Time(100 iters): 0.43989s Loss: 0.122968 lr:0.004
+[HCTR][12:54:58.454][INFO][RK0][main]: Iter: 41900 Time(100 iters): 0.439171s Loss: 0.1213 lr:0.004
+[HCTR][12:54:58.893][INFO][RK0][main]: Iter: 42000 Time(100 iters): 0.437731s Loss: 0.119769 lr:0.004
+[HCTR][12:54:59.335][INFO][RK0][main]: Iter: 42100 Time(100 iters): 0.440671s Loss: 0.124621 lr:0.004
+[HCTR][12:54:59.777][INFO][RK0][main]: Iter: 42200 Time(100 iters): 0.440812s Loss: 0.113867 lr:0.004
+[HCTR][12:55:00.218][INFO][RK0][main]: Iter: 42300 Time(100 iters): 0.440628s Loss: 0.123042 lr:0.004
+[HCTR][12:55:00.658][INFO][RK0][main]: Iter: 42400 Time(100 iters): 0.438473s Loss: 0.120965 lr:0.004
+[HCTR][12:55:01.099][INFO][RK0][main]: Iter: 42500 Time(100 iters): 0.440284s Loss: 0.12212 lr:0.004
+[HCTR][12:55:01.539][INFO][RK0][main]: Iter: 42600 Time(100 iters): 0.439148s Loss: 0.126379 lr:0.004
+[HCTR][12:55:01.980][INFO][RK0][main]: Iter: 42700 Time(100 iters): 0.440096s Loss: 0.122774 lr:0.004
+[HCTR][12:55:02.422][INFO][RK0][main]: Iter: 42800 Time(100 iters): 0.440539s Loss: 0.119974 lr:0.004
+[HCTR][12:55:02.863][INFO][RK0][main]: Iter: 42900 Time(100 iters): 0.43983s Loss: 0.119667 lr:0.004
+[HCTR][12:55:03.305][INFO][RK0][main]: Iter: 43000 Time(100 iters): 0.441226s Loss: 0.125578 lr:0.004
+[HCTR][12:55:03.746][INFO][RK0][main]: Iter: 43100 Time(100 iters): 0.439387s Loss: 0.124325 lr:0.004
+[HCTR][12:55:04.185][INFO][RK0][main]: Iter: 43200 Time(100 iters): 0.438044s Loss: 0.123466 lr:0.004
+[HCTR][12:55:04.626][INFO][RK0][main]: Iter: 43300 Time(100 iters): 0.440343s Loss: 0.122905 lr:0.004
+[HCTR][12:55:05.065][INFO][RK0][main]: Iter: 43400 Time(100 iters): 0.437736s Loss: 0.122707 lr:0.004
+[HCTR][12:55:05.505][INFO][RK0][main]: Iter: 43500 Time(100 iters): 0.439503s Loss: 0.121191 lr:0.004
+[HCTR][12:55:05.946][INFO][RK0][main]: Iter: 43600 Time(100 iters): 0.439486s Loss: 0.121746 lr:0.004
+[HCTR][12:55:06.385][INFO][RK0][main]: Iter: 43700 Time(100 iters): 0.438275s Loss: 0.125244 lr:0.004
+[HCTR][12:55:06.826][INFO][RK0][main]: Iter: 43800 Time(100 iters): 0.439927s Loss: 0.121541 lr:0.004
+[HCTR][12:55:07.265][INFO][RK0][main]: Iter: 43900 Time(100 iters): 0.437688s Loss: 0.121865 lr:0.004
+[HCTR][12:55:07.705][INFO][RK0][main]: Iter: 44000 Time(100 iters): 0.438648s Loss: 0.122732 lr:0.004
+[HCTR][12:55:08.144][INFO][RK0][main]: Iter: 44100 Time(100 iters): 0.438533s Loss: 0.121385 lr:0.004
+[HCTR][12:55:08.583][INFO][RK0][main]: Iter: 44200 Time(100 iters): 0.437631s Loss: 0.12452 lr:0.004
+[HCTR][12:55:09.023][INFO][RK0][main]: Iter: 44300 Time(100 iters): 0.43878s Loss: 0.119638 lr:0.004
+[HCTR][12:55:09.464][INFO][RK0][main]: Iter: 44400 Time(100 iters): 0.440317s Loss: 0.123005 lr:0.004
+[HCTR][12:55:09.906][INFO][RK0][main]: Iter: 44500 Time(100 iters): 0.440523s Loss: 0.12559 lr:0.004
+[HCTR][12:55:10.345][INFO][RK0][main]: Iter: 44600 Time(100 iters): 0.438561s Loss: 0.122877 lr:0.004
+[HCTR][12:55:10.785][INFO][RK0][main]: Iter: 44700 Time(100 iters): 0.438903s Loss: 0.125562 lr:0.004
+[HCTR][12:55:11.226][INFO][RK0][main]: Iter: 44800 Time(100 iters): 0.439396s Loss: 0.122688 lr:0.004
+:::MLLOG {"namespace": "", "time_ms": 1713876911257, "event_type": "INTERVAL_START", "key": "eval_start", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 88, "epoch_num": 0.34997031899272035}}
+:::MLLOG {"namespace": "", "time_ms": 1713876914884, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.8002840280532837, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 97, "epoch_num": 0.34997031899272035}}
+:::MLLOG {"namespace": "", "time_ms": 1713876914885, "event_type": "INTERVAL_END", "key": "eval_stop", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 102, "epoch_num": 0.34997031899272035}}
+[HCTR][12:55:14.885][INFO][RK0][main]: Evaluation, AUC: 0.800284
+[HCTR][12:55:14.885][INFO][RK0][main]: Eval Time for 341 iters: 3.62792s
+[HCTR][12:55:15.295][INFO][RK0][main]: Iter: 44900 Time(100 iters): 4.06835s Loss: 0.126545 lr:0.004
+[HCTR][12:55:15.737][INFO][RK0][main]: Iter: 45000 Time(100 iters): 0.440683s Loss: 0.121898 lr:0.004
+[HCTR][12:55:16.178][INFO][RK0][main]: Iter: 45100 Time(100 iters): 0.440153s Loss: 0.118401 lr:0.004
+[HCTR][12:55:16.617][INFO][RK0][main]: Iter: 45200 Time(100 iters): 0.438451s Loss: 0.120652 lr:0.004
+[HCTR][12:55:17.057][INFO][RK0][main]: Iter: 45300 Time(100 iters): 0.438436s Loss: 0.119144 lr:0.004
+[HCTR][12:55:17.497][INFO][RK0][main]: Iter: 45400 Time(100 iters): 0.43888s Loss: 0.122054 lr:0.004
+[HCTR][12:55:17.937][INFO][RK0][main]: Iter: 45500 Time(100 iters): 0.439376s Loss: 0.124875 lr:0.004
+[HCTR][12:55:18.378][INFO][RK0][main]: Iter: 45600 Time(100 iters): 0.439387s Loss: 0.129235 lr:0.004
+[HCTR][12:55:18.817][INFO][RK0][main]: Iter: 45700 Time(100 iters): 0.438387s Loss: 0.122069 lr:0.004
+[HCTR][12:55:19.258][INFO][RK0][main]: Iter: 45800 Time(100 iters): 0.439521s Loss: 0.116684 lr:0.004
+[HCTR][12:55:19.698][INFO][RK0][main]: Iter: 45900 Time(100 iters): 0.439004s Loss: 0.123793 lr:0.004
+[HCTR][12:55:20.138][INFO][RK0][main]: Iter: 46000 Time(100 iters): 0.439451s Loss: 0.125186 lr:0.004
+[HCTR][12:55:20.579][INFO][RK0][main]: Iter: 46100 Time(100 iters): 0.439969s Loss: 0.125146 lr:0.004
+[HCTR][12:55:21.020][INFO][RK0][main]: Iter: 46200 Time(100 iters): 0.440305s Loss: 0.118721 lr:0.004
+[HCTR][12:55:21.462][INFO][RK0][main]: Iter: 46300 Time(100 iters): 0.440379s Loss: 0.12447 lr:0.004
+[HCTR][12:55:21.901][INFO][RK0][main]: Iter: 46400 Time(100 iters): 0.437798s Loss: 0.117666 lr:0.004
+[HCTR][12:55:22.341][INFO][RK0][main]: Iter: 46500 Time(100 iters): 0.439251s Loss: 0.12653 lr:0.004
+[HCTR][12:55:22.783][INFO][RK0][main]: Iter: 46600 Time(100 iters): 0.440842s Loss: 0.12276 lr:0.004
+[HCTR][12:55:23.223][INFO][RK0][main]: Iter: 46700 Time(100 iters): 0.439103s Loss: 0.121434 lr:0.004
+[HCTR][12:55:23.663][INFO][RK0][main]: Iter: 46800 Time(100 iters): 0.439538s Loss: 0.117244 lr:0.004
+[HCTR][12:55:24.104][INFO][RK0][main]: Iter: 46900 Time(100 iters): 0.439561s Loss: 0.122627 lr:0.004
+[HCTR][12:55:24.544][INFO][RK0][main]: Iter: 47000 Time(100 iters): 0.438815s Loss: 0.118296 lr:0.004
+[HCTR][12:55:24.983][INFO][RK0][main]: Iter: 47100 Time(100 iters): 0.438383s Loss: 0.11681 lr:0.004
+[HCTR][12:55:25.422][INFO][RK0][main]: Iter: 47200 Time(100 iters): 0.438059s Loss: 0.119698 lr:0.004
+[HCTR][12:55:25.864][INFO][RK0][main]: Iter: 47300 Time(100 iters): 0.440047s Loss: 0.118981 lr:0.004
+[HCTR][12:55:26.304][INFO][RK0][main]: Iter: 47400 Time(100 iters): 0.439043s Loss: 0.122623 lr:0.004
+[HCTR][12:55:26.743][INFO][RK0][main]: Iter: 47500 Time(100 iters): 0.438593s Loss: 0.120421 lr:0.004
+[HCTR][12:55:27.182][INFO][RK0][main]: Iter: 47600 Time(100 iters): 0.438212s Loss: 0.126369 lr:0.004
+[HCTR][12:55:27.622][INFO][RK0][main]: Iter: 47700 Time(100 iters): 0.438415s Loss: 0.121531 lr:0.004
+[HCTR][12:55:28.061][INFO][RK0][main]: Iter: 47800 Time(100 iters): 0.43827s Loss: 0.124451 lr:0.004
+[HCTR][12:55:28.501][INFO][RK0][main]: Iter: 47900 Time(100 iters): 0.438599s Loss: 0.12348 lr:0.004
+[HCTR][12:55:28.941][INFO][RK0][main]: Iter: 48000 Time(100 iters): 0.438839s Loss: 0.124056 lr:0.004
+[HCTR][12:55:29.381][INFO][RK0][main]: Iter: 48100 Time(100 iters): 0.439116s Loss: 0.123076 lr:0.004
+[HCTR][12:55:29.822][INFO][RK0][main]: Iter: 48200 Time(100 iters): 0.44045s Loss: 0.118344 lr:0.004
+[HCTR][12:55:30.261][INFO][RK0][main]: Iter: 48300 Time(100 iters): 0.437874s Loss: 0.122317 lr:0.004
+[HCTR][12:55:30.702][INFO][RK0][main]: Iter: 48400 Time(100 iters): 0.439162s Loss: 0.121785 lr:0.004
+[HCTR][12:55:31.141][INFO][RK0][main]: Iter: 48500 Time(100 iters): 0.438435s Loss: 0.115873 lr:0.004
+[HCTR][12:55:31.580][INFO][RK0][main]: Iter: 48600 Time(100 iters): 0.438496s Loss: 0.121105 lr:0.004
+[HCTR][12:55:32.020][INFO][RK0][main]: Iter: 48700 Time(100 iters): 0.438598s Loss: 0.124875 lr:0.004
+[HCTR][12:55:32.461][INFO][RK0][main]: Iter: 48800 Time(100 iters): 0.440247s Loss: 0.119181 lr:0.004
+[HCTR][12:55:32.901][INFO][RK0][main]: Iter: 48900 Time(100 iters): 0.438851s Loss: 0.122349 lr:0.004
+[HCTR][12:55:33.341][INFO][RK0][main]: Iter: 49000 Time(100 iters): 0.43889s Loss: 0.122264 lr:0.004
+[HCTR][12:55:33.782][INFO][RK0][main]: Iter: 49100 Time(100 iters): 0.4393s Loss: 0.121309 lr:0.004
+[HCTR][12:55:34.222][INFO][RK0][main]: Iter: 49200 Time(100 iters): 0.439736s Loss: 0.121043 lr:0.004
+[HCTR][12:55:34.661][INFO][RK0][main]: Iter: 49300 Time(100 iters): 0.437888s Loss: 0.121358 lr:0.004
+[HCTR][12:55:35.101][INFO][RK0][main]: Iter: 49400 Time(100 iters): 0.439094s Loss: 0.124386 lr:0.004
+[HCTR][12:55:35.543][INFO][RK0][main]: Iter: 49500 Time(100 iters): 0.440548s Loss: 0.120562 lr:0.004
+[HCTR][12:55:35.984][INFO][RK0][main]: Iter: 49600 Time(100 iters): 0.439662s Loss: 0.122785 lr:0.004
+[HCTR][12:55:36.425][INFO][RK0][main]: Iter: 49700 Time(100 iters): 0.440429s Loss: 0.116508 lr:0.004
+[HCTR][12:55:36.865][INFO][RK0][main]: Iter: 49800 Time(100 iters): 0.439324s Loss: 0.123232 lr:0.004
+[HCTR][12:55:37.304][INFO][RK0][main]: Iter: 49900 Time(100 iters): 0.437979s Loss: 0.118594 lr:0.004
+[HCTR][12:55:37.745][INFO][RK0][main]: Iter: 50000 Time(100 iters): 0.439664s Loss: 0.122026 lr:0.004
+[HCTR][12:55:38.184][INFO][RK0][main]: Iter: 50100 Time(100 iters): 0.437843s Loss: 0.119348 lr:0.004
+[HCTR][12:55:38.625][INFO][RK0][main]: Iter: 50200 Time(100 iters): 0.439662s Loss: 0.12463 lr:0.004
+[HCTR][12:55:39.065][INFO][RK0][main]: Iter: 50300 Time(100 iters): 0.439671s Loss: 0.122999 lr:0.004
+[HCTR][12:55:39.505][INFO][RK0][main]: Iter: 50400 Time(100 iters): 0.438739s Loss: 0.121212 lr:0.004
+[HCTR][12:55:39.946][INFO][RK0][main]: Iter: 50500 Time(100 iters): 0.43992s Loss: 0.123497 lr:0.004
+[HCTR][12:55:40.387][INFO][RK0][main]: Iter: 50600 Time(100 iters): 0.439714s Loss: 0.125797 lr:0.004
+[HCTR][12:55:40.826][INFO][RK0][main]: Iter: 50700 Time(100 iters): 0.438471s Loss: 0.12346 lr:0.004
+[HCTR][12:55:41.268][INFO][RK0][main]: Iter: 50800 Time(100 iters): 0.440597s Loss: 0.12272 lr:0.004
+[HCTR][12:55:41.707][INFO][RK0][main]: Iter: 50900 Time(100 iters): 0.438189s Loss: 0.123898 lr:0.004
+[HCTR][12:55:42.147][INFO][RK0][main]: Iter: 51000 Time(100 iters): 0.439058s Loss: 0.118172 lr:0.004
+[HCTR][12:55:42.586][INFO][RK0][main]: Iter: 51100 Time(100 iters): 0.437946s Loss: 0.121994 lr:0.004
+[HCTR][12:55:43.025][INFO][RK0][main]: Iter: 51200 Time(100 iters): 0.437962s Loss: 0.12519 lr:0.004
+:::MLLOG {"namespace": "", "time_ms": 1713876943061, "event_type": "INTERVAL_START", "key": "eval_start", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 88, "epoch_num": 0.3999671946761646}}
+:::MLLOG {"namespace": "", "time_ms": 1713876946695, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.8009023666381836, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 97, "epoch_num": 0.3999671946761646}}
+:::MLLOG {"namespace": "", "time_ms": 1713876946696, "event_type": "INTERVAL_END", "key": "eval_stop", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 102, "epoch_num": 0.3999671946761646}}
+[HCTR][12:55:46.696][INFO][RK0][main]: Evaluation, AUC: 0.800902
+[HCTR][12:55:46.696][INFO][RK0][main]: Eval Time for 341 iters: 3.63524s
+[HCTR][12:55:47.102][INFO][RK0][main]: Iter: 51300 Time(100 iters): 4.07527s Loss: 0.118681 lr:0.004
+[HCTR][12:55:47.542][INFO][RK0][main]: Iter: 51400 Time(100 iters): 0.439357s Loss: 0.118315 lr:0.004
+[HCTR][12:55:47.981][INFO][RK0][main]: Iter: 51500 Time(100 iters): 0.438287s Loss: 0.122084 lr:0.004
+[HCTR][12:55:48.422][INFO][RK0][main]: Iter: 51600 Time(100 iters): 0.439115s Loss: 0.119026 lr:0.004
+[HCTR][12:55:48.861][INFO][RK0][main]: Iter: 51700 Time(100 iters): 0.43886s Loss: 0.123878 lr:0.004
+[HCTR][12:55:49.301][INFO][RK0][main]: Iter: 51800 Time(100 iters): 0.438897s Loss: 0.11912 lr:0.004
+[HCTR][12:55:49.742][INFO][RK0][main]: Iter: 51900 Time(100 iters): 0.439896s Loss: 0.118328 lr:0.004
+[HCTR][12:55:50.182][INFO][RK0][main]: Iter: 52000 Time(100 iters): 0.438922s Loss: 0.119355 lr:0.004
+[HCTR][12:55:50.622][INFO][RK0][main]: Iter: 52100 Time(100 iters): 0.438384s Loss: 0.121141 lr:0.004
+[HCTR][12:55:51.062][INFO][RK0][main]: Iter: 52200 Time(100 iters): 0.439467s Loss: 0.125777 lr:0.004
+[HCTR][12:55:51.502][INFO][RK0][main]: Iter: 52300 Time(100 iters): 0.438494s Loss: 0.124577 lr:0.004
+[HCTR][12:55:51.941][INFO][RK0][main]: Iter: 52400 Time(100 iters): 0.438068s Loss: 0.124153 lr:0.004
+[HCTR][12:55:52.381][INFO][RK0][main]: Iter: 52500 Time(100 iters): 0.438907s Loss: 0.121035 lr:0.004
+[HCTR][12:55:52.821][INFO][RK0][main]: Iter: 52600 Time(100 iters): 0.43924s Loss: 0.129253 lr:0.004
+[HCTR][12:55:53.261][INFO][RK0][main]: Iter: 52700 Time(100 iters): 0.438702s Loss: 0.127866 lr:0.004
+[HCTR][12:55:53.702][INFO][RK0][main]: Iter: 52800 Time(100 iters): 0.440017s Loss: 0.12656 lr:0.004
+[HCTR][12:55:54.143][INFO][RK0][main]: Iter: 52900 Time(100 iters): 0.440225s Loss: 0.121445 lr:0.004
+[HCTR][12:55:54.584][INFO][RK0][main]: Iter: 53000 Time(100 iters): 0.439795s Loss: 0.125092 lr:0.004
+[HCTR][12:55:55.026][INFO][RK0][main]: Iter: 53100 Time(100 iters): 0.440724s Loss: 0.119521 lr:0.004
+[HCTR][12:55:55.467][INFO][RK0][main]: Iter: 53200 Time(100 iters): 0.439848s Loss: 0.121054 lr:0.004
+[HCTR][12:55:55.906][INFO][RK0][main]: Iter: 53300 Time(100 iters): 0.438164s Loss: 0.124308 lr:0.004
+[HCTR][12:55:56.346][INFO][RK0][main]: Iter: 53400 Time(100 iters): 0.439561s Loss: 0.125672 lr:0.004
+[HCTR][12:55:56.787][INFO][RK0][main]: Iter: 53500 Time(100 iters): 0.439244s Loss: 0.121383 lr:0.004
+[HCTR][12:55:57.227][INFO][RK0][main]: Iter: 53600 Time(100 iters): 0.438945s Loss: 0.123546 lr:0.004
+[HCTR][12:55:57.667][INFO][RK0][main]: Iter: 53700 Time(100 iters): 0.439221s Loss: 0.122618 lr:0.004
+[HCTR][12:55:58.107][INFO][RK0][main]: Iter: 53800 Time(100 iters): 0.439385s Loss: 0.124114 lr:0.004
+[HCTR][12:55:58.548][INFO][RK0][main]: Iter: 53900 Time(100 iters): 0.439362s Loss: 0.123844 lr:0.004
+[HCTR][12:55:58.988][INFO][RK0][main]: Iter: 54000 Time(100 iters): 0.438828s Loss: 0.121151 lr:0.004
+[HCTR][12:55:59.429][INFO][RK0][main]: Iter: 54100 Time(100 iters): 0.440678s Loss: 0.124137 lr:0.004
+[HCTR][12:55:59.870][INFO][RK0][main]: Iter: 54200 Time(100 iters): 0.439106s Loss: 0.118446 lr:0.004
+[HCTR][12:56:00.312][INFO][RK0][main]: Iter: 54300 Time(100 iters): 0.441118s Loss: 0.121806 lr:0.004
+[HCTR][12:56:00.751][INFO][RK0][main]: Iter: 54400 Time(100 iters): 0.438413s Loss: 0.124194 lr:0.004
+[HCTR][12:56:01.191][INFO][RK0][main]: Iter: 54500 Time(100 iters): 0.438456s Loss: 0.122967 lr:0.004
+[HCTR][12:56:01.630][INFO][RK0][main]: Iter: 54600 Time(100 iters): 0.438186s Loss: 0.127445 lr:0.004
+[HCTR][12:56:02.070][INFO][RK0][main]: Iter: 54700 Time(100 iters): 0.439111s Loss: 0.119683 lr:0.004
+[HCTR][12:56:02.510][INFO][RK0][main]: Iter: 54800 Time(100 iters): 0.438459s Loss: 0.12236 lr:0.004
+[HCTR][12:56:02.949][INFO][RK0][main]: Iter: 54900 Time(100 iters): 0.438743s Loss: 0.122106 lr:0.004
+[HCTR][12:56:03.390][INFO][RK0][main]: Iter: 55000 Time(100 iters): 0.439151s Loss: 0.124414 lr:0.004
+[HCTR][12:56:03.831][INFO][RK0][main]: Iter: 55100 Time(100 iters): 0.440042s Loss: 0.123264 lr:0.004
+[HCTR][12:56:04.271][INFO][RK0][main]: Iter: 55200 Time(100 iters): 0.439814s Loss: 0.124183 lr:0.004
+[HCTR][12:56:04.712][INFO][RK0][main]: Iter: 55300 Time(100 iters): 0.439464s Loss: 0.1213 lr:0.004
+[HCTR][12:56:05.152][INFO][RK0][main]: Iter: 55400 Time(100 iters): 0.438865s Loss: 0.122848 lr:0.004
+[HCTR][12:56:05.592][INFO][RK0][main]: Iter: 55500 Time(100 iters): 0.438954s Loss: 0.121254 lr:0.004
+[HCTR][12:56:06.033][INFO][RK0][main]: Iter: 55600 Time(100 iters): 0.439561s Loss: 0.119979 lr:0.004
+[HCTR][12:56:06.473][INFO][RK0][main]: Iter: 55700 Time(100 iters): 0.439058s Loss: 0.125936 lr:0.004
+[HCTR][12:56:06.913][INFO][RK0][main]: Iter: 55800 Time(100 iters): 0.439317s Loss: 0.120474 lr:0.004
+[HCTR][12:56:07.355][INFO][RK0][main]: Iter: 55900 Time(100 iters): 0.440787s Loss: 0.121869 lr:0.004
+[HCTR][12:56:07.794][INFO][RK0][main]: Iter: 56000 Time(100 iters): 0.438402s Loss: 0.121765 lr:0.004
+[HCTR][12:56:08.236][INFO][RK0][main]: Iter: 56100 Time(100 iters): 0.440476s Loss: 0.121916 lr:0.004
+[HCTR][12:56:08.676][INFO][RK0][main]: Iter: 56200 Time(100 iters): 0.439039s Loss: 0.127071 lr:0.004
+[HCTR][12:56:09.116][INFO][RK0][main]: Iter: 56300 Time(100 iters): 0.438965s Loss: 0.11899 lr:0.004
+[HCTR][12:56:09.556][INFO][RK0][main]: Iter: 56400 Time(100 iters): 0.439574s Loss: 0.126323 lr:0.004
+[HCTR][12:56:09.996][INFO][RK0][main]: Iter: 56500 Time(100 iters): 0.439015s Loss: 0.119348 lr:0.004
+[HCTR][12:56:10.436][INFO][RK0][main]: Iter: 56600 Time(100 iters): 0.438282s Loss: 0.126918 lr:0.004
+[HCTR][12:56:10.877][INFO][RK0][main]: Iter: 56700 Time(100 iters): 0.440348s Loss: 0.126097 lr:0.004
+[HCTR][12:56:11.317][INFO][RK0][main]: Iter: 56800 Time(100 iters): 0.438599s Loss: 0.118131 lr:0.004
+[HCTR][12:56:11.758][INFO][RK0][main]: Iter: 56900 Time(100 iters): 0.439918s Loss: 0.1261 lr:0.004
+[HCTR][12:56:12.198][INFO][RK0][main]: Iter: 57000 Time(100 iters): 0.439375s Loss: 0.123189 lr:0.004
+[HCTR][12:56:12.640][INFO][RK0][main]: Iter: 57100 Time(100 iters): 0.440392s Loss: 0.129293 lr:0.004
+[HCTR][12:56:13.081][INFO][RK0][main]: Iter: 57200 Time(100 iters): 0.440418s Loss: 0.122856 lr:0.004
+[HCTR][12:56:13.521][INFO][RK0][main]: Iter: 57300 Time(100 iters): 0.43888s Loss: 0.126101 lr:0.004
+[HCTR][12:56:13.961][INFO][RK0][main]: Iter: 57400 Time(100 iters): 0.438566s Loss: 0.124263 lr:0.004
+[HCTR][12:56:14.399][INFO][RK0][main]: Iter: 57500 Time(100 iters): 0.437708s Loss: 0.11983 lr:0.004
+[HCTR][12:56:14.840][INFO][RK0][main]: Iter: 57600 Time(100 iters): 0.439297s Loss: 0.122968 lr:0.004
+:::MLLOG {"namespace": "", "time_ms": 1713876974879, "event_type": "INTERVAL_START", "key": "eval_start", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 88, "epoch_num": 0.44996407035960884}}
+:::MLLOG {"namespace": "", "time_ms": 1713876978507, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.8013744354248047, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 97, "epoch_num": 0.44996407035960884}}
+:::MLLOG {"namespace": "", "time_ms": 1713876978508, "event_type": "INTERVAL_END", "key": "eval_stop", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 102, "epoch_num": 0.44996407035960884}}
+[HCTR][12:56:18.508][INFO][RK0][main]: Evaluation, AUC: 0.801374
+[HCTR][12:56:18.508][INFO][RK0][main]: Eval Time for 341 iters: 3.62853s
+[HCTR][12:56:18.909][INFO][RK0][main]: Iter: 57700 Time(100 iters): 4.06799s Loss: 0.123208 lr:0.004
+[HCTR][12:56:19.348][INFO][RK0][main]: Iter: 57800 Time(100 iters): 0.437964s Loss: 0.123914 lr:0.004
+[HCTR][12:56:19.788][INFO][RK0][main]: Iter: 57900 Time(100 iters): 0.439186s Loss: 0.12832 lr:0.004
+[HCTR][12:56:20.229][INFO][RK0][main]: Iter: 58000 Time(100 iters): 0.439529s Loss: 0.126615 lr:0.004
+[HCTR][12:56:20.669][INFO][RK0][main]: Iter: 58100 Time(100 iters): 0.439012s Loss: 0.121946 lr:0.004
+[HCTR][12:56:21.108][INFO][RK0][main]: Iter: 58200 Time(100 iters): 0.438155s Loss: 0.119447 lr:0.004
+[HCTR][12:56:21.549][INFO][RK0][main]: Iter: 58300 Time(100 iters): 0.440255s Loss: 0.121572 lr:0.004
+[HCTR][12:56:21.990][INFO][RK0][main]: Iter: 58400 Time(100 iters): 0.439251s Loss: 0.126355 lr:0.004
+[HCTR][12:56:22.428][INFO][RK0][main]: Iter: 58500 Time(100 iters): 0.43767s Loss: 0.127979 lr:0.004
+[HCTR][12:56:22.870][INFO][RK0][main]: Iter: 58600 Time(100 iters): 0.440548s Loss: 0.120487 lr:0.004
+[HCTR][12:56:23.309][INFO][RK0][main]: Iter: 58700 Time(100 iters): 0.438322s Loss: 0.120724 lr:0.004
+[HCTR][12:56:23.750][INFO][RK0][main]: Iter: 58800 Time(100 iters): 0.439678s Loss: 0.121329 lr:0.004
+[HCTR][12:56:24.190][INFO][RK0][main]: Iter: 58900 Time(100 iters): 0.438957s Loss: 0.122447 lr:0.004
+[HCTR][12:56:24.631][INFO][RK0][main]: Iter: 59000 Time(100 iters): 0.439993s Loss: 0.125724 lr:0.004
+[HCTR][12:56:25.071][INFO][RK0][main]: Iter: 59100 Time(100 iters): 0.43939s Loss: 0.118844 lr:0.004
+[HCTR][12:56:25.513][INFO][RK0][main]: Iter: 59200 Time(100 iters): 0.440294s Loss: 0.122106 lr:0.004
+[HCTR][12:56:25.953][INFO][RK0][main]: Iter: 59300 Time(100 iters): 0.439437s Loss: 0.120607 lr:0.004
+[HCTR][12:56:26.394][INFO][RK0][main]: Iter: 59400 Time(100 iters): 0.43977s Loss: 0.120621 lr:0.004
+[HCTR][12:56:26.835][INFO][RK0][main]: Iter: 59500 Time(100 iters): 0.439899s Loss: 0.114344 lr:0.004
+[HCTR][12:56:27.276][INFO][RK0][main]: Iter: 59600 Time(100 iters): 0.439727s Loss: 0.126152 lr:0.004
+[HCTR][12:56:27.714][INFO][RK0][main]: Iter: 59700 Time(100 iters): 0.437182s Loss: 0.120097 lr:0.004
+[HCTR][12:56:28.154][INFO][RK0][main]: Iter: 59800 Time(100 iters): 0.439285s Loss: 0.120992 lr:0.004
+[HCTR][12:56:28.594][INFO][RK0][main]: Iter: 59900 Time(100 iters): 0.438719s Loss: 0.122781 lr:0.004
+[HCTR][12:56:29.037][INFO][RK0][main]: Iter: 60000 Time(100 iters): 0.441677s Loss: 0.125276 lr:0.004
+[HCTR][12:56:29.478][INFO][RK0][main]: Iter: 60100 Time(100 iters): 0.440048s Loss: 0.123708 lr:0.004
+[HCTR][12:56:29.918][INFO][RK0][main]: Iter: 60200 Time(100 iters): 0.439205s Loss: 0.122402 lr:0.004
+[HCTR][12:56:30.357][INFO][RK0][main]: Iter: 60300 Time(100 iters): 0.438287s Loss: 0.122304 lr:0.004
+[HCTR][12:56:30.797][INFO][RK0][main]: Iter: 60400 Time(100 iters): 0.438602s Loss: 0.125384 lr:0.004
+[HCTR][12:56:31.238][INFO][RK0][main]: Iter: 60500 Time(100 iters): 0.439547s Loss: 0.1226 lr:0.004
+[HCTR][12:56:31.677][INFO][RK0][main]: Iter: 60600 Time(100 iters): 0.438631s Loss: 0.122295 lr:0.004
+[HCTR][12:56:32.118][INFO][RK0][main]: Iter: 60700 Time(100 iters): 0.439487s Loss: 0.124101 lr:0.004
+[HCTR][12:56:32.558][INFO][RK0][main]: Iter: 60800 Time(100 iters): 0.439114s Loss: 0.123402 lr:0.004
+[HCTR][12:56:32.997][INFO][RK0][main]: Iter: 60900 Time(100 iters): 0.438328s Loss: 0.123978 lr:0.004
+[HCTR][12:56:33.439][INFO][RK0][main]: Iter: 61000 Time(100 iters): 0.440507s Loss: 0.121017 lr:0.004
+[HCTR][12:56:33.878][INFO][RK0][main]: Iter: 61100 Time(100 iters): 0.4379s Loss: 0.115574 lr:0.004
+[HCTR][12:56:34.317][INFO][RK0][main]: Iter: 61200 Time(100 iters): 0.438412s Loss: 0.115977 lr:0.004
+[HCTR][12:56:34.758][INFO][RK0][main]: Iter: 61300 Time(100 iters): 0.439715s Loss: 0.120608 lr:0.004
+[HCTR][12:56:35.198][INFO][RK0][main]: Iter: 61400 Time(100 iters): 0.439353s Loss: 0.121828 lr:0.004
+[HCTR][12:56:35.640][INFO][RK0][main]: Iter: 61500 Time(100 iters): 0.440116s Loss: 0.124433 lr:0.004
+[HCTR][12:56:36.080][INFO][RK0][main]: Iter: 61600 Time(100 iters): 0.439499s Loss: 0.118774 lr:0.004
+[HCTR][12:56:36.521][INFO][RK0][main]: Iter: 61700 Time(100 iters): 0.440311s Loss: 0.123243 lr:0.004
+[HCTR][12:56:36.963][INFO][RK0][main]: Iter: 61800 Time(100 iters): 0.440392s Loss: 0.12211 lr:0.004
+[HCTR][12:56:37.401][INFO][RK0][main]: Iter: 61900 Time(100 iters): 0.437492s Loss: 0.120993 lr:0.004
+[HCTR][12:56:37.843][INFO][RK0][main]: Iter: 62000 Time(100 iters): 0.44005s Loss: 0.120725 lr:0.004
+[HCTR][12:56:38.283][INFO][RK0][main]: Iter: 62100 Time(100 iters): 0.439662s Loss: 0.120911 lr:0.004
+[HCTR][12:56:38.724][INFO][RK0][main]: Iter: 62200 Time(100 iters): 0.439829s Loss: 0.127131 lr:0.004
+[HCTR][12:56:39.165][INFO][RK0][main]: Iter: 62300 Time(100 iters): 0.44003s Loss: 0.125012 lr:0.004
+[HCTR][12:56:39.605][INFO][RK0][main]: Iter: 62400 Time(100 iters): 0.438812s Loss: 0.122786 lr:0.004
+[HCTR][12:56:40.046][INFO][RK0][main]: Iter: 62500 Time(100 iters): 0.440102s Loss: 0.12081 lr:0.004
+[HCTR][12:56:40.487][INFO][RK0][main]: Iter: 62600 Time(100 iters): 0.439773s Loss: 0.123669 lr:0.004
+[HCTR][12:56:40.927][INFO][RK0][main]: Iter: 62700 Time(100 iters): 0.438823s Loss: 0.118334 lr:0.004
+[HCTR][12:56:41.366][INFO][RK0][main]: Iter: 62800 Time(100 iters): 0.438319s Loss: 0.119751 lr:0.004
+[HCTR][12:56:41.807][INFO][RK0][main]: Iter: 62900 Time(100 iters): 0.439996s Loss: 0.126626 lr:0.004
+[HCTR][12:56:42.249][INFO][RK0][main]: Iter: 63000 Time(100 iters): 0.441083s Loss: 0.123021 lr:0.004
+[HCTR][12:56:42.690][INFO][RK0][main]: Iter: 63100 Time(100 iters): 0.439312s Loss: 0.122093 lr:0.004
+[HCTR][12:56:43.130][INFO][RK0][main]: Iter: 63200 Time(100 iters): 0.439481s Loss: 0.127063 lr:0.004
+[HCTR][12:56:43.571][INFO][RK0][main]: Iter: 63300 Time(100 iters): 0.440233s Loss: 0.117828 lr:0.004
+[HCTR][12:56:44.013][INFO][RK0][main]: Iter: 63400 Time(100 iters): 0.441019s Loss: 0.118347 lr:0.004
+[HCTR][12:56:44.454][INFO][RK0][main]: Iter: 63500 Time(100 iters): 0.439918s Loss: 0.125796 lr:0.004
+[HCTR][12:56:44.895][INFO][RK0][main]: Iter: 63600 Time(100 iters): 0.439643s Loss: 0.125722 lr:0.004
+[HCTR][12:56:45.335][INFO][RK0][main]: Iter: 63700 Time(100 iters): 0.438514s Loss: 0.126849 lr:0.004
+[HCTR][12:56:45.774][INFO][RK0][main]: Iter: 63800 Time(100 iters): 0.438393s Loss: 0.120806 lr:0.004
+[HCTR][12:56:46.214][INFO][RK0][main]: Iter: 63900 Time(100 iters): 0.439139s Loss: 0.122874 lr:0.004
+[HCTR][12:56:46.653][INFO][RK0][main]: Iter: 64000 Time(100 iters): 0.437993s Loss: 0.122462 lr:0.004
+:::MLLOG {"namespace": "", "time_ms": 1713877006697, "event_type": "INTERVAL_START", "key": "eval_start", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 88, "epoch_num": 0.4999609460430531}}
+:::MLLOG {"namespace": "", "time_ms": 1713877010339, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.8015571236610413, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 97, "epoch_num": 0.4999609460430531}}
+:::MLLOG {"namespace": "", "time_ms": 1713877010339, "event_type": "INTERVAL_END", "key": "eval_stop", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 102, "epoch_num": 0.4999609460430531}}
+[HCTR][12:56:50.340][INFO][RK0][main]: Evaluation, AUC: 0.801557
+[HCTR][12:56:50.340][INFO][RK0][main]: Eval Time for 341 iters: 3.6422s
+[HCTR][12:56:50.736][INFO][RK0][main]: Iter: 64100 Time(100 iters): 4.08125s Loss: 0.122133 lr:0.004
+[HCTR][12:56:51.175][INFO][RK0][main]: Iter: 64200 Time(100 iters): 0.43842s Loss: 0.121115 lr:0.004
+[HCTR][12:56:51.615][INFO][RK0][main]: Iter: 64300 Time(100 iters): 0.439206s Loss: 0.122383 lr:0.004
+[HCTR][12:56:52.056][INFO][RK0][main]: Iter: 64400 Time(100 iters): 0.439999s Loss: 0.120196 lr:0.004
+[HCTR][12:56:52.498][INFO][RK0][main]: Iter: 64500 Time(100 iters): 0.440362s Loss: 0.12213 lr:0.004
+[HCTR][12:56:52.938][INFO][RK0][main]: Iter: 64600 Time(100 iters): 0.439321s Loss: 0.122216 lr:0.004
+[HCTR][12:56:53.378][INFO][RK0][main]: Iter: 64700 Time(100 iters): 0.439148s Loss: 0.123938 lr:0.004
+[HCTR][12:56:53.818][INFO][RK0][main]: Iter: 64800 Time(100 iters): 0.438167s Loss: 0.124653 lr:0.004
+[HCTR][12:56:54.258][INFO][RK0][main]: Iter: 64900 Time(100 iters): 0.43933s Loss: 0.124073 lr:0.004
+[HCTR][12:56:54.698][INFO][RK0][main]: Iter: 65000 Time(100 iters): 0.438754s Loss: 0.12355 lr:0.004
+[HCTR][12:56:55.139][INFO][RK0][main]: Iter: 65100 Time(100 iters): 0.440461s Loss: 0.120237 lr:0.004
+[HCTR][12:56:55.581][INFO][RK0][main]: Iter: 65200 Time(100 iters): 0.440249s Loss: 0.122407 lr:0.004
+[HCTR][12:56:56.020][INFO][RK0][main]: Iter: 65300 Time(100 iters): 0.438647s Loss: 0.12392 lr:0.004
+[HCTR][12:56:56.461][INFO][RK0][main]: Iter: 65400 Time(100 iters): 0.439603s Loss: 0.119763 lr:0.004
+[HCTR][12:56:56.900][INFO][RK0][main]: Iter: 65500 Time(100 iters): 0.43852s Loss: 0.119653 lr:0.004
+[HCTR][12:56:57.341][INFO][RK0][main]: Iter: 65600 Time(100 iters): 0.439341s Loss: 0.120572 lr:0.004
+[HCTR][12:56:57.779][INFO][RK0][main]: Iter: 65700 Time(100 iters): 0.437392s Loss: 0.119923 lr:0.004
+[HCTR][12:56:58.220][INFO][RK0][main]: Iter: 65800 Time(100 iters): 0.440145s Loss: 0.116396 lr:0.004
+[HCTR][12:56:58.660][INFO][RK0][main]: Iter: 65900 Time(100 iters): 0.438958s Loss: 0.119613 lr:0.004
+[HCTR][12:56:59.100][INFO][RK0][main]: Iter: 66000 Time(100 iters): 0.438681s Loss: 0.125278 lr:0.004
+[HCTR][12:56:59.540][INFO][RK0][main]: Iter: 66100 Time(100 iters): 0.439177s Loss: 0.122667 lr:0.004
+[HCTR][12:56:59.979][INFO][RK0][main]: Iter: 66200 Time(100 iters): 0.438016s Loss: 0.122572 lr:0.004
+[HCTR][12:57:00.419][INFO][RK0][main]: Iter: 66300 Time(100 iters): 0.438373s Loss: 0.122955 lr:0.004
+[HCTR][12:57:00.857][INFO][RK0][main]: Iter: 66400 Time(100 iters): 0.437635s Loss: 0.119489 lr:0.004
+[HCTR][12:57:01.297][INFO][RK0][main]: Iter: 66500 Time(100 iters): 0.437957s Loss: 0.12509 lr:0.004
+[HCTR][12:57:01.737][INFO][RK0][main]: Iter: 66600 Time(100 iters): 0.439478s Loss: 0.126499 lr:0.004
+[HCTR][12:57:02.176][INFO][RK0][main]: Iter: 66700 Time(100 iters): 0.438375s Loss: 0.123875 lr:0.004
+[HCTR][12:57:02.617][INFO][RK0][main]: Iter: 66800 Time(100 iters): 0.439382s Loss: 0.117175 lr:0.004
+[HCTR][12:57:03.057][INFO][RK0][main]: Iter: 66900 Time(100 iters): 0.438914s Loss: 0.117345 lr:0.004
+[HCTR][12:57:03.497][INFO][RK0][main]: Iter: 67000 Time(100 iters): 0.439482s Loss: 0.126894 lr:0.004
+[HCTR][12:57:03.937][INFO][RK0][main]: Iter: 67100 Time(100 iters): 0.4389s Loss: 0.126528 lr:0.004
+[HCTR][12:57:04.378][INFO][RK0][main]: Iter: 67200 Time(100 iters): 0.440033s Loss: 0.121466 lr:0.004
+[HCTR][12:57:04.819][INFO][RK0][main]: Iter: 67300 Time(100 iters): 0.439308s Loss: 0.118053 lr:0.004
+[HCTR][12:57:05.258][INFO][RK0][main]: Iter: 67400 Time(100 iters): 0.438366s Loss: 0.121015 lr:0.004
+[HCTR][12:57:05.699][INFO][RK0][main]: Iter: 67500 Time(100 iters): 0.439535s Loss: 0.125341 lr:0.004
+[HCTR][12:57:06.138][INFO][RK0][main]: Iter: 67600 Time(100 iters): 0.438191s Loss: 0.11756 lr:0.004
+[HCTR][12:57:06.577][INFO][RK0][main]: Iter: 67700 Time(100 iters): 0.438504s Loss: 0.121439 lr:0.004
+[HCTR][12:57:07.017][INFO][RK0][main]: Iter: 67800 Time(100 iters): 0.438722s Loss: 0.121757 lr:0.004
+[HCTR][12:57:07.455][INFO][RK0][main]: Iter: 67900 Time(100 iters): 0.437036s Loss: 0.12088 lr:0.004
+[HCTR][12:57:07.897][INFO][RK0][main]: Iter: 68000 Time(100 iters): 0.440382s Loss: 0.121115 lr:0.004
+[HCTR][12:57:08.336][INFO][RK0][main]: Iter: 68100 Time(100 iters): 0.438639s Loss: 0.120931 lr:0.004
+[HCTR][12:57:08.777][INFO][RK0][main]: Iter: 68200 Time(100 iters): 0.439488s Loss: 0.117892 lr:0.004
+[HCTR][12:57:09.218][INFO][RK0][main]: Iter: 68300 Time(100 iters): 0.43988s Loss: 0.124816 lr:0.004
+[HCTR][12:57:09.659][INFO][RK0][main]: Iter: 68400 Time(100 iters): 0.439899s Loss: 0.12107 lr:0.004
+[HCTR][12:57:10.098][INFO][RK0][main]: Iter: 68500 Time(100 iters): 0.43863s Loss: 0.128093 lr:0.004
+[HCTR][12:57:10.539][INFO][RK0][main]: Iter: 68600 Time(100 iters): 0.439858s Loss: 0.118377 lr:0.004
+[HCTR][12:57:10.980][INFO][RK0][main]: Iter: 68700 Time(100 iters): 0.439567s Loss: 0.116703 lr:0.004
+[HCTR][12:57:11.421][INFO][RK0][main]: Iter: 68800 Time(100 iters): 0.4397s Loss: 0.122156 lr:0.004
+[HCTR][12:57:11.861][INFO][RK0][main]: Iter: 68900 Time(100 iters): 0.439064s Loss: 0.123143 lr:0.004
+[HCTR][12:57:12.301][INFO][RK0][main]: Iter: 69000 Time(100 iters): 0.439692s Loss: 0.12371 lr:0.004
+[HCTR][12:57:12.741][INFO][RK0][main]: Iter: 69100 Time(100 iters): 0.43827s Loss: 0.120408 lr:0.004
+[HCTR][12:57:13.180][INFO][RK0][main]: Iter: 69200 Time(100 iters): 0.438073s Loss: 0.123087 lr:0.004
+[HCTR][12:57:13.618][INFO][RK0][main]: Iter: 69300 Time(100 iters): 0.4368s Loss: 0.126497 lr:0.004
+[HCTR][12:57:14.058][INFO][RK0][main]: Iter: 69400 Time(100 iters): 0.439533s Loss: 0.121014 lr:0.004
+[HCTR][12:57:14.498][INFO][RK0][main]: Iter: 69500 Time(100 iters): 0.43905s Loss: 0.123751 lr:0.004
+[HCTR][12:57:14.939][INFO][RK0][main]: Iter: 69600 Time(100 iters): 0.439167s Loss: 0.121004 lr:0.004
+[HCTR][12:57:15.378][INFO][RK0][main]: Iter: 69700 Time(100 iters): 0.437915s Loss: 0.123361 lr:0.004
+[HCTR][12:57:15.816][INFO][RK0][main]: Iter: 69800 Time(100 iters): 0.437311s Loss: 0.121814 lr:0.004
+[HCTR][12:57:16.257][INFO][RK0][main]: Iter: 69900 Time(100 iters): 0.439935s Loss: 0.121517 lr:0.004
+[HCTR][12:57:16.697][INFO][RK0][main]: Iter: 70000 Time(100 iters): 0.439514s Loss: 0.12037 lr:0.004
+[HCTR][12:57:17.139][INFO][RK0][main]: Iter: 70100 Time(100 iters): 0.44012s Loss: 0.124155 lr:0.004
+[HCTR][12:57:17.578][INFO][RK0][main]: Iter: 70200 Time(100 iters): 0.438724s Loss: 0.119612 lr:0.004
+[HCTR][12:57:18.017][INFO][RK0][main]: Iter: 70300 Time(100 iters): 0.438067s Loss: 0.120716 lr:0.004
+[HCTR][12:57:18.457][INFO][RK0][main]: Iter: 70400 Time(100 iters): 0.438871s Loss: 0.118634 lr:0.004
+:::MLLOG {"namespace": "", "time_ms": 1713877038506, "event_type": "INTERVAL_START", "key": "eval_start", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 88, "epoch_num": 0.5499578217264973}}
+:::MLLOG {"namespace": "", "time_ms": 1713877042137, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.8020665645599365, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 97, "epoch_num": 0.5499578217264973}}
+:::MLLOG {"namespace": "", "time_ms": 1713877042137, "event_type": "INTERVAL_END", "key": "eval_stop", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 102, "epoch_num": 0.5499578217264973}}
+[HCTR][12:57:22.137][INFO][RK0][main]: Evaluation, AUC: 0.802067
+[HCTR][12:57:22.137][INFO][RK0][main]: Eval Time for 341 iters: 3.63099s
+[HCTR][12:57:22.531][INFO][RK0][main]: Iter: 70500 Time(100 iters): 4.07282s Loss: 0.124998 lr:0.004
+[HCTR][12:57:22.972][INFO][RK0][main]: Iter: 70600 Time(100 iters): 0.440024s Loss: 0.122694 lr:0.004
+[HCTR][12:57:23.413][INFO][RK0][main]: Iter: 70700 Time(100 iters): 0.439992s Loss: 0.121609 lr:0.004
+[HCTR][12:57:23.853][INFO][RK0][main]: Iter: 70800 Time(100 iters): 0.438445s Loss: 0.11696 lr:0.004
+[HCTR][12:57:24.294][INFO][RK0][main]: Iter: 70900 Time(100 iters): 0.440312s Loss: 0.124047 lr:0.004
+[HCTR][12:57:24.734][INFO][RK0][main]: Iter: 71000 Time(100 iters): 0.438772s Loss: 0.118655 lr:0.004
+[HCTR][12:57:25.174][INFO][RK0][main]: Iter: 71100 Time(100 iters): 0.439273s Loss: 0.126392 lr:0.004
+[HCTR][12:57:25.614][INFO][RK0][main]: Iter: 71200 Time(100 iters): 0.438526s Loss: 0.122156 lr:0.004
+[HCTR][12:57:26.053][INFO][RK0][main]: Iter: 71300 Time(100 iters): 0.43842s Loss: 0.124059 lr:0.004
+[HCTR][12:57:26.493][INFO][RK0][main]: Iter: 71400 Time(100 iters): 0.438738s Loss: 0.1194 lr:0.004
+[HCTR][12:57:26.934][INFO][RK0][main]: Iter: 71500 Time(100 iters): 0.440066s Loss: 0.123854 lr:0.004
+[HCTR][12:57:27.373][INFO][RK0][main]: Iter: 71600 Time(100 iters): 0.437473s Loss: 0.12631 lr:0.004
+[HCTR][12:57:27.811][INFO][RK0][main]: Iter: 71700 Time(100 iters): 0.437746s Loss: 0.123484 lr:0.004
+[HCTR][12:57:28.251][INFO][RK0][main]: Iter: 71800 Time(100 iters): 0.438621s Loss: 0.123436 lr:0.004
+[HCTR][12:57:28.692][INFO][RK0][main]: Iter: 71900 Time(100 iters): 0.439952s Loss: 0.12404 lr:0.004
+[HCTR][12:57:29.132][INFO][RK0][main]: Iter: 72000 Time(100 iters): 0.439224s Loss: 0.123467 lr:0.004
+[HCTR][12:57:29.574][INFO][RK0][main]: Iter: 72100 Time(100 iters): 0.441006s Loss: 0.120109 lr:0.004
+[HCTR][12:57:30.013][INFO][RK0][main]: Iter: 72200 Time(100 iters): 0.43778s Loss: 0.12196 lr:0.004
+[HCTR][12:57:30.454][INFO][RK0][main]: Iter: 72300 Time(100 iters): 0.439289s Loss: 0.126974 lr:0.004
+[HCTR][12:57:30.894][INFO][RK0][main]: Iter: 72400 Time(100 iters): 0.439762s Loss: 0.126487 lr:0.004
+[HCTR][12:57:31.334][INFO][RK0][main]: Iter: 72500 Time(100 iters): 0.438696s Loss: 0.119131 lr:0.004
+[HCTR][12:57:31.774][INFO][RK0][main]: Iter: 72600 Time(100 iters): 0.43883s Loss: 0.125249 lr:0.004
+[HCTR][12:57:32.213][INFO][RK0][main]: Iter: 72700 Time(100 iters): 0.438279s Loss: 0.117712 lr:0.004
+[HCTR][12:57:32.654][INFO][RK0][main]: Iter: 72800 Time(100 iters): 0.439616s Loss: 0.123257 lr:0.004
+[HCTR][12:57:33.094][INFO][RK0][main]: Iter: 72900 Time(100 iters): 0.439256s Loss: 0.12692 lr:0.004
+[HCTR][12:57:33.534][INFO][RK0][main]: Iter: 73000 Time(100 iters): 0.438319s Loss: 0.123325 lr:0.004
+[HCTR][12:57:33.973][INFO][RK0][main]: Iter: 73100 Time(100 iters): 0.438156s Loss: 0.122761 lr:0.004
+[HCTR][12:57:34.414][INFO][RK0][main]: Iter: 73200 Time(100 iters): 0.44005s Loss: 0.123041 lr:0.004
+[HCTR][12:57:34.853][INFO][RK0][main]: Iter: 73300 Time(100 iters): 0.438616s Loss: 0.118379 lr:0.004
+[HCTR][12:57:35.294][INFO][RK0][main]: Iter: 73400 Time(100 iters): 0.439849s Loss: 0.118598 lr:0.004
+[HCTR][12:57:35.735][INFO][RK0][main]: Iter: 73500 Time(100 iters): 0.439276s Loss: 0.122254 lr:0.004
+[HCTR][12:57:36.174][INFO][RK0][main]: Iter: 73600 Time(100 iters): 0.43809s Loss: 0.121242 lr:0.004
+[HCTR][12:57:36.614][INFO][RK0][main]: Iter: 73700 Time(100 iters): 0.439211s Loss: 0.122971 lr:0.004
+[HCTR][12:57:37.054][INFO][RK0][main]: Iter: 73800 Time(100 iters): 0.439241s Loss: 0.124339 lr:0.004
+[HCTR][12:57:37.494][INFO][RK0][main]: Iter: 73900 Time(100 iters): 0.438856s Loss: 0.122785 lr:0.004
+[HCTR][12:57:37.935][INFO][RK0][main]: Iter: 74000 Time(100 iters): 0.439812s Loss: 0.123336 lr:0.004
+[HCTR][12:57:38.376][INFO][RK0][main]: Iter: 74100 Time(100 iters): 0.439658s Loss: 0.117982 lr:0.004
+[HCTR][12:57:38.816][INFO][RK0][main]: Iter: 74200 Time(100 iters): 0.438912s Loss: 0.124102 lr:0.004
+[HCTR][12:57:39.255][INFO][RK0][main]: Iter: 74300 Time(100 iters): 0.438543s Loss: 0.12009 lr:0.004
+[HCTR][12:57:39.696][INFO][RK0][main]: Iter: 74400 Time(100 iters): 0.439928s Loss: 0.125758 lr:0.004
+[HCTR][12:57:40.137][INFO][RK0][main]: Iter: 74500 Time(100 iters): 0.439931s Loss: 0.120298 lr:0.004
+[HCTR][12:57:40.578][INFO][RK0][main]: Iter: 74600 Time(100 iters): 0.43921s Loss: 0.117163 lr:0.004
+[HCTR][12:57:41.019][INFO][RK0][main]: Iter: 74700 Time(100 iters): 0.440032s Loss: 0.123416 lr:0.004
+[HCTR][12:57:41.459][INFO][RK0][main]: Iter: 74800 Time(100 iters): 0.438969s Loss: 0.123152 lr:0.004
+[HCTR][12:57:41.901][INFO][RK0][main]: Iter: 74900 Time(100 iters): 0.441054s Loss: 0.11693 lr:0.004
+[HCTR][12:57:42.341][INFO][RK0][main]: Iter: 75000 Time(100 iters): 0.438767s Loss: 0.117919 lr:0.004
+[HCTR][12:57:42.782][INFO][RK0][main]: Iter: 75100 Time(100 iters): 0.44025s Loss: 0.129161 lr:0.004
+[HCTR][12:57:43.222][INFO][RK0][main]: Iter: 75200 Time(100 iters): 0.438908s Loss: 0.122323 lr:0.004
+[HCTR][12:57:43.663][INFO][RK0][main]: Iter: 75300 Time(100 iters): 0.439779s Loss: 0.1233 lr:0.004
+[HCTR][12:57:44.105][INFO][RK0][main]: Iter: 75400 Time(100 iters): 0.440851s Loss: 0.123026 lr:0.004
+[HCTR][12:57:44.545][INFO][RK0][main]: Iter: 75500 Time(100 iters): 0.439078s Loss: 0.11799 lr:0.004
+[HCTR][12:57:44.986][INFO][RK0][main]: Iter: 75600 Time(100 iters): 0.440459s Loss: 0.122943 lr:0.004
+[HCTR][12:57:45.427][INFO][RK0][main]: Iter: 75700 Time(100 iters): 0.439149s Loss: 0.123621 lr:0.004
+[HCTR][12:57:45.868][INFO][RK0][main]: Iter: 75800 Time(100 iters): 0.440441s Loss: 0.119244 lr:0.004
+[HCTR][12:57:46.309][INFO][RK0][main]: Iter: 75900 Time(100 iters): 0.439939s Loss: 0.12418 lr:0.004
+[HCTR][12:57:46.748][INFO][RK0][main]: Iter: 76000 Time(100 iters): 0.438156s Loss: 0.130068 lr:0.004
+[HCTR][12:57:47.189][INFO][RK0][main]: Iter: 76100 Time(100 iters): 0.439931s Loss: 0.123488 lr:0.004
+[HCTR][12:57:47.628][INFO][RK0][main]: Iter: 76200 Time(100 iters): 0.43781s Loss: 0.118199 lr:0.004
+[HCTR][12:57:48.069][INFO][RK0][main]: Iter: 76300 Time(100 iters): 0.440292s Loss: 0.121001 lr:0.004
+[HCTR][12:57:48.509][INFO][RK0][main]: Iter: 76400 Time(100 iters): 0.438409s Loss: 0.127359 lr:0.004
+[HCTR][12:57:48.949][INFO][RK0][main]: Iter: 76500 Time(100 iters): 0.438758s Loss: 0.125405 lr:0.004
+[HCTR][12:57:49.389][INFO][RK0][main]: Iter: 76600 Time(100 iters): 0.43902s Loss: 0.11838 lr:0.004
+[HCTR][12:57:49.829][INFO][RK0][main]: Iter: 76700 Time(100 iters): 0.439691s Loss: 0.117818 lr:0.004
+[HCTR][12:57:50.270][INFO][RK0][main]: Iter: 76800 Time(100 iters): 0.439202s Loss: 0.122833 lr:0.004
+:::MLLOG {"namespace": "", "time_ms": 1713877070323, "event_type": "INTERVAL_START", "key": "eval_start", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 88, "epoch_num": 0.5999546974099416}}
+:::MLLOG {"namespace": "", "time_ms": 1713877073953, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.8023346662521362, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 97, "epoch_num": 0.5999546974099416}}
+:::MLLOG {"namespace": "", "time_ms": 1713877073954, "event_type": "INTERVAL_END", "key": "eval_stop", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 102, "epoch_num": 0.5999546974099416}}
+[HCTR][12:57:53.954][INFO][RK0][main]: Evaluation, AUC: 0.802335
+[HCTR][12:57:53.954][INFO][RK0][main]: Eval Time for 341 iters: 3.63089s
+[HCTR][12:57:54.342][INFO][RK0][main]: Iter: 76900 Time(100 iters): 4.07085s Loss: 0.119445 lr:0.004
+[HCTR][12:57:54.782][INFO][RK0][main]: Iter: 77000 Time(100 iters): 0.439227s Loss: 0.119838 lr:0.004
+[HCTR][12:57:55.224][INFO][RK0][main]: Iter: 77100 Time(100 iters): 0.440833s Loss: 0.122325 lr:0.004
+[HCTR][12:57:55.664][INFO][RK0][main]: Iter: 77200 Time(100 iters): 0.439623s Loss: 0.121975 lr:0.004
+[HCTR][12:57:56.105][INFO][RK0][main]: Iter: 77300 Time(100 iters): 0.439874s Loss: 0.117654 lr:0.004
+[HCTR][12:57:56.547][INFO][RK0][main]: Iter: 77400 Time(100 iters): 0.440448s Loss: 0.120243 lr:0.004
+[HCTR][12:57:56.988][INFO][RK0][main]: Iter: 77500 Time(100 iters): 0.439638s Loss: 0.121318 lr:0.004
+[HCTR][12:57:57.429][INFO][RK0][main]: Iter: 77600 Time(100 iters): 0.440476s Loss: 0.124095 lr:0.004
+[HCTR][12:57:57.871][INFO][RK0][main]: Iter: 77700 Time(100 iters): 0.440578s Loss: 0.11738 lr:0.004
+[HCTR][12:57:58.310][INFO][RK0][main]: Iter: 77800 Time(100 iters): 0.438474s Loss: 0.121206 lr:0.004
+[HCTR][12:57:58.751][INFO][RK0][main]: Iter: 77900 Time(100 iters): 0.439591s Loss: 0.124099 lr:0.004
+[HCTR][12:57:59.192][INFO][RK0][main]: Iter: 78000 Time(100 iters): 0.440199s Loss: 0.124528 lr:0.004
+[HCTR][12:57:59.632][INFO][RK0][main]: Iter: 78100 Time(100 iters): 0.438465s Loss: 0.123847 lr:0.004
+[HCTR][12:58:00.071][INFO][RK0][main]: Iter: 78200 Time(100 iters): 0.438134s Loss: 0.124184 lr:0.004
+[HCTR][12:58:00.509][INFO][RK0][main]: Iter: 78300 Time(100 iters): 0.437405s Loss: 0.126417 lr:0.004
+[HCTR][12:58:00.949][INFO][RK0][main]: Iter: 78400 Time(100 iters): 0.439037s Loss: 0.12193 lr:0.004
+[HCTR][12:58:01.390][INFO][RK0][main]: Iter: 78500 Time(100 iters): 0.439646s Loss: 0.126754 lr:0.004
+[HCTR][12:58:01.829][INFO][RK0][main]: Iter: 78600 Time(100 iters): 0.437714s Loss: 0.126281 lr:0.004
+[HCTR][12:58:02.269][INFO][RK0][main]: Iter: 78700 Time(100 iters): 0.438841s Loss: 0.121096 lr:0.004
+[HCTR][12:58:02.710][INFO][RK0][main]: Iter: 78800 Time(100 iters): 0.44019s Loss: 0.118852 lr:0.004
+[HCTR][12:58:03.152][INFO][RK0][main]: Iter: 78900 Time(100 iters): 0.441248s Loss: 0.121354 lr:0.004
+[HCTR][12:58:03.593][INFO][RK0][main]: Iter: 79000 Time(100 iters): 0.439993s Loss: 0.12363 lr:0.004
+[HCTR][12:58:04.033][INFO][RK0][main]: Iter: 79100 Time(100 iters): 0.438891s Loss: 0.127286 lr:0.004
+[HCTR][12:58:04.475][INFO][RK0][main]: Iter: 79200 Time(100 iters): 0.440622s Loss: 0.119503 lr:0.004
+[HCTR][12:58:04.915][INFO][RK0][main]: Iter: 79300 Time(100 iters): 0.439296s Loss: 0.119315 lr:0.004
+[HCTR][12:58:05.356][INFO][RK0][main]: Iter: 79400 Time(100 iters): 0.439399s Loss: 0.124831 lr:0.004
+[HCTR][12:58:05.797][INFO][RK0][main]: Iter: 79500 Time(100 iters): 0.440467s Loss: 0.124399 lr:0.004
+[HCTR][12:58:06.239][INFO][RK0][main]: Iter: 79600 Time(100 iters): 0.44051s Loss: 0.123109 lr:0.004
+[HCTR][12:58:06.679][INFO][RK0][main]: Iter: 79700 Time(100 iters): 0.439726s Loss: 0.120801 lr:0.004
+[HCTR][12:58:07.121][INFO][RK0][main]: Iter: 79800 Time(100 iters): 0.440301s Loss: 0.12548 lr:0.004
+[HCTR][12:58:07.562][INFO][RK0][main]: Iter: 79900 Time(100 iters): 0.440279s Loss: 0.122412 lr:0.004
+[HCTR][12:58:08.002][INFO][RK0][main]: Iter: 80000 Time(100 iters): 0.439293s Loss: 0.120525 lr:0.004
+[HCTR][12:58:08.441][INFO][RK0][main]: Iter: 80100 Time(100 iters): 0.437576s Loss: 0.123183 lr:0.004
+[HCTR][12:58:08.882][INFO][RK0][main]: Iter: 80200 Time(100 iters): 0.439771s Loss: 0.128552 lr:0.004
+[HCTR][12:58:09.323][INFO][RK0][main]: Iter: 80300 Time(100 iters): 0.440259s Loss: 0.127615 lr:0.004
+[HCTR][12:58:09.764][INFO][RK0][main]: Iter: 80400 Time(100 iters): 0.439688s Loss: 0.120093 lr:0.004
+[HCTR][12:58:10.204][INFO][RK0][main]: Iter: 80500 Time(100 iters): 0.439589s Loss: 0.118698 lr:0.004
+[HCTR][12:58:10.645][INFO][RK0][main]: Iter: 80600 Time(100 iters): 0.4395s Loss: 0.12235 lr:0.004
+[HCTR][12:58:11.084][INFO][RK0][main]: Iter: 80700 Time(100 iters): 0.438154s Loss: 0.12457 lr:0.004
+[HCTR][12:58:11.524][INFO][RK0][main]: Iter: 80800 Time(100 iters): 0.438639s Loss: 0.117454 lr:0.004
+[HCTR][12:58:11.963][INFO][RK0][main]: Iter: 80900 Time(100 iters): 0.437778s Loss: 0.119806 lr:0.004
+[HCTR][12:58:12.403][INFO][RK0][main]: Iter: 81000 Time(100 iters): 0.439274s Loss: 0.122462 lr:0.004
+[HCTR][12:58:12.843][INFO][RK0][main]: Iter: 81100 Time(100 iters): 0.439265s Loss: 0.122449 lr:0.004
+[HCTR][12:58:13.284][INFO][RK0][main]: Iter: 81200 Time(100 iters): 0.439294s Loss: 0.11837 lr:0.004
+[HCTR][12:58:13.724][INFO][RK0][main]: Iter: 81300 Time(100 iters): 0.43986s Loss: 0.125039 lr:0.004
+[HCTR][12:58:14.165][INFO][RK0][main]: Iter: 81400 Time(100 iters): 0.439845s Loss: 0.118142 lr:0.004
+[HCTR][12:58:14.606][INFO][RK0][main]: Iter: 81500 Time(100 iters): 0.439278s Loss: 0.125111 lr:0.004
+[HCTR][12:58:15.047][INFO][RK0][main]: Iter: 81600 Time(100 iters): 0.440086s Loss: 0.125271 lr:0.004
+[HCTR][12:58:15.488][INFO][RK0][main]: Iter: 81700 Time(100 iters): 0.439856s Loss: 0.12032 lr:0.004
+[HCTR][12:58:15.929][INFO][RK0][main]: Iter: 81800 Time(100 iters): 0.440101s Loss: 0.122142 lr:0.004
+[HCTR][12:58:16.371][INFO][RK0][main]: Iter: 81900 Time(100 iters): 0.440673s Loss: 0.123258 lr:0.004
+[HCTR][12:58:16.811][INFO][RK0][main]: Iter: 82000 Time(100 iters): 0.439322s Loss: 0.12437 lr:0.004
+[HCTR][12:58:17.251][INFO][RK0][main]: Iter: 82100 Time(100 iters): 0.438868s Loss: 0.116276 lr:0.004
+[HCTR][12:58:17.690][INFO][RK0][main]: Iter: 82200 Time(100 iters): 0.438418s Loss: 0.124713 lr:0.004
+[HCTR][12:58:18.129][INFO][RK0][main]: Iter: 82300 Time(100 iters): 0.437289s Loss: 0.121465 lr:0.004
+[HCTR][12:58:18.568][INFO][RK0][main]: Iter: 82400 Time(100 iters): 0.437934s Loss: 0.122854 lr:0.004
+[HCTR][12:58:19.008][INFO][RK0][main]: Iter: 82500 Time(100 iters): 0.438998s Loss: 0.120514 lr:0.004
+[HCTR][12:58:19.448][INFO][RK0][main]: Iter: 82600 Time(100 iters): 0.438957s Loss: 0.12072 lr:0.004
+[HCTR][12:58:19.888][INFO][RK0][main]: Iter: 82700 Time(100 iters): 0.439116s Loss: 0.123217 lr:0.004
+[HCTR][12:58:20.329][INFO][RK0][main]: Iter: 82800 Time(100 iters): 0.440013s Loss: 0.120214 lr:0.004
+[HCTR][12:58:20.768][INFO][RK0][main]: Iter: 82900 Time(100 iters): 0.438216s Loss: 0.115904 lr:0.004
+[HCTR][12:58:21.209][INFO][RK0][main]: Iter: 83000 Time(100 iters): 0.439526s Loss: 0.12049 lr:0.004
+[HCTR][12:58:21.648][INFO][RK0][main]: Iter: 83100 Time(100 iters): 0.438303s Loss: 0.120136 lr:0.004
+[HCTR][12:58:22.089][INFO][RK0][main]: Iter: 83200 Time(100 iters): 0.439736s Loss: 0.120554 lr:0.004
+:::MLLOG {"namespace": "", "time_ms": 1713877102147, "event_type": "INTERVAL_START", "key": "eval_start", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 88, "epoch_num": 0.6499515730933858}}
+:::MLLOG {"namespace": "", "time_ms": 1713877105778, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.802531361579895, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 97, "epoch_num": 0.6499515730933858}}
+:::MLLOG {"namespace": "", "time_ms": 1713877105779, "event_type": "INTERVAL_END", "key": "eval_stop", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 102, "epoch_num": 0.6499515730933858}}
+[HCTR][12:58:25.779][INFO][RK0][main]: Evaluation, AUC: 0.802531
+[HCTR][12:58:25.779][INFO][RK0][main]: Eval Time for 341 iters: 3.63244s
+[HCTR][12:58:26.162][INFO][RK0][main]: Iter: 83300 Time(100 iters): 4.07169s Loss: 0.124038 lr:0.004
+[HCTR][12:58:26.602][INFO][RK0][main]: Iter: 83400 Time(100 iters): 0.43899s Loss: 0.12023 lr:0.004
+[HCTR][12:58:27.041][INFO][RK0][main]: Iter: 83500 Time(100 iters): 0.438148s Loss: 0.11862 lr:0.004
+[HCTR][12:58:27.482][INFO][RK0][main]: Iter: 83600 Time(100 iters): 0.44014s Loss: 0.122581 lr:0.004
+[HCTR][12:58:27.924][INFO][RK0][main]: Iter: 83700 Time(100 iters): 0.441277s Loss: 0.123272 lr:0.004
+[HCTR][12:58:28.366][INFO][RK0][main]: Iter: 83800 Time(100 iters): 0.440684s Loss: 0.12357 lr:0.004
+[HCTR][12:58:28.807][INFO][RK0][main]: Iter: 83900 Time(100 iters): 0.440217s Loss: 0.123766 lr:0.004
+[HCTR][12:58:29.247][INFO][RK0][main]: Iter: 84000 Time(100 iters): 0.438297s Loss: 0.121078 lr:0.004
+[HCTR][12:58:29.687][INFO][RK0][main]: Iter: 84100 Time(100 iters): 0.439233s Loss: 0.116734 lr:0.004
+[HCTR][12:58:30.127][INFO][RK0][main]: Iter: 84200 Time(100 iters): 0.438924s Loss: 0.122949 lr:0.004
+[HCTR][12:58:30.566][INFO][RK0][main]: Iter: 84300 Time(100 iters): 0.437927s Loss: 0.122772 lr:0.004
+[HCTR][12:58:31.008][INFO][RK0][main]: Iter: 84400 Time(100 iters): 0.440644s Loss: 0.122683 lr:0.004
+[HCTR][12:58:31.449][INFO][RK0][main]: Iter: 84500 Time(100 iters): 0.43981s Loss: 0.113871 lr:0.004
+[HCTR][12:58:31.887][INFO][RK0][main]: Iter: 84600 Time(100 iters): 0.437745s Loss: 0.123754 lr:0.004
+[HCTR][12:58:32.328][INFO][RK0][main]: Iter: 84700 Time(100 iters): 0.439229s Loss: 0.122901 lr:0.004
+[HCTR][12:58:32.768][INFO][RK0][main]: Iter: 84800 Time(100 iters): 0.439662s Loss: 0.126571 lr:0.004
+[HCTR][12:58:33.208][INFO][RK0][main]: Iter: 84900 Time(100 iters): 0.438799s Loss: 0.118456 lr:0.004
+[HCTR][12:58:33.648][INFO][RK0][main]: Iter: 85000 Time(100 iters): 0.438502s Loss: 0.116762 lr:0.004
+[HCTR][12:58:34.088][INFO][RK0][main]: Iter: 85100 Time(100 iters): 0.43958s Loss: 0.115971 lr:0.004
+[HCTR][12:58:34.528][INFO][RK0][main]: Iter: 85200 Time(100 iters): 0.438982s Loss: 0.120879 lr:0.004
+[HCTR][12:58:34.967][INFO][RK0][main]: Iter: 85300 Time(100 iters): 0.437784s Loss: 0.119463 lr:0.004
+[HCTR][12:58:35.408][INFO][RK0][main]: Iter: 85400 Time(100 iters): 0.439474s Loss: 0.127907 lr:0.004
+[HCTR][12:58:35.846][INFO][RK0][main]: Iter: 85500 Time(100 iters): 0.437509s Loss: 0.122629 lr:0.004
+[HCTR][12:58:36.287][INFO][RK0][main]: Iter: 85600 Time(100 iters): 0.439292s Loss: 0.12376 lr:0.004
+[HCTR][12:58:36.726][INFO][RK0][main]: Iter: 85700 Time(100 iters): 0.438745s Loss: 0.129028 lr:0.004
+[HCTR][12:58:37.166][INFO][RK0][main]: Iter: 85800 Time(100 iters): 0.439076s Loss: 0.115868 lr:0.004
+[HCTR][12:58:37.609][INFO][RK0][main]: Iter: 85900 Time(100 iters): 0.441217s Loss: 0.125118 lr:0.004
+[HCTR][12:58:38.049][INFO][RK0][main]: Iter: 86000 Time(100 iters): 0.438943s Loss: 0.120468 lr:0.004
+[HCTR][12:58:38.490][INFO][RK0][main]: Iter: 86100 Time(100 iters): 0.440182s Loss: 0.119102 lr:0.004
+[HCTR][12:58:38.931][INFO][RK0][main]: Iter: 86200 Time(100 iters): 0.440075s Loss: 0.120106 lr:0.004
+[HCTR][12:58:39.372][INFO][RK0][main]: Iter: 86300 Time(100 iters): 0.439654s Loss: 0.125124 lr:0.004
+[HCTR][12:58:39.812][INFO][RK0][main]: Iter: 86400 Time(100 iters): 0.43914s Loss: 0.126094 lr:0.004
+[HCTR][12:58:40.253][INFO][RK0][main]: Iter: 86500 Time(100 iters): 0.439933s Loss: 0.127724 lr:0.004
+[HCTR][12:58:40.693][INFO][RK0][main]: Iter: 86600 Time(100 iters): 0.438802s Loss: 0.124443 lr:0.004
+[HCTR][12:58:41.134][INFO][RK0][main]: Iter: 86700 Time(100 iters): 0.439791s Loss: 0.121296 lr:0.004
+[HCTR][12:58:41.573][INFO][RK0][main]: Iter: 86800 Time(100 iters): 0.438816s Loss: 0.12376 lr:0.004
+[HCTR][12:58:42.015][INFO][RK0][main]: Iter: 86900 Time(100 iters): 0.440874s Loss: 0.119407 lr:0.004
+[HCTR][12:58:42.456][INFO][RK0][main]: Iter: 87000 Time(100 iters): 0.4394s Loss: 0.124563 lr:0.004
+[HCTR][12:58:42.894][INFO][RK0][main]: Iter: 87100 Time(100 iters): 0.43744s Loss: 0.126625 lr:0.004
+[HCTR][12:58:43.335][INFO][RK0][main]: Iter: 87200 Time(100 iters): 0.439236s Loss: 0.123311 lr:0.004
+[HCTR][12:58:43.775][INFO][RK0][main]: Iter: 87300 Time(100 iters): 0.439293s Loss: 0.124096 lr:0.004
+[HCTR][12:58:44.216][INFO][RK0][main]: Iter: 87400 Time(100 iters): 0.440129s Loss: 0.118745 lr:0.004
+[HCTR][12:58:44.656][INFO][RK0][main]: Iter: 87500 Time(100 iters): 0.438996s Loss: 0.122598 lr:0.004
+[HCTR][12:58:45.095][INFO][RK0][main]: Iter: 87600 Time(100 iters): 0.437595s Loss: 0.123974 lr:0.004
+[HCTR][12:58:45.536][INFO][RK0][main]: Iter: 87700 Time(100 iters): 0.43988s Loss: 0.12371 lr:0.004
+[HCTR][12:58:45.976][INFO][RK0][main]: Iter: 87800 Time(100 iters): 0.438997s Loss: 0.121322 lr:0.004
+[HCTR][12:58:46.418][INFO][RK0][main]: Iter: 87900 Time(100 iters): 0.441201s Loss: 0.12717 lr:0.004
+[HCTR][12:58:46.860][INFO][RK0][main]: Iter: 88000 Time(100 iters): 0.441179s Loss: 0.121806 lr:0.004
+[HCTR][12:58:47.302][INFO][RK0][main]: Iter: 88100 Time(100 iters): 0.440561s Loss: 0.122682 lr:0.004
+[HCTR][12:58:47.743][INFO][RK0][main]: Iter: 88200 Time(100 iters): 0.439961s Loss: 0.117943 lr:0.004
+[HCTR][12:58:48.182][INFO][RK0][main]: Iter: 88300 Time(100 iters): 0.437969s Loss: 0.122648 lr:0.004
+[HCTR][12:58:48.622][INFO][RK0][main]: Iter: 88400 Time(100 iters): 0.43939s Loss: 0.122494 lr:0.004
+[HCTR][12:58:49.063][INFO][RK0][main]: Iter: 88500 Time(100 iters): 0.439389s Loss: 0.118581 lr:0.004
+[HCTR][12:58:49.503][INFO][RK0][main]: Iter: 88600 Time(100 iters): 0.439057s Loss: 0.120883 lr:0.004
+[HCTR][12:58:49.943][INFO][RK0][main]: Iter: 88700 Time(100 iters): 0.438811s Loss: 0.124811 lr:0.004
+[HCTR][12:58:50.382][INFO][RK0][main]: Iter: 88800 Time(100 iters): 0.438156s Loss: 0.122358 lr:0.004
+[HCTR][12:58:50.822][INFO][RK0][main]: Iter: 88900 Time(100 iters): 0.438902s Loss: 0.126742 lr:0.004
+[HCTR][12:58:51.263][INFO][RK0][main]: Iter: 89000 Time(100 iters): 0.439975s Loss: 0.121229 lr:0.004
+[HCTR][12:58:51.703][INFO][RK0][main]: Iter: 89100 Time(100 iters): 0.439124s Loss: 0.127658 lr:0.004
+[HCTR][12:58:52.142][INFO][RK0][main]: Iter: 89200 Time(100 iters): 0.438285s Loss: 0.125662 lr:0.004
+[HCTR][12:58:52.582][INFO][RK0][main]: Iter: 89300 Time(100 iters): 0.438786s Loss: 0.12044 lr:0.004
+[HCTR][12:58:53.023][INFO][RK0][main]: Iter: 89400 Time(100 iters): 0.43954s Loss: 0.124752 lr:0.004
+[HCTR][12:58:53.462][INFO][RK0][main]: Iter: 89500 Time(100 iters): 0.438095s Loss: 0.118658 lr:0.004
+[HCTR][12:58:53.902][INFO][RK0][main]: Iter: 89600 Time(100 iters): 0.439035s Loss: 0.120489 lr:0.004
+:::MLLOG {"namespace": "", "time_ms": 1713877133964, "event_type": "INTERVAL_START", "key": "eval_start", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 88, "epoch_num": 0.69994844877683}}
+:::MLLOG {"namespace": "", "time_ms": 1713877137576, "event_type": "POINT_IN_TIME", "key": "eval_accuracy", "value": 0.8029322624206543, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 97, "epoch_num": 0.69994844877683}}
+:::MLLOG {"namespace": "", "time_ms": 1713877137576, "event_type": "INTERVAL_END", "key": "eval_stop", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 102, "epoch_num": 0.69994844877683}}
+:::MLLOG {"namespace": "", "time_ms": 1713877137576, "event_type": "INTERVAL_END", "key": "run_stop", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 109, "status": "success", "epoch_num": 0.69994844877683}}
+:::MLLOG {"namespace": "", "time_ms": 1713877137576, "event_type": "INTERVAL_END", "key": "epoch_stop", "value": null, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 58, "epoch_num": 0.69994844877683}}
+Hit target accuracy AUC 0.80275 at 89613 / 128028 iterations with batchsize 32768 in 445.60s. Average speed is 6589919.33 records/s.
+:::MLLOG {"namespace": "", "time_ms": 1713877137576, "event_type": "POINT_IN_TIME", "key": "tracked_stats", "value": {"throughput": 6589919.333571688}, "metadata": {"file": "/workspace/dlrm/mlperf_logger/callbacks.py", "lineno": 81, "step": 0.69994844877683}}
++ ret_code=0
++ [[ 0 != 0 ]]

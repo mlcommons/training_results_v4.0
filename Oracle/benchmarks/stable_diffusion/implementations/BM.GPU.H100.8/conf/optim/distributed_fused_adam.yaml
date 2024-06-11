@@ -1,0 +1,21 @@
+name: distributed_fused_adam
+lr: null
+weight_decay: 0.
+betas:
+  - 0.9
+  - 0.999
+sched:
+  name: WarmupHoldPolicy
+  warmup_steps: null
+  hold_steps: 10000000000000 # Incredibly large value to hold the lr as constant
+bucket_cap_mb: 288  # 865910724*2/1024**2/6, round up to multiple of 32
+overlap_grad_sync: True
+overlap_param_sync: False
+contiguous_grad_buffer: True
+contiguous_param_buffer: True
+store_params: True
+dtype: torch.float32
+grad_sync_dtype: torch.float16
+param_sync_dtype: torch.float16
+capturable: True
+distribute_within_nodes: True

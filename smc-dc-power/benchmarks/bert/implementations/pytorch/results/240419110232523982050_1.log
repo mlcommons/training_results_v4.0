@@ -1,0 +1,16 @@
++ echo 'Beginning trial 1 of 1'
+Beginning trial 1 of 1
++ echo ':::DLPAL /mnt/weka/MLPerf/smc_nvidia_v4/nvdlfwea+mlperfv40+bert+20230926.pytorch.sqsh 2542 1 292KF14 '\''unknown'\'' SMC_H100_1x8x48x1_pack'
+:::DLPAL /mnt/weka/MLPerf/smc_nvidia_v4/nvdlfwea+mlperfv40+bert+20230926.pytorch.sqsh 2542 1 292KF14 'unknown' SMC_H100_1x8x48x1_pack
++ '[' 1 -eq 1 ']'
++ srun --ntasks=1 bash -c 'echo -n '\''Clearing cache on '\'' && hostname && sync && sudo /sbin/sysctl vm.drop_caches=3'
+Clearing cache on 292KF14
+vm.drop_caches = 3
++ srun --ntasks=1 --container-name=language_model_2542 python -c '
+from mlperf_logger import mllogger
+mllogger.event(key=mllogger.constants.CACHE_CLEAR, value=True)'
+:::MLLOG {"namespace": "", "time_ms": 1713495850784, "event_type": "POINT_IN_TIME", "key": "cache_clear", "value": true, "metadata": {"file": "<string>", "lineno": 3}}
++ srun -l --mpi=pmix --ntasks=8 --ntasks-per-node=8 --container-name=language_model_2542 --container-mounts=tank/bert/packed_data:/workspace/data_phase2,/tank/bert/phase1:/workspace/phase1,/tank/bert/hdf5/eval_varlength:/workspace/evaldata,./results:/results --container-workdir=/workspace/bert slurm2pytorch ./run_and_time.sh
+srun: error: pyxis: mount source must be a relative path, an absolute path, "tmpfs" or "umount"
+srun: error: pyxis: could not add mount entry: tank/bert/packed_data:/workspace/data_phase2
+srun: error: Invalid --container-mounts argument: tank/bert/packed_data:/workspace/data_phase2,/tank/bert/phase1:/workspace/phase1,/tank/bert/hdf5/eval_varlength:/workspace/evaldata,./results:/results
